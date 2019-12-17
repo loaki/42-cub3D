@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:26:05 by jfeuilla          #+#    #+#             */
-/*   Updated: 2019/12/16 20:10:48 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2019/12/17 14:41:19 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,16 @@ typedef struct	s_data
 
 typedef struct	s_pos
 {
-	int			x;
-	int			y;
+	double		x;
+	double		y;
 	double		vector_x;
 	double		vector_y;
 	double		vector_x_mod;
 	double		vector_y_mod;
-}				t_pos
+}				t_pos;
+
+
+double	ft_size_wall_xp(t_data *data, t_pos *pos, double x, double y);
+double	ft_size_wall_xn(t_data *data, t_pos *pos, double x, double y);
+double	ft_size_wall_yp(t_data *data, t_pos *pos, double x, double y);
+double	ft_size_wall_yn(t_data *data, t_pos *pos, double x, double y);
