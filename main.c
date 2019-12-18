@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:30:20 by jfeuilla          #+#    #+#             */
-/*   Updated: 2019/12/18 16:17:19 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2019/12/18 16:33:21 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,11 @@ int		ft_view(t_data *data, t_pos *pos)
 	double	angle;
 
 	i = 0;
-//	angle = -30;
-	angle = 0;
+	angle = -30;
 	if (!(data->view = (char **)malloc(sizeof(char*) * (data->res_x + 1))))
 		return (EXIT_FAILURE);
 	data->view[data->res_x] = 0;
-//	while (angle < 30)
+	while (angle < 30)
 	{
 		ft_rotate(pos, angle);
 		if (ft_raycast(data, pos, i) != 0)
@@ -108,7 +107,7 @@ int		ft_view(t_data *data, t_pos *pos)
 		i++;
 		angle += 60 / (float)data->res_x;
 	}
-//	ft_draw(data);
+	ft_draw(data);
 	return (0);
 }
 
