@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:26:05 by jfeuilla          #+#    #+#             */
-/*   Updated: 2019/12/18 13:51:44 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2019/12/18 14:25:01 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ typedef struct	s_data
 	void			*addr_ptr;
 	char			**map;
 	char			**view;
+	int				width;
+	int				height;
 	int				bpp;
 	int				size_l;
 	int				endiant;

@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 14:06:41 by jfeuilla          #+#    #+#             */
-/*   Updated: 2019/12/18 13:11:22 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2019/12/18 14:31:50 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,10 @@ double	ft_size_wall_xp(t_data *data, t_pos *pos, double x, double y)
 		}
 		if (data->map[(int)x][(int)y] != '0')
 		{
-			return (data->res_y / (sqrt((pos->x - x) * (pos->x - x) +
+			return (data->height / (sqrt((pos->x - x) * (pos->x - x) +
 			(pos->y - y) * (pos->y - y))));
 		}
+		printf("x=|%f| y=|%f|\n", x, y);
 		i++;
 	}
 	return (0);
@@ -58,7 +59,7 @@ double	ft_size_wall_xn(t_data *data, t_pos *pos, double x, double y)
 		}
 		if (data->map[(int)x][(int)y] != '0')
 		{
-			return (data->res_y / (sqrt((pos->x - x) * (pos->x - x) +
+			return (data->height / (sqrt((pos->x - x) * (pos->x - x) +
 			(pos->y - y) * (pos->y - y))));
 		}
 		i++;
@@ -85,7 +86,7 @@ double	ft_size_wall_yp(t_data *data, t_pos *pos, double x, double y)
 		}
 		if (data->map[(int)x][(int)y] != '0')
 		{
-			return (data->res_y / (sqrt((pos->x - x) * (pos->x - x) +
+			return (data->height / (sqrt((pos->x - x) * (pos->x - x) +
 			(pos->y - y) * (pos->y - y))));
 		}
 		i++;
@@ -112,7 +113,7 @@ double	ft_size_wall_yn(t_data *data, t_pos *pos, double x, double y)
 		}
 		if (data->map[(int)x][(int)y] != '0')
 		{
-			return (data->res_y / (sqrt((pos->x - x) * (pos->x - x) +
+			return (data->height / (sqrt((pos->x - x) * (pos->x - x) +
 			(pos->y - y) * (pos->y - y))));
 		}
 		i++;

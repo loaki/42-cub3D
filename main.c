@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:30:20 by jfeuilla          #+#    #+#             */
-/*   Updated: 2019/12/18 13:52:13 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2019/12/18 14:31:48 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,15 @@ int		ft_raycast(t_data *data, t_pos *pos, int i)
 
 	if (!(data->view[i] = malloc(data->res_y + 1)))
 		return (EXIT_FAILURE);
-	if (pos->vector_x_mod > 0)
-		size_x = ft_size_wall_xp(data, pos, pos->vector_x_mod, pos->vector_y_mod);
 	else 
 		size_x = ft_size_wall_xn(data, pos, pos->vector_x_mod, pos->vector_y_mod);
 	if (pos->vector_y_mod > 0)
 		size_y = ft_size_wall_yp(data, pos, pos->vector_x_mod, pos->vector_y_mod);
 	else 
 		size_y = ft_size_wall_yn(data, pos, pos->vector_x_mod, pos->vector_y_mod);
+	size_x = size_x * (double)data->res_y / (double)data->height;
+	size_y = size_y * (double)data->res_y / (double)data->height;
+	printf("size_x=|%f| size_y=|%f|\n", size_x, size_y);
 	if (size_x > size_y)
 		ft_fill_view(data, i, size_x);
 	else
@@ -97,7 +98,7 @@ int		ft_view(t_data *data, t_pos *pos)
 	if (!(data->view = (char **)malloc(sizeof(char*) * (data->res_x + 1))))
 		return (EXIT_FAILURE);
 	data->view[data->res_x] = 0;
-	while (angle < 30)
+//	while (angle < 30)
 	{
 		ft_rotate(pos, angle);
 		if (ft_raycast(data, pos, i) != 0)
@@ -105,7 +106,7 @@ int		ft_view(t_data *data, t_pos *pos)
 		i++;
 		angle += 60 / (float)data->res_x;
 	}
-	ft_draw(data);
+//	ft_draw(data);
 	return (0);
 }
 
