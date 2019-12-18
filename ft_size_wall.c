@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 14:06:41 by jfeuilla          #+#    #+#             */
-/*   Updated: 2019/12/17 14:12:31 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2019/12/18 13:11:22 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ double	ft_size_wall_xp(t_data *data, t_pos *pos, double x, double y)
 		}
 		if (data->map[(int)x][(int)y] != '0')
 		{
-			return (600 / (sqrt((pos->x - x) * (pos->x - x) +
+			return (data->res_y / (sqrt((pos->x - x) * (pos->x - x) +
 			(pos->y - y) * (pos->y - y))));
 		}
 		i++;
@@ -58,7 +58,7 @@ double	ft_size_wall_xn(t_data *data, t_pos *pos, double x, double y)
 		}
 		if (data->map[(int)x][(int)y] != '0')
 		{
-			return (600 / (sqrt((pos->x - x) * (pos->x - x) +
+			return (data->res_y / (sqrt((pos->x - x) * (pos->x - x) +
 			(pos->y - y) * (pos->y - y))));
 		}
 		i++;
@@ -85,7 +85,7 @@ double	ft_size_wall_yp(t_data *data, t_pos *pos, double x, double y)
 		}
 		if (data->map[(int)x][(int)y] != '0')
 		{
-			return (600 / (sqrt((pos->x - x) * (pos->x - x) +
+			return (data->res_y / (sqrt((pos->x - x) * (pos->x - x) +
 			(pos->y - y) * (pos->y - y))));
 		}
 		i++;
@@ -112,7 +112,7 @@ double	ft_size_wall_yn(t_data *data, t_pos *pos, double x, double y)
 		}
 		if (data->map[(int)x][(int)y] != '0')
 		{
-			return (600 / (sqrt((pos->x - x) * (pos->x - x) +
+			return (data->res_y / (sqrt((pos->x - x) * (pos->x - x) +
 			(pos->y - y) * (pos->y - y))));
 		}
 		i++;

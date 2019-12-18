@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:30:20 by jfeuilla          #+#    #+#             */
-/*   Updated: 2019/12/17 14:41:15 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2019/12/18 13:52:13 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,18 @@ int	ft_draw(t_data *data)
 	int y;
 
 	x = 0;
-	if ((data->img_ptr = mlx_new_image (data->mlx_ptr, data->width, data->height)) == NULL)
+	if ((data->img_ptr = mlx_new_image (data->mlx_ptr, data->res_x, data->res_y)) == NULL)
         return (EXIT_FAILURE);
 	if ((data->addr_ptr = mlx_get_data_addr (data->img_ptr, &data->bpp, &data->size_l, &data->endiant)) == NULL)
         return (EXIT_FAILURE);
-	data->bpp /= 8;
-	while (x < 1/*data->height*/)
+	data->bpp = data->bpp / 8;
+	while (x < data->res_x)
 	{
 		y = 0;
-		while (y < data->width)
+		while (y < data->res_y)
 		{
-			if (data->view[x][y] != '0')
-				*(int *)(data->addr_ptr + ((x * data->width + y) * data->bpp)) = data->color;
+			if (data->view[x][y] == '1')
+				*(int *)(data->addr_ptr + ((x * data->res_x + y) * data->bpp)) = data->color;
 			y++;
 		}
 		x++;
@@ -54,33 +54,24 @@ void	ft_fill_view(t_data *data, int x, double size)
 	int y;
 
 	y = 0;
-	write(1, "-----new-----\n", 14);
 	while (y < data->res_y)
 	{
-		write (1, "?", 1);
 		if (y > (data->res_y / 2 - size / 2) && y < (data->res_y / 2 + size / 2))
-		{
-			write (1, "\n-----", 6);
 			data->view[x][y] = '1';
-			write (1, "ok\n", 3);
-		}
 		else
-		{
-			write (1, "\n+++++", 6);
 			data->view[x][y] = '0';
-			write (1, "ok\n", 3);
-		}
-		write(1, "ok\n", 3);
 		y++;
 	}
 	data->view[x][y] = 0;
 }
 
-void	ft_raycast(t_data *data, t_pos *pos, int i)
+int		ft_raycast(t_data *data, t_pos *pos, int i)
 {
 	double size_x;
 	double size_y;
 
+	if (!(data->view[i] = malloc(data->res_y + 1)))
+		return (EXIT_FAILURE);
 	if (pos->vector_x_mod > 0)
 		size_x = ft_size_wall_xp(data, pos, pos->vector_x_mod, pos->vector_y_mod);
 	else 
@@ -93,6 +84,7 @@ void	ft_raycast(t_data *data, t_pos *pos, int i)
 		ft_fill_view(data, i, size_x);
 	else
 		ft_fill_view(data, i, size_y);
+	return (0);
 }
 
 int		ft_view(t_data *data, t_pos *pos)
@@ -102,18 +94,16 @@ int		ft_view(t_data *data, t_pos *pos)
 
 	i = 0;
 	angle = -30;
-	if (!(data->view = malloc(sizeof(char*) * (data->res_x + 1))))
-		return (EXIT_FAILURE);
-	if (!(*data->view = malloc(sizeof(char) * (data->res_y + 1))))
+	if (!(data->view = (char **)malloc(sizeof(char*) * (data->res_x + 1))))
 		return (EXIT_FAILURE);
 	data->view[data->res_x] = 0;
-//	while (angle < 30)
-	while (i < 1)
+	while (angle < 30)
 	{
 		ft_rotate(pos, angle);
-		ft_raycast(data, pos, i);
+		if (ft_raycast(data, pos, i) != 0)
+			return (EXIT_FAILURE);
 		i++;
-		angle += data->res_x / 60;
+		angle += 60 / (float)data->res_x;
 	}
 	ft_draw(data);
 	return (0);
@@ -147,15 +137,31 @@ int		ft_parse_map(t_data *data, t_pos *pos, char *map)
 	*parse color / res / texture / pos / orientation
 	*/
 	data->color = 16711680;
-	data->res_x = 300;
-	data->res_y = 70;
+	data->res_x = 680;
+	data->res_y = 460;
 	pos->x = 10;
 	pos->y = 10;
 	pos->vector_x = 1;
 	pos->vector_y = 0;
+	/*
+	*----------
+	*/
 
 	if (ret == -1)
 		return (EXIT_FAILURE);
+	return (0);
+}
+
+int		deal_key(int key, t_pos *pos)
+{
+	if (key == K_W)
+		ft_move_f(pos);
+	if (key == K_S)
+		ft_move_b(pos);
+	if (key == K_A)
+		ft_move_l(pos);
+	if (key == K_D)
+		ft_move_r(pos);
 	return (0);
 }
 
@@ -176,8 +182,9 @@ int main(int ac, char **av)
 		return (EXIT_FAILURE);
 	if ((data->win_ptr = mlx_new_window(data->mlx_ptr, data->res_x, data->res_y, "marche pas")) == NULL)
         return (EXIT_FAILURE);
+	mlx_key_hook(data->win_ptr, deal_key, pos);
 	if (ft_view(data, pos) != 0)
-        return (EXIT_FAILURE);
+		return (EXIT_FAILURE);
 	mlx_loop(data->mlx_ptr);
     return (EXIT_SUCCESS);
 }
