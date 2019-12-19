@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 14:06:41 by jfeuilla          #+#    #+#             */
-/*   Updated: 2019/12/19 14:09:51 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2019/12/19 16:49:53 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ double	ft_size_wall_xp(t_data *data, double x, double y)
 	i = 0;
 	while (x < data->height && y < data->width && x != 0)
 	{
+		printf("px=%d\n", (int)data->pos_x);
 		if ((int)(data->pos_x + 1) == (int)(data->pos_x + 0.5))
 		{
 			x = (int)(data->pos_x + 1) + i;

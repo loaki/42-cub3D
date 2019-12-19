@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:30:20 by jfeuilla          #+#    #+#             */
-/*   Updated: 2019/12/19 15:35:26 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2019/12/19 16:49:51 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int		ft_view(t_data *data)
 	if (!(data->view = (char **)malloc(sizeof(char*) * (data->res_x + 1))))
 		return (EXIT_FAILURE);
 	data->view[data->res_x] = 0;
-	while (angle < 30)
+//	while (angle < 30)
 	{
 		ft_rotate(data, angle);
 		if (ft_raycast(data, i) != 0)
@@ -108,13 +108,13 @@ int		ft_view(t_data *data)
 		angle += 60 / (double)data->res_x;
 	}
 
-/*	for (int k = 0; k < data->res_y; k++)
+	for (int k = 0; k < 1; k++)
 	{
-		for (int l = 0; l < data->res_x; l++)
-			printf("%c", data->view[l][k]);
+		for (int l = 0; l < data->res_y; l++)
+			printf("%c", data->view[k][l]);
 		printf("\n");
-	}*/
-	ft_draw(data);
+	}
+//	ft_draw(data);
 	free(data->view);
 	return (0);
 }
@@ -130,8 +130,8 @@ int		ft_parse_data(t_data *data, char *line, int i)
 	data->color = 16711680;
 	data->res_x = 80;
 	data->res_y = 60;
-	data->pos_x = 10;
-	data->pos_y = 10;
+	data->pos_x = 5;
+	data->pos_y = 5;
 	data->vector_x = 1;
 	data->vector_y = 0;
 	/*
