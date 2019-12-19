@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:26:05 by jfeuilla          #+#    #+#             */
-/*   Updated: 2019/12/18 14:25:01 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2019/12/19 15:35:27 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,33 +46,29 @@ typedef struct	s_data
 	unsigned int	color;
 	int				res_x;
 	int				res_y;
-}				t_data;
-
-typedef struct	s_pos
-{
-	double			x;
-	double			y;
+	double			pos_x;
+	double			pos_y;
 	double			vector_x;
 	double			vector_y;
 	double			vector_x_mod;
 	double			vector_y_mod;
-}				t_pos;
+}				t_data;
 
+void	ft_rotate(t_data *data, double angle);
+int		ft_view(t_data *data);
 
-void	ft_rotate(t_pos *pos, double angle);
+double	ft_size_wall_xp(t_data *data, double x, double y);
+double	ft_size_wall_xn(t_data *data, double x, double y);
+double	ft_size_wall_yp(t_data *data, double x, double y);
+double	ft_size_wall_yn(t_data *data, double x, double y);
 
-double	ft_size_wall_xp(t_data *data, t_pos *pos, double x, double y);
-double	ft_size_wall_xn(t_data *data, t_pos *pos, double x, double y);
-double	ft_size_wall_yp(t_data *data, t_pos *pos, double x, double y);
-double	ft_size_wall_yn(t_data *data, t_pos *pos, double x, double y);
-
-void	ft_move_f(t_pos *pos);
-void	ft_move_b(t_pos *pos);
-void	ft_move_l(t_pos *pos);
-void	ft_move_r(t_pos *pos);
+void	ft_move_f(t_data *data);
+void	ft_move_b(t_data *data);
+void	ft_move_l(t_data *data);
+void	ft_move_r(t_data *data);
 
 /*
 *--------------
 */
 //gcc  -framework OpenGL -framework AppKit main.c libmlx.a get_next_line.c get_next_line_utils.c ft_size_wall.c
-void ft_info(t_pos *pos);
+void ft_info(t_data *data);
