@@ -6,11 +6,36 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:30:20 by jfeuilla          #+#    #+#             */
-/*   Updated: 2019/12/19 16:49:51 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2019/12/19 17:35:25 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+//------------------
+void	ft_putchar(char c)
+{
+	write (1, &c, 1);
+}
+
+void	ft_putnbr(int nb)
+{
+	if (nb < 0)
+	{
+		nb = -nb;
+	}
+	if (nb >= 10)
+	{
+		ft_putnbr(nb / 10);
+		ft_putnbr(nb % 10);
+	}
+	else
+		ft_putchar(nb + '0');
+}
+
+//-------------------
+
+
 
 int	ft_draw(t_data *data)
 {
@@ -95,7 +120,8 @@ int		ft_view(t_data *data)
 	double	angle;
 
 	i = 0;
-	angle = -30;
+//	angle = -30;
+	angle = 0;
 	if (!(data->view = (char **)malloc(sizeof(char*) * (data->res_x + 1))))
 		return (EXIT_FAILURE);
 	data->view[data->res_x] = 0;
@@ -121,9 +147,11 @@ int		ft_view(t_data *data)
 
 int		ft_parse_data(t_data *data, char *line, int i)
 {
+	if (line[0] == '0' || line[0] == '1')
+	{
 		data->map[i] = ft_strdup(line);
 		data->width = ft_strlen(line);
-
+	}
 	/*
 	*parse color / res / texture / pos / orientation
 	*/
@@ -195,6 +223,7 @@ int main(int ac, char **av)
 		return (EXIT_FAILURE);
 	if ((data->win_ptr = mlx_new_window(data->mlx_ptr, data->res_x, data->res_y, "marche")) == NULL)
         return (EXIT_FAILURE);
+
 	if (ft_view(data) != 0)
 		return (EXIT_FAILURE);
 	mlx_key_hook(data->win_ptr, deal_key, data);

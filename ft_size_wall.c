@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 14:06:41 by jfeuilla          #+#    #+#             */
-/*   Updated: 2019/12/19 16:49:53 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2019/12/19 17:35:27 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ double	ft_size_wall_xp(t_data *data, double x, double y)
 	double i;
 
 	i = 0;
-	while (x < data->height && y < data->width && x != 0)
+	while (x < (double)data->height && y < (double)data->width)
 	{
-		printf("px=%d\n", (int)data->pos_x);
+		write(1, "?", 1);
 		if ((int)(data->pos_x + 1) == (int)(data->pos_x + 0.5))
 		{
 			x = (int)(data->pos_x + 1) + i;
@@ -30,11 +30,12 @@ double	ft_size_wall_xp(t_data *data, double x, double y)
 			x = (int)(data->pos_x) + i;
 			y = data->pos_y + fabs(x - data->pos_x) / data->vector_x_mod * data->vector_y_mod;
 		}
-		if ((int)y <= data->width && data->map[(int)y][(int)x] != '0')
+		if ((int)y <= data->width && (int)x <= data->height && data->map[(int)x][(int)y] != '0')
 		{
 			return (data->height / (sqrt((data->pos_x - x) * (data->pos_x - x) +
 			(data->pos_y - y) * (data->pos_y - y))));
 		}
+		write(1, "ok\n", 3);
 		i++;
 	}
 	return (0);
@@ -45,7 +46,7 @@ double	ft_size_wall_xn(t_data *data, double x, double y)
 	double i;
 
 	i = 0;
-	while (x < data->height && y < data->width && x != 0)
+	while (x < (double)data->height && y < (double)data->width)
 	{
 		if ((int)(data->pos_x - 1) == (int)(data->pos_x - 0.5))
 		{
@@ -72,7 +73,7 @@ double	ft_size_wall_yp(t_data *data, double x, double y)
 	double i;
 
 	i = 0;
-	while (x < data->height && y < data->width && y != 0)
+	while (x < (double)data->height && y < (double)data->width)
 	{
 		if ((int)(data->pos_y + 1) == (int)(data->pos_y + 0.5))
 		{
@@ -99,7 +100,7 @@ double	ft_size_wall_yn(t_data *data, double x, double y)
 	double i;
 
 	i = 0;
-	while (x < data->height && y < data->width && y != 0)
+	while (x < (double)data->height && y < (double)data->width)
 	{
 		if ((int)(data->pos_y - 1) == (int)(data->pos_y - 0.5))
 		{
