@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:30:20 by jfeuilla          #+#    #+#             */
-/*   Updated: 2019/12/19 17:35:25 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2019/12/20 15:26:32 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	ft_fill_view(t_data *data, int x, double size)
 	y = 0;
 	while (y < data->res_y)
 	{
-		if (y > (data->res_y / 2 - size / 2) && y < (data->res_y / 2 + size / 2))
+		if (y >= (data->res_y / 2 - size / 2) && y <= (data->res_y / 2 + size / 2))
 			data->view[x][y] = '1';
 		else
 			data->view[x][y] = '0';
@@ -97,20 +97,28 @@ int		ft_raycast(t_data *data, int i)
 
 	if (!(data->view[i] = malloc(data->res_y + 1)))
 		return (EXIT_FAILURE);
+	size_x = 0;
+	size_y = 0;
+	printf("x=|%f| y=|%f vx=|%f| vy=|%f|\n", data->pos_x, data->pos_y, data->vector_x_mod, data->vector_y_mod);
+	printf("m=%c\n", data->map[0][1]);
 	if (data->vector_x_mod > 0)
 		size_x = ft_size_wall_xp(data, data->vector_x_mod, data->vector_y_mod);
-	else 
+	else if (data->vector_x_mod < 0)
 		size_x = ft_size_wall_xn(data, data->vector_x_mod, data->vector_y_mod);
 	if (data->vector_y_mod > 0)
 		size_y = ft_size_wall_yp(data, data->vector_x_mod, data->vector_y_mod);
-	else 
+	else if (data->vector_y_mod < 0)
 		size_y = ft_size_wall_yn(data, data->vector_x_mod, data->vector_y_mod);
-	size_x = size_x * (double)data->res_y / (double)data->height;
-	size_y = size_y * (double)data->res_y / (double)data->height;
 	if (size_x > size_y)
+	{
+		printf("dx=|%f|\n", size_x);
 		ft_fill_view(data, i, size_x);
+	}
 	else
+	{
+		printf("dy=|%f|\n", size_x);
 		ft_fill_view(data, i, size_y);
+	}
 	return (0);
 }
 
@@ -133,15 +141,13 @@ int		ft_view(t_data *data)
 		i++;
 		angle += 60 / (double)data->res_x;
 	}
-
-	for (int k = 0; k < 1; k++)
-	{
-		for (int l = 0; l < data->res_y; l++)
-			printf("%c", data->view[k][l]);
-		printf("\n");
-	}
+//	for (int k = 0; k < data->res_y; k++)
+//	{
+//		for (int l = 0; l < data->res_x; l++)
+//			printf("%c", data->view[l][k]);
+//		printf("\n");
+//	}
 //	ft_draw(data);
-	free(data->view);
 	return (0);
 }
 
@@ -156,8 +162,8 @@ int		ft_parse_data(t_data *data, char *line, int i)
 	*parse color / res / texture / pos / orientation
 	*/
 	data->color = 16711680;
-	data->res_x = 80;
-	data->res_y = 60;
+	data->res_x = 60;
+	data->res_y = 40;
 	data->pos_x = 5;
 	data->pos_y = 5;
 	data->vector_x = 1;
@@ -223,7 +229,6 @@ int main(int ac, char **av)
 		return (EXIT_FAILURE);
 	if ((data->win_ptr = mlx_new_window(data->mlx_ptr, data->res_x, data->res_y, "marche")) == NULL)
         return (EXIT_FAILURE);
-
 	if (ft_view(data) != 0)
 		return (EXIT_FAILURE);
 	mlx_key_hook(data->win_ptr, deal_key, data);
