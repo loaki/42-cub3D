@@ -17,6 +17,7 @@ double	ft_size_wall_xp(t_data *data, double x, double y)
 	double i;
 
 	i = 0;
+	write(1, "1?", 2);
 	while (x < (double)data->width && y < (double)data->height)
 	{
 		printf("x=%f y=%f\n", x, y);
@@ -32,11 +33,13 @@ double	ft_size_wall_xp(t_data *data, double x, double y)
 		}
 		if ((int)round(y) <= (data->height - 1) && (int)round(x) <= (data->width - 1) && data->map[(int)round(y)][(int)round(x)] != '0')
 		{
+			write(1, "ok\n", 3);
 			return ((double)data->res_y / (sqrtf((data->pos_x - x) * (data->pos_x - x) +
 			(data->pos_y - y) * (data->pos_y - y))));
 		}
 		i++;
 	}
+	write(1, "ok\n", 3);
 	return (0);
 }
 
@@ -45,8 +48,10 @@ double	ft_size_wall_xn(t_data *data, double x, double y)
 	double i;
 
 	i = 0;
+	write(1, "2?", 2);
 	while (x < (double)data->width && y < (double)data->height)
 	{
+		printf("x=%f y=%f\n", x, y);
 		if ((int)round((data->pos_x - 1)) == (int)round((data->pos_x - 0.5)))
 		{
 			x = (int)round((data->pos_x - 1)) - i;
@@ -59,11 +64,13 @@ double	ft_size_wall_xn(t_data *data, double x, double y)
 		}
 		if ((int)round(x) <= (data->width - 1) && (int)round(y) <= (data->height - 1) && data->map[(int)round(y)][(int)round(x)] != '0')
 		{
+			write(1, "ok\n", 3);
 			return ((double)data->res_y / (sqrtf((data->pos_x - x) * (data->pos_x - x) +
 			(data->pos_y - y) * (data->pos_y - y))));
 		}
 		i++;
 	}
+	write(1, "ok\n", 3);
 	return (0);
 }
 
@@ -72,8 +79,10 @@ double	ft_size_wall_yp(t_data *data, double x, double y)
 	double i;
 
 	i = 0;
+	write(1, "3?", 2);
 	while (x < (double)data->width && y < (double)data->height)
 	{
+		printf("x=%f y=%f\n", x, y);
 		if ((int)round((data->pos_y + 1)) == (int)round((data->pos_y + 0.5)))
 		{
 			y = (int)round((data->pos_y + 1)) + i;
@@ -86,11 +95,13 @@ double	ft_size_wall_yp(t_data *data, double x, double y)
 		}
 		if ((int)round(x) <= (data->width - 1) && (int)round(y) <= (data->height - 1) && data->map[(int)round(y)][(int)round(x)] != '0')
 		{
+			write(1, "ok\n", 3);
 			return ((double)data->res_y / (sqrtf((data->pos_x - x) * (data->pos_x - x) +
 			(data->pos_y - y) * (data->pos_y - y))));
 		}
 		i++;
 	}
+	write(1, "ok\n", 3);
 	return (0);
 }
 
@@ -99,9 +110,10 @@ double	ft_size_wall_yn(t_data *data, double x, double y)
 	double i;
 
 	i = 0;
-
+	write(1, "4?", 2);
 	while (x < (double)data->width && y < (double)data->height)
 	{
+		printf("x=%f y=%f\n", x, y);
 		if ((int)round((data->pos_y - 1)) == (int)round((data->pos_y - 0.5)))
 		{
 			y = (int)round((data->pos_y - 1)) - i;
@@ -114,10 +126,12 @@ double	ft_size_wall_yn(t_data *data, double x, double y)
 		}
 		if ((int)round(x) <= (data->width - 1) && (int)round(y) <= (data->height - 1) && data->map[(int)round(y)][(int)round(x)] != '0')
 		{
+			write(1, "ok\n", 3);
 			return ((double)data->res_y / (sqrtf((data->pos_x - x) * (data->pos_x - x) +
 			(data->pos_y - y) * (data->pos_y - y))));
 		}
 		i++;
 	}
+	write(1, "ok\n", 3);
 	return (0);
 }

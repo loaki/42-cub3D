@@ -19,7 +19,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <math.h>
-# include "mlx.h"
+//# include "mlx.h"
 # include "get_next_line.h"
 
 # define K_ESC		53
