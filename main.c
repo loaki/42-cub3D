@@ -53,7 +53,7 @@ void	ft_fill_view(t_data *data, int x, double size)
 	y = 0;
 	while (y < data->res_y)
 	{
-		if ((double)y >= ((double)data->res_y / 2 - size / 2) && (double)y <= ((double)data->res_y / 2 + size / 2))
+		if (y >= round(((double)data->res_y / 2 - size / 2)) && y <= round(((double)data->res_y / 2 + size / 2)))
 			data->view[x][y] = '1';
 		else
 			data->view[x][y] = '0';
@@ -72,13 +72,13 @@ int		ft_raycast(t_data *data, int i)
 	size_x = 0;
 	size_y = 0;
 	printf("x=|%f| y=|%f vx=|%f| vy=|%f|\n", data->pos_x, data->pos_y, data->vector_x_mod, data->vector_y_mod);
-	if (data->vector_x_mod > 0 && data->vector_x_mod > 0.0000001)
+	if (data->vector_x_mod > 0.0000001)
 		size_x = ft_size_wall_xp(data, data->vector_x_mod, data->vector_y_mod);
-	else if (data->vector_x_mod < 0 && data->vector_x_mod < -0.0000001)
+	else if (data->vector_x_mod < -0.0000001)
 		size_x = ft_size_wall_xn(data, data->vector_x_mod, data->vector_y_mod);
-	if (data->vector_y_mod > 0 && data->vector_y_mod > 0.0000001)
+	if (data->vector_y_mod > 0.0000001)
 		size_y = ft_size_wall_yp(data, data->vector_x_mod, data->vector_y_mod);
-	else if (data->vector_y_mod < 0 && data->vector_y_mod < -0.0000001)
+	else if (data->vector_y_mod < -0.0000001)
 		size_y = ft_size_wall_yn(data, data->vector_x_mod, data->vector_y_mod);
 	if (size_x > size_y)
 	{
@@ -119,6 +119,7 @@ int		ft_view(t_data *data)
 		printf("\n");
 	}
 //	ft_draw(data);
+	free(data->view);
 	return (0);
 }
 
@@ -133,10 +134,10 @@ int		ft_parse_data(t_data *data, char *line, int i)
 	*parse color / res / texture / pos / orientation
 	*/
 	data->color = 16711680;
-	data->res_x = 80;
-	data->res_y = 60;
-	data->pos_x = 5;
-	data->pos_y = 5;
+	data->res_x = 200;
+	data->res_y = 150;
+	data->pos_x = 2;
+	data->pos_y = 2;
 	data->vector_x = 1;
 	data->vector_y = 0;
 	/*
@@ -196,6 +197,12 @@ int main(int ac, char **av)
 		return (EXIT_FAILURE);
 	if (ft_parse(data, av[1]) != 0)
 		return (EXIT_FAILURE);
+	for (int i = 0; i < data->height; i++)
+	{
+		for (int j = 0; j < data->width; j++)
+			printf("%c", data->map[i][j]);
+		printf("\n");
+	}
 //	if ((data->mlx_ptr = mlx_init()) == NULL)
 //		return (EXIT_FAILURE);
 //	if ((data->win_ptr = mlx_new_window(data->mlx_ptr, data->res_x, data->res_y, "marche")) == NULL)
