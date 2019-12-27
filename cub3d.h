@@ -67,6 +67,8 @@ void	ft_move_b(t_data *data);
 void	ft_move_l(t_data *data);
 void	ft_move_r(t_data *data);
 
+int		ft_res(t_data *data, char *line);
+
 /*
 *--------------
 */
