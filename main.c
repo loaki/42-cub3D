@@ -130,16 +130,16 @@ int		ft_parse_data(t_data *data, char *line, int i)
 		data->map[i] = ft_strdup(line);
 		data->width = ft_strlen(line);
 	}
+	if (line[0] == 'R')
+		return ft_res(data, line);
 	/*
 	*parse color / res / texture / pos / orientation
 	*/
 	data->color = 16711680;
-	data->res_x = 200;
-	data->res_y = 150;
-	data->pos_x = 2;
-	data->pos_y = 2;
-	data->vector_x = 1;
-	data->vector_y = 0;
+	data->pos_x = 10;
+	data->pos_y = 10;
+	data->vector_x = 0;
+	data->vector_y = 1;
 	/*
 	*----------
 	*/

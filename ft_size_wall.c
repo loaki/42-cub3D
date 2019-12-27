@@ -24,12 +24,12 @@ double	ft_size_wall_xp(t_data *data, double x, double y)
 		if ((int)round((data->pos_x + 1)) == (int)round((data->pos_x + 0.5)))
 		{
 			x = (int)round((data->pos_x + 1)) + i;
-			y = data->pos_y + fabs(x - (double)data->pos_x) / data->vector_x_mod * data->vector_y_mod;
+			y = data->pos_y - fabs(x - (double)data->pos_x) / data->vector_x_mod * data->vector_y_mod;
 		}
 		else
 		{
 			x = (int)round((data->pos_x)) + i;
-			y = data->pos_y + fabs(x - (double)data->pos_x) / data->vector_x_mod * data->vector_y_mod;
+			y = data->pos_y - fabs(x - (double)data->pos_x) / data->vector_x_mod * data->vector_y_mod;
 		}
 		if ((int)round(y) <= (data->height - 1) && (int)round(x) <= (data->width - 1) && 
 			(int)round(y) >= 0 && (int)round(x) >= 0 && data->map[(int)round(y)][(int)round(x)] != '0')
@@ -56,12 +56,12 @@ double	ft_size_wall_xn(t_data *data, double x, double y)
 		if ((int)round((data->pos_x - 1)) == (int)round((data->pos_x - 0.5)))
 		{
 			x = (int)round((data->pos_x - 1)) - i;
-			y = data->pos_y + fabs(x - (double)data->pos_x) / data->vector_x_mod * data->vector_y_mod;
+			y = data->pos_y - fabs(x - (double)data->pos_x) / data->vector_x_mod * data->vector_y_mod;
 		}
 		else
 		{
 			x = (int)round((data->pos_x)) - i;
-			y = data->pos_y + fabs(x - (double)data->pos_x) / data->vector_x_mod * data->vector_y_mod;
+			y = data->pos_y - fabs(x - (double)data->pos_x) / data->vector_x_mod * data->vector_y_mod;
 		}
 		if ((int)round(x) <= (data->width - 1) && (int)round(y) <= (data->height - 1) &&
 			(int)round(x) >= 0 && (int)round(y) >= 0 && data->map[(int)round(y)][(int)round(x)] != '0')
@@ -87,12 +87,12 @@ double	ft_size_wall_yp(t_data *data, double x, double y)
 //		printf("x=%f y=%f\n", x, y);
 		if ((int)round((data->pos_y + 1)) == (int)round((data->pos_y + 0.5)))
 		{
-			y = (int)round((data->pos_y + 1)) + i;
+			y = (int)round((data->pos_y + 1)) - i;
 			x = data->pos_x + fabs(y - (double)data->pos_y) / data->vector_y_mod * data->vector_x_mod;
 		}
 		else
 		{
-			y = (int)round((data->pos_y)) + i;
+			y = (int)round((data->pos_y)) - i;
 			x = data->pos_x + fabs(y - (double)data->pos_y) / data->vector_y_mod * data->vector_x_mod;
 		}
 		if ((int)round(x) <= (data->width - 1) && (int)round(y) <= (data->height - 1) &&
@@ -120,13 +120,13 @@ double	ft_size_wall_yn(t_data *data, double x, double y)
 //		printf("x=%f y=%f\n", x, y);
 		if ((int)round((data->pos_y - 1)) == (int)round((data->pos_y - 0.5)))
 		{
-			y = (int)round((data->pos_y - 1)) - i;
-			x = data->pos_x + fabs(y - (double)data->pos_y) / data->vector_y_mod * data->vector_x_mod;
+			y = (int)round((data->pos_y - 1)) + i;
+			x = data->pos_x - fabs(y - (double)data->pos_y) / data->vector_y_mod * data->vector_x_mod;
 		}
 		else
 		{
-			y = (int)round((data->pos_y)) - i;
-			x = data->pos_x + fabs(y - (double)data->pos_y) / data->vector_y_mod * data->vector_x_mod;
+			y = (int)round((data->pos_y)) + i;
+			x = data->pos_x - fabs(y - (double)data->pos_y) / data->vector_y_mod * data->vector_x_mod;
 		}
 		if ((int)round(x) <= (data->width - 1) && (int)round(y) <= (data->height - 1) &&
 			(int)round(x) >= 0 && (int)round(y) >= 0 && data->map[(int)round(y)][(int)round(x)] != '0')
