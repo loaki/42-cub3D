@@ -32,7 +32,7 @@ double	ft_size_wall_xp(t_data *data, double x, double y)
 			y = data->pos_y - fabs(x - (double)data->pos_x) / data->vector_x_mod * data->vector_y_mod;
 		}
 		if ((int)round(y) <= (data->height - 1) && (int)round(x) <= (data->width - 1) && 
-			(int)round(y) >= 0 && (int)round(x) >= 0 && data->map[(int)round(y)][(int)round(x)] != '0')
+			(int)round(y) >= 0 && (int)round(x) >= 0 && data->map[(int)round(y)][(int)round(x)] == '1')
 		{
 			write(1, "ok\n", 3);
 			return ((double)data->res_y / (sqrtf(((double)data->pos_x - x) * ((double)data->pos_x - x) +
@@ -64,7 +64,7 @@ double	ft_size_wall_xn(t_data *data, double x, double y)
 			y = data->pos_y - fabs(x - (double)data->pos_x) / data->vector_x_mod * data->vector_y_mod;
 		}
 		if ((int)round(x) <= (data->width - 1) && (int)round(y) <= (data->height - 1) &&
-			(int)round(x) >= 0 && (int)round(y) >= 0 && data->map[(int)round(y)][(int)round(x)] != '0')
+			(int)round(x) >= 0 && (int)round(y) >= 0 && data->map[(int)round(y)][(int)round(x)] == '1')
 		{
 			write(1, "ok\n", 3);
 			return ((double)data->res_y / (sqrtf(((double)data->pos_x - x) * ((double)data->pos_x - x) +
@@ -96,7 +96,7 @@ double	ft_size_wall_yp(t_data *data, double x, double y)
 			x = data->pos_x + fabs(y - (double)data->pos_y) / data->vector_y_mod * data->vector_x_mod;
 		}
 		if ((int)round(x) <= (data->width - 1) && (int)round(y) <= (data->height - 1) &&
-			(int)round(x) >= 0 && (int)round(y) >= 0 && data->map[(int)round(y)][(int)round(x)] != '0')
+			(int)round(x) >= 0 && (int)round(y) >= 0 && data->map[(int)round(y)][(int)round(x)] == '1')
 		{
 			write(1, "ok\n", 3);
 			return ((double)data->res_y / (sqrtf(((double)data->pos_x - x) * ((double)data->pos_x - x) +
@@ -129,7 +129,7 @@ double	ft_size_wall_yn(t_data *data, double x, double y)
 			x = data->pos_x - fabs(y - (double)data->pos_y) / data->vector_y_mod * data->vector_x_mod;
 		}
 		if ((int)round(x) <= (data->width - 1) && (int)round(y) <= (data->height - 1) &&
-			(int)round(x) >= 0 && (int)round(y) >= 0 && data->map[(int)round(y)][(int)round(x)] != '0')
+			(int)round(x) >= 0 && (int)round(y) >= 0 && data->map[(int)round(y)][(int)round(x)] == '1')
 		{
 			write(1, "ok\n", 3);
 			return ((double)data->res_y / (sqrtf(((double)data->pos_x - x) * ((double)data->pos_x - x) +

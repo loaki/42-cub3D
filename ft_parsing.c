@@ -8,20 +8,20 @@ int ft_parse_res(t_data *data, char *line)
 
 	i = 1;
 	f = 1;
-	while (line[i] < '0' || line[i] > '9' || line[i])
+	while ((line[i] < '0' || line[i] > '9') && line[i])
 		i++;
 	while (line[i] >= '0' && line[i] <= '9')
 	{
-		data->res_x += f * (line[i] - '0');
+		data->res_x = data->res_x * f + line[i] - '0';
 		f *= 10;
 		i++;
 	}
 	f = 1;
-	while (line[i] < '0' || line[i] > '9' || line[i])
+	while ((line[i] < '0' || line[i] > '9') && line[i])
 		i++;
 	while (line[i] >= '0' && line[i] <= '9')
 	{
-		data->res_y += f * (line[i] - '0');
+		data->res_y = data->res_y * f + line[i] - '0';
 		f *= 10;
 		i++;
 	}
@@ -59,13 +59,13 @@ void	ft_parse_map(t_data *data, char *line, int i)
 	data->map[i] = ft_strdup(line);
 }
 
-int		ft_parse_data(t_data *data, char *line, int i)
+int		ft_parse_data(t_data *data, char *line, int *i)
 {
 	if (line[0] >= '0' && line[0] <= '9')
 	{
-		ft_parse_map(data, line, i);
+		ft_parse_map(data, line, *i);
 		data->width = ft_strlen(line);
-		i++;
+		*i = *i + 1;
 	}
 	if (line[0] == 'R')
 		if (ft_parse_res(data, line) == EXIT_FAILURE)
@@ -94,11 +94,11 @@ int		ft_parse(t_data *data, char *map)
 		return (EXIT_FAILURE);
 	while ((ret = get_next_line(fd, &line)) > 0)
 	{
-		ft_parse_data(data, line, i);
+		ft_parse_data(data, line, &i);
 		free(line);
 	}
 	ret = get_next_line(fd, &line);
-	ft_parse_data(data, line, i);
+	ft_parse_data(data, line, &i);
 	data->height = i;
 	free(line);
 	data->map[i] = 0;

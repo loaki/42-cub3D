@@ -146,18 +146,23 @@ int main(int ac, char **av)
 		return (EXIT_FAILURE);
 	if (ft_parse(data, av[1]) != 0)
 		return (EXIT_FAILURE);
+
+	printf("x = %d\ny = %d\nposx = %f\nposy = %f\nvx = %f\nvy = %f\nw = %d\nh = %d\n", data->res_x, data->res_y, data->pos_x, data->pos_y, data->vector_x, data->vector_y, data->width, data->height);
 	for (int i = 0; i < data->height; i++)
 	{
 		for (int j = 0; j < data->width; j++)
 			printf("%c", data->map[i][j]);
 		printf("\n");
 	}
+
 //	if ((data->mlx_ptr = mlx_init()) == NULL)
 //		return (EXIT_FAILURE);
 //	if ((data->win_ptr = mlx_new_window(data->mlx_ptr, data->res_x, data->res_y, "marche")) == NULL)
 //      return (EXIT_FAILURE);
+
 	if (ft_view(data) != 0)
 		return (EXIT_FAILURE);
+
 //	mlx_key_hook(data->win_ptr, deal_key, data);
 //	mlx_loop(data->mlx_ptr);
     return (EXIT_SUCCESS);
