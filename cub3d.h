@@ -67,7 +67,10 @@ void	ft_move_b(t_data *data);
 void	ft_move_l(t_data *data);
 void	ft_move_r(t_data *data);
 
-int		ft_res(t_data *data, char *line);
+int		ft_parse_res(t_data *data, char *line);
+void	ft_parse_map(t_data *data, char *line, int i);
+int		ft_parse_data(t_data *data, char *line, int i);
+int		ft_parse(t_data *data, char *map);
 
 /*
 *--------------

@@ -123,57 +123,6 @@ int		ft_view(t_data *data)
 	return (0);
 }
 
-int		ft_parse_data(t_data *data, char *line, int i)
-{
-	if (line[0] == '0' || line[0] == '1')
-	{
-		data->map[i] = ft_strdup(line);
-		data->width = ft_strlen(line);
-	}
-	if (line[0] == 'R')
-		return ft_res(data, line);
-	/*
-	*parse color / res / texture / pos / orientation
-	*/
-	data->color = 16711680;
-	data->pos_x = 10;
-	data->pos_y = 10;
-	data->vector_x = 0;
-	data->vector_y = 1;
-	/*
-	*----------
-	*/
-	return (0);
-
-}
-int		ft_parse(t_data *data, char *map)
-{
-	int		fd;
-	int		ret;
-	char	*line;
-	int		i;
-
-	i = 0;
-	fd = open(map, O_RDONLY);
-	if (!(data->map = malloc(2048)))
-		return (EXIT_FAILURE);
-	while ((ret = get_next_line(fd, &line)) > 0)
-	{
-		ft_parse_data(data, line, i);
-		i++;
-		free(line);
-	}
-	ret = get_next_line(fd, &line);
-	ft_parse_data(data, line, i);
-	data->height = i;
-	i++;
-	free(line);
-	data->map[i] = 0;
-	if (ret == -1)
-		return (EXIT_FAILURE);
-	return (0);
-}
-
 int		deal_key(int key, t_data *data)
 {
 	if (key == K_W)
