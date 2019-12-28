@@ -80,16 +80,12 @@ int		ft_raycast(t_data *data, int i)
 		size_y = ft_size_wall_yp(data, data->vector_x_mod, data->vector_y_mod);
 	else if (data->vector_y_mod < -0.0000001)
 		size_y = ft_size_wall_yn(data, data->vector_x_mod, data->vector_y_mod);
+	printf("sx=|%f|\n", size_x);
+	printf("sy=|%f|\n", size_y);
 	if (size_x > size_y)
-	{
-		printf("sx=|%f|\n", size_x);
 		ft_fill_view(data, i, size_x);
-	}
 	else
-	{
-		printf("sy=|%f|\n", size_x);
 		ft_fill_view(data, i, size_y);
-	}
 	return (0);
 }
 
@@ -100,7 +96,6 @@ int		ft_view(t_data *data)
 
 	i = 0;
 	angle = -30;
-//	angle = 0;
 	if (!(data->view = (char **)malloc(sizeof(char*) * (data->res_x + 1))))
 		return (EXIT_FAILURE);
 	data->view[data->res_x] = 0;
