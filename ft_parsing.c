@@ -1,28 +1,34 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_parsing.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/07 13:03:32 by jfeuilla          #+#    #+#             */
+/*   Updated: 2020/01/07 13:19:22 by jfeuilla         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "cub3d.h"
 
-int ft_parse_res(t_data *data, char *line)
+int		ft_parse_res(t_data *data, char *line)
 {
 	int i;
-	int f;
 
 	i = 1;
-	f = 1;
 	while ((line[i] < '0' || line[i] > '9') && line[i])
 		i++;
 	while (line[i] >= '0' && line[i] <= '9')
 	{
-		data->res_x = data->res_x * f + line[i] - '0';
-		f *= 10;
+		data->res_x = data->res_x * 10 + line[i] - '0';
 		i++;
 	}
-	f = 1;
 	while ((line[i] < '0' || line[i] > '9') && line[i])
 		i++;
 	while (line[i] >= '0' && line[i] <= '9')
 	{
-		data->res_y = data->res_y * f + line[i] - '0';
-		f *= 10;
+		data->res_y = data->res_y * 10 + line[i] - '0';
 		i++;
 	}
 	if (data->res_x == 0 || data->res_y == 0)
@@ -37,15 +43,14 @@ void	ft_parse_map(t_data *data, char *line, int i)
 	j = 0;
 	while (line[j])
 	{
-		if (line[j] == 'N' || line[j] == 'S' || line[j] == 'W' || line[j] == 'E')
+		if (line[j] == 'N' || line[j] == 'S' ||
+			line[j] == 'W' || line[j] == 'E')
 		{
 			data->pos_x = j;
 			data->pos_y = i;
-		}
-		if (line[j] == 'N' || line[j] == 'S')
 			data->vector_x = 0;
-		if (line[j] == 'E' || line[j] == 'W')
 			data->vector_y = 0;
+		}
 		if (line[j] == 'N')
 			data->vector_y = 1;
 		if (line[j] == 'S')
@@ -71,14 +76,13 @@ int		ft_parse_data(t_data *data, char *line, int *i)
 		if (ft_parse_res(data, line) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
 	/*
-	*parse color / res / texture / pos / orientation
+	parse color / res / texture / pos / orientation
 	*/
 	data->color = 16711680;
 	/*
-	*----------
+	----------
 	*/
 	return (EXIT_SUCCESS);
-
 }
 
 int		ft_parse(t_data *data, char *map)
