@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:26:05 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/07 12:58:08 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/08 15:49:40 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int				ft_view(t_data *data);
 int				deal_key(int key, t_data *data);
 
 int				ft_draw(t_data *data);
+int				ft_minimap(t_data *data);
 
 double			ft_size_wall_xp(t_data *data, double x, double y);
 double			ft_size_wall_xn(t_data *data, double x, double y);
@@ -70,12 +71,12 @@ double			ft_size_wall_yp(t_data *data, double x, double y);
 double			ft_size_wall_yn(t_data *data, double x, double y);
 
 int				ft_collision(t_data *data);
-void			ft_move_f(t_data *data);
-void			ft_move_b(t_data *data);
-void			ft_move_l(t_data *data);
-void			ft_move_r(t_data *data);
-void			ft_rotate_l(t_data *data);
-void			ft_rotate_r(t_data *data);
+int				ft_move_f(t_data *data);
+int				ft_move_b(t_data *data);
+int				ft_move_l(t_data *data);
+int				ft_move_r(t_data *data);
+int				ft_rotate_l(t_data *data);
+int				ft_rotate_r(t_data *data);
 void			ft_info(t_data *data);
 
 int				ft_parse_res(t_data *data, char *line);

@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:30:20 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/07 15:23:54 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/08 15:45:12 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ int		ft_raycast(t_data *data, int i)
 		return (EXIT_FAILURE);
 	size_x = 0;
 	size_y = 0;
-//	printf("x=|%f| y=|%f vx=|%f| vy=|%f|\n", data->pos_x, data->pos_y, data->vector_x_mod, data->vector_y_mod);
 	if (data->vector_x_mod > 0.0000001)
 		size_x = ft_size_wall_xp(data, data->vector_x_mod, data->vector_y_mod);
 	else if (data->vector_x_mod < -0.0000001)
@@ -60,8 +59,6 @@ int		ft_raycast(t_data *data, int i)
 		size_y = ft_size_wall_yp(data, data->vector_x_mod, data->vector_y_mod);
 	else if (data->vector_y_mod < -0.0000001)
 		size_y = ft_size_wall_yn(data, data->vector_x_mod, data->vector_y_mod);
-//	printf("sx=|%f|\n", size_x);
-//	printf("sy=|%f|\n", size_y);
 	if (size_x > size_y)
 		ft_fill_view(data, i, size_x);
 	else
@@ -87,33 +84,29 @@ int		ft_view(t_data *data)
 		i++;
 		angle += 60 / (double)data->res_x;
 	}
-/*	for (int k = 0; k < data->res_y; k++)
-	{
-		for (int l = 0; l < data->res_x; l++)
-			printf("%c", data->view[l][k]);
-		printf("\n");
-	}*/
 	ft_draw(data);
-//	free(data->view);
 	return (0);
 }
 
 int		deal_key(int key, t_data *data)
 {
 	if (key == K_W)
-		ft_move_f(data);
+		return (ft_move_f(data));
 	if (key == K_S)
-		ft_move_b(data);
+		return (ft_move_b(data));
 	if (key == K_A)
-		ft_move_l(data);
+		return (ft_move_l(data));
 	if (key == K_D)
-		ft_move_r(data);
+		return (ft_move_r(data));
 	if (key == K_RIGHT)
-		ft_rotate_r(data);
+		return (ft_rotate_r(data));
 	if (key == K_LEFT)
-		ft_rotate_l(data);
+		return (ft_rotate_l(data));
 	if (key == K_ESC)
+	{
+		free(data);
 		exit(0);
+	}
 	return (0);
 }
 
@@ -127,12 +120,6 @@ int		main(int ac, char **av)
 		return (EXIT_FAILURE);
 	if (ft_parse(data, av[1]) != 0)
 		return (EXIT_FAILURE);
-/*	for (int i = 0; i < data->height; i++)
-	{
-		for (int j = 0; j < data->width; j++)
-			printf("%c", data->map[i][j]);
-		printf("\n");
-	}*/
 	if ((data->mlx_ptr = mlx_init()) == NULL)
 		return (EXIT_FAILURE);
 	if ((data->win_ptr = mlx_new_window(data->mlx_ptr,
