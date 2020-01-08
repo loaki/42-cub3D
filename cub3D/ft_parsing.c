@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:03:32 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/07 13:19:22 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/08 17:37:31 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,44 @@ int		ft_parse_res(t_data *data, char *line)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
+
+int		ft_parse_color(t_data *data, char *line)
+{
+	int i;
+	int c;
+
+	i = 0;
+	c = 0;
+	while ((line[i] < '0' || line[i] > '9') && line[i])
+		i++;
+	while (line[i] >= '0' && line[i] <= '9')
+	{
+		c = c * 10 + line[i] - '0';
+		i++;
+	}
+	data->color = c * 256 * 256;
+	c = 0;
+	i++;
+	while (line[i] >= '0' && line[i] <= '9')
+	{
+		c = c * 10 + line[i] - '0';
+		i++;
+	}
+	data->color += c * 256;
+	c = 0;
+	i++;
+	while (line[i] >= '0' && line[i] <= '9')
+	{
+		c = c * 10 + line[i] - '0';
+		i++;
+	}
+	data->color += c;
+	i++;
+	return (EXIT_SUCCESS);
+}
+
+
+
 
 void	ft_parse_map(t_data *data, char *line, int i)
 {
@@ -75,13 +113,10 @@ int		ft_parse_data(t_data *data, char *line, int *i)
 	if (line[0] == 'R')
 		if (ft_parse_res(data, line) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
-	/*
-	parse color / res / texture / pos / orientation
-	*/
-	data->color = 16711680;
-	/*
-	----------
-	*/
+	if (line[0] == 'C')
+		if (ft_parse_color(data, line) == EXIT_FAILURE)
+			return (EXIT_FAILURE);
+		
 	return (EXIT_SUCCESS);
 }
 
