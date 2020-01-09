@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:30:20 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/09 16:34:01 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/09 17:35:47 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,10 @@ int		ft_update(t_data *data)
 	if (data->rotate_l == 1)
 		ft_rotate_l(data);
 	if (data->esc == 1)
+	{
+		free(data);
 		exit(0);
+	}
 	return (0);
 }
 
