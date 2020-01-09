@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 12:20:47 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/08 17:14:29 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/09 16:16:03 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ int		ft_collision(t_data *data)
 
 int		ft_move_f(t_data *data)
 {
-	data->pos_x += data->vector_x;
-	data->pos_y -= data->vector_y;
+	data->pos_x += 0.1 * data->vector_x;
+	data->pos_y -= 0.1 * data->vector_y;
 	if (ft_collision(data) == 1)
 	{
-		data->pos_x -= data->vector_x;
-		data->pos_y += data->vector_y;
+		data->pos_x -= 0.1 * data->vector_x;
+		data->pos_y += 0.1 * data->vector_y;
 	}
 	ft_info(data);
 	return (ft_view(data));
@@ -37,12 +37,12 @@ int		ft_move_f(t_data *data)
 
 int		ft_move_b(t_data *data)
 {
-	data->pos_x -= data->vector_x;
-	data->pos_y += data->vector_y;
+	data->pos_x -= 0.1 * data->vector_x;
+	data->pos_y += 0.1 * data->vector_y;
 	if (ft_collision(data) == 1)
 	{
-		data->pos_x += data->vector_x;
-		data->pos_y -= data->vector_y;
+		data->pos_x += 0.1 * data->vector_x;
+		data->pos_y -= 0.1 * data->vector_y;
 	}
 	ft_info(data);
 	return (ft_view(data));
@@ -50,12 +50,12 @@ int		ft_move_b(t_data *data)
 
 int		ft_move_r(t_data *data)
 {
-	data->pos_x += data->vector_y;
-	data->pos_y += data->vector_x;
+	data->pos_x += 0.1 * data->vector_y;
+	data->pos_y += 0.1 * data->vector_x;
 	if (ft_collision(data) == 1)
 	{
-		data->pos_x -= data->vector_y;
-		data->pos_y -= data->vector_x;
+		data->pos_x -= 0.1 * data->vector_y;
+		data->pos_y -= 0.1 * data->vector_x;
 	}
 	ft_info(data);
 	return (ft_view(data));
@@ -63,12 +63,12 @@ int		ft_move_r(t_data *data)
 
 int		ft_move_l(t_data *data)
 {
-	data->pos_x -= data->vector_y;
-	data->pos_y -= data->vector_x;
+	data->pos_x -= 0.1 * data->vector_y;
+	data->pos_y -= 0.1 * data->vector_x;
 	if (ft_collision(data) == 1)
 	{
-		data->pos_x += data->vector_y;
-		data->pos_y += data->vector_x;
+		data->pos_x += 0.1 * data->vector_y;
+		data->pos_y += 0.1 * data->vector_x;
 	}
 	ft_info(data);
 	return (ft_view(data));
@@ -76,7 +76,7 @@ int		ft_move_l(t_data *data)
 
 int		ft_rotate_l(t_data *data)
 {
-	ft_rotate(data, -10);
+	ft_rotate(data, -2);
 	data->vector_x = data->vector_x_mod;
 	data->vector_y = data->vector_y_mod;
 	ft_info(data);
@@ -85,7 +85,7 @@ int		ft_rotate_l(t_data *data)
 
 int		ft_rotate_r(t_data *data)
 {
-	ft_rotate(data, 10);
+	ft_rotate(data, 2);
 	data->vector_x = data->vector_x_mod;
 	data->vector_y = data->vector_y_mod;
 	ft_info(data);

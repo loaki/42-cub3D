@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 14:06:41 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/08 15:55:31 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/09 15:35:04 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,7 @@ double	ft_size_wall_xp(t_data *data, double x, double y)
 	i = 0;
 	while (i < data->width || i < data->height)
 	{
-		if ((int)round((data->pos_x + 1)) == (int)round((data->pos_x + 0.5)))
-			x = (int)round((data->pos_x + 1)) + i;
-		else
-			x = (int)round((data->pos_x)) + i;
+		x = (int)ceil(data->pos_x) + i;
 		y = data->pos_y - fabs(x - (double)data->pos_x) / data->vector_x_mod *
 		data->vector_y_mod;
 		if ((int)(y) <= (data->height - 1) && (int)(x) <=
@@ -43,10 +40,7 @@ double	ft_size_wall_xn(t_data *data, double x, double y)
 	i = 0;
 	while (i < data->width || i < data->height)
 	{
-		if ((int)round((data->pos_x - 1)) == (int)round((data->pos_x - 0.5)))
-			x = (int)round((data->pos_x - 1)) - i;
-		else
-			x = (int)round((data->pos_x)) - i;
+		x = (int)ceil(data->pos_x) - i;
 		y = data->pos_y + fabs(x - (double)data->pos_x) / data->vector_x_mod *
 		data->vector_y_mod;
 		if ((int)(x) <= data->width && (int)(y) <=
@@ -67,10 +61,7 @@ double	ft_size_wall_yp(t_data *data, double x, double y)
 	i = 0;
 	while (i < data->width || i < data->height)
 	{
-		if ((int)round((data->pos_y + 1)) == (int)round((data->pos_y + 0.5)))
-			y = (int)round((data->pos_y + 1)) - i;
-		else
-			y = (int)round((data->pos_y)) - i;
+		y = (int)ceil(data->pos_y) - i;
 		x = data->pos_x + fabs(y - (double)data->pos_y) / data->vector_y_mod *
 		data->vector_x_mod;
 		if ((int)(x) <= (data->width - 1) && (int)(y) <=
@@ -91,10 +82,7 @@ double	ft_size_wall_yn(t_data *data, double x, double y)
 	i = 0;
 	while (i < data->width || i < data->height)
 	{
-		if ((int)round((data->pos_y - 1)) == (int)round((data->pos_y - 0.5)))
-			y = (int)round((data->pos_y - 1)) + i;
-		else
-			y = (int)round((data->pos_y)) + i;
+		y = (int)ceil(data->pos_y) + i;
 		x = data->pos_x - fabs(y - (double)data->pos_y) / data->vector_y_mod *
 		data->vector_x_mod;
 		if ((int)(x) <= (data->width - 1) && (int)(y) <=

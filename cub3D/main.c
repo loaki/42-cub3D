@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:30:20 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/08 15:45:12 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/09 16:34:01 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,25 +88,58 @@ int		ft_view(t_data *data)
 	return (0);
 }
 
-int		deal_key(int key, t_data *data)
+int		key_press(int key, t_data *data)
 {
 	if (key == K_W)
-		return (ft_move_f(data));
+		data->move_f = 1;
 	if (key == K_S)
-		return (ft_move_b(data));
-	if (key == K_A)
-		return (ft_move_l(data));
+		data->move_b = 1;
 	if (key == K_D)
-		return (ft_move_r(data));
+		data->move_r = 1;
+	if (key == K_A)
+		data->move_l = 1;
 	if (key == K_RIGHT)
-		return (ft_rotate_r(data));
+		data->rotate_r = 1;
 	if (key == K_LEFT)
-		return (ft_rotate_l(data));
+		data->rotate_l = 1;
 	if (key == K_ESC)
-	{
-		free(data);
+		data->esc = 1;
+	return (0);
+}
+
+int		key_release(int key, t_data *data)
+{
+	if (key == K_W)
+		data->move_f = 0;
+	if (key == K_S)
+		data->move_b = 0;
+	if (key == K_D)
+		data->move_r = 0;
+	if (key == K_A)
+		data->move_l = 0;
+	if (key == K_RIGHT)
+		data->rotate_r = 0;
+	if (key == K_LEFT)
+		data->rotate_l = 0;
+	return (0);
+}
+
+int		ft_update(t_data *data)
+{
+	if (data->move_f == 1)
+		ft_move_f(data);
+	if (data->move_b == 1)
+		ft_move_b(data);
+	if (data->move_r == 1)
+		ft_move_r(data);
+	if (data->move_l == 1)
+		ft_move_l(data);
+	if (data->rotate_r == 1)
+		ft_rotate_r(data);
+	if (data->rotate_l == 1)
+		ft_rotate_l(data);
+	if (data->esc == 1)
 		exit(0);
-	}
 	return (0);
 }
 
@@ -127,7 +160,9 @@ int		main(int ac, char **av)
 		return (EXIT_FAILURE);
 	if (ft_view(data) != 0)
 		return (EXIT_FAILURE);
-	mlx_key_hook(data->win_ptr, deal_key, data);
+	mlx_hook(data->win_ptr, K_PRESS, 0, &key_press, data);
+	mlx_hook(data->win_ptr, K_RELEASE, 0, &key_release, data);
+	mlx_loop_hook(data->mlx_ptr, &ft_update, data);
 	mlx_loop(data->mlx_ptr);
 	return (EXIT_SUCCESS);
 }

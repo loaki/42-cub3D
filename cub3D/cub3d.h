@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:26:05 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/08 15:49:40 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/09 16:34:46 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@
 # define K_D		2
 # define K_RIGHT	124
 # define K_LEFT		123
+# define K_PRESS	2
+# define K_RELEASE	3
 
 #endif
 
@@ -54,13 +56,22 @@ typedef struct	s_data
 	double			vector_y;
 	double			vector_x_mod;
 	double			vector_y_mod;
+	int				move_f;
+	int				move_b;
+	int				move_r;
+	int				move_l;
+	int				rotate_r;
+	int				rotate_l;
+	int				esc;
 }				t_data;
 
 void			ft_rotate(t_data *data, double angle);
 void			ft_fill_view(t_data *data, int x, double size);
 int				ft_raycast(t_data *data, int i);
 int				ft_view(t_data *data);
-int				deal_key(int key, t_data *data);
+int				key_press(int key, t_data *data);
+int				key_release(int key, t_data *data);
+int				ft_update(t_data *data);
 
 int				ft_draw(t_data *data);
 int				ft_minimap(t_data *data);
