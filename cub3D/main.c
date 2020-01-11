@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:30:20 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/11 15:30:03 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/11 15:38:05 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_rotate(t_data *data, double angle)
 	data->vector_x_mod = x;
 	data->vector_y_mod = y;
 }
-
+/*
 void	ft_fill_view(t_data *data, int x, double size)
 {
 	int y;
@@ -41,14 +41,12 @@ void	ft_fill_view(t_data *data, int x, double size)
 	}
 	data->view[x][y] = 0;
 }
-
+*/
 int		ft_raycast(t_data *data, int i)
 {
 	double size_x;
 	double size_y;
 
-	if (!(data->view[i] = malloc(data->res_y + 1)))
-		return (EXIT_FAILURE);
 	size_x = 0;
 	size_y = 0;
 	if (data->vector_x_mod > 0.0000001)
@@ -60,9 +58,9 @@ int		ft_raycast(t_data *data, int i)
 	else if (data->vector_y_mod < -0.0000001)
 		size_y = ft_size_wall_yn(data, data->vector_x_mod, data->vector_y_mod);
 	if (size_x > size_y)
-		ft_fill_view(data, i, size_x);
+		ft_draw_col(data, i, size_x);
 	else
-		ft_fill_view(data, i, size_y);
+		ft_draw_col(data, i, size_y);
 	return (0);
 }
 
@@ -73,9 +71,12 @@ int		ft_view(t_data *data)
 
 	i = 0;
 	angle = -30;
-	if (!(data->view = (char **)malloc(sizeof(char*) * (data->res_x + 1))))
+	if ((data->img_ptr = mlx_new_image(data->mlx_ptr, data->res_x,
+		data->res_y)) == NULL)
 		return (EXIT_FAILURE);
-	data->view[data->res_x] = 0;
+	if ((data->addr_ptr = mlx_get_data_addr(data->img_ptr, &data->bpp,
+		&data->size_l, &data->endiant)) == NULL)
+		return (EXIT_FAILURE);
 	while (angle < 30)
 	{
 		ft_rotate(data, angle);
@@ -84,7 +85,9 @@ int		ft_view(t_data *data)
 		i++;
 		angle += 60 / (double)data->res_x;
 	}
-	ft_draw(data);
+	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
+	data->img_ptr, 0, 0);
+	ft_minimap(data);
 	return (0);
 }
 
