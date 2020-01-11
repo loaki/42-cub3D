@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 12:20:47 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/11 15:49:52 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/11 18:59:18 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		ft_move_f(t_data *data)
 		data->pos_y < 0 || data->pos_x < 0 ||
 		data->map[(int)data->pos_y][(int)data->pos_x] == '1')
 		data->pos_y += 0.1 * data->vector_y;
-//	ft_info(data);
+	ft_info(data);
 	return (ft_view(data));
 }
 
@@ -40,7 +40,7 @@ int		ft_move_b(t_data *data)
 		data->pos_y < 0 || data->pos_x < 0 ||
 		data->map[(int)data->pos_y][(int)data->pos_x] == '1')
 		data->pos_y -= 0.1 * data->vector_y;
-//	ft_info(data);
+	ft_info(data);
 	return (ft_view(data));
 }
 
@@ -56,7 +56,7 @@ int		ft_move_r(t_data *data)
 		data->pos_y < 0 || data->pos_x < 0 ||
 		data->map[(int)data->pos_y][(int)data->pos_x] == '1')
 		data->pos_y -= 0.1 * data->vector_x;
-//	ft_info(data);
+	ft_info(data);
 	return (ft_view(data));
 }
 
@@ -72,7 +72,7 @@ int		ft_move_l(t_data *data)
 		data->pos_y < 0 || data->pos_x < 0 ||
 		data->map[(int)data->pos_y][(int)data->pos_x] == '1')
 		data->pos_y += 0.1 * data->vector_x;
-//	ft_info(data);
+	ft_info(data);
 	return (ft_view(data));
 }
 
@@ -81,7 +81,7 @@ int		ft_rotate_l(t_data *data)
 	ft_rotate(data, -2);
 	data->vector_x = data->vector_x_mod;
 	data->vector_y = data->vector_y_mod;
-//	ft_info(data);
+	ft_info(data);
 	return (ft_view(data));
 }
 
@@ -90,7 +90,7 @@ int		ft_rotate_r(t_data *data)
 	ft_rotate(data, 2);
 	data->vector_x = data->vector_x_mod;
 	data->vector_y = data->vector_y_mod;
-//	ft_info(data);
+	ft_info(data);
 	return (ft_view(data));
 }
 

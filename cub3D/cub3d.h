@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:26:05 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/11 15:45:23 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/11 17:56:56 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,26 @@
 
 #endif
 
+typedef	struct	s_image
+{
+	void			*img_ptr;
+	void			*addr_ptr;
+	int				bpp;
+	int				size_l;
+	int				endiant;
+	int				width;
+	int				height;
+}				t_image;
+
 typedef struct	s_data
 {
 	void			*mlx_ptr;
 	void			*win_ptr;
-	void			*img_ptr;
-	void			*addr_ptr;
 	char			**map;
 	int				width;
 	int				height;
-	int				bpp;
-	int				size_l;
-	int				endiant;
+	t_image			*view;
+	t_image			*minimap;
 	unsigned int	color;
 	int				res_x;
 	int				res_y;
@@ -64,12 +72,14 @@ typedef struct	s_data
 	int				esc;
 }				t_data;
 
+
 void			ft_rotate(t_data *data, double angle);
 int				ft_raycast(t_data *data, int i);
 int				ft_view(t_data *data);
 int				key_press(int key, t_data *data);
 int				key_release(int key, t_data *data);
 int				ft_update(t_data *data);
+int				ft_init_image(t_data *data);
 
 void			ft_draw_col(t_data *data, int x, double size);
 int				ft_minimap(t_data *data);

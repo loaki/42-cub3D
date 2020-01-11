@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:30:20 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/11 15:38:05 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/11 19:51:04 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,24 +24,7 @@ void	ft_rotate(t_data *data, double angle)
 	data->vector_x_mod = x;
 	data->vector_y_mod = y;
 }
-/*
-void	ft_fill_view(t_data *data, int x, double size)
-{
-	int y;
 
-	y = 0;
-	while (y < data->res_y)
-	{
-		if (y >= round(((double)data->res_y / 2 - size / 2)) &&
-			y <= round(((double)data->res_y / 2 + size / 2)))
-			data->view[x][y] = '1';
-		else
-			data->view[x][y] = '0';
-		y++;
-	}
-	data->view[x][y] = 0;
-}
-*/
 int		ft_raycast(t_data *data, int i)
 {
 	double size_x;
@@ -71,12 +54,6 @@ int		ft_view(t_data *data)
 
 	i = 0;
 	angle = -30;
-	if ((data->img_ptr = mlx_new_image(data->mlx_ptr, data->res_x,
-		data->res_y)) == NULL)
-		return (EXIT_FAILURE);
-	if ((data->addr_ptr = mlx_get_data_addr(data->img_ptr, &data->bpp,
-		&data->size_l, &data->endiant)) == NULL)
-		return (EXIT_FAILURE);
 	while (angle < 30)
 	{
 		ft_rotate(data, angle);
@@ -86,7 +63,7 @@ int		ft_view(t_data *data)
 		angle += 60 / (double)data->res_x;
 	}
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
-	data->img_ptr, 0, 0);
+	data->view->img_ptr, 0, 0);
 	ft_minimap(data);
 	return (0);
 }
@@ -149,6 +126,48 @@ int		ft_update(t_data *data)
 	return (0);
 }
 
+int		ft_init_image(t_data *data)
+{
+	if ((data->mlx_ptr = mlx_init()) == NULL)
+		return (EXIT_FAILURE);
+	if ((data->win_ptr = mlx_new_window(data->mlx_ptr,
+		data->res_x, data->res_y, "marche")) == NULL)
+		return (EXIT_FAILURE);
+//----------------------view-----------------------	
+	if (!(data->view = malloc(sizeof(t_image))))
+		return (EXIT_FAILURE);
+	if ((data->view->img_ptr = mlx_new_image(data->mlx_ptr, data->res_x,
+		data->res_y)) == NULL)
+		return (EXIT_FAILURE);
+	if ((data->view->addr_ptr = mlx_get_data_addr(data->view->img_ptr, &data->view->bpp,
+		&data->view->size_l, &data->view->endiant)) == NULL)
+		return (EXIT_FAILURE);
+
+//---------------------minimap---------------------
+	if (!(data->minimap = malloc(sizeof(t_image))))
+		return (EXIT_FAILURE);
+	if ((double)data->width / (double)(data->res_x) > (double)(data->height) / (double)(data->res_y))
+	{
+		if ((data->minimap->img_ptr = mlx_new_image(data->mlx_ptr, (int)(data->res_x / 5),
+			(int)((double)data->height / (double)data->width * (double)data->res_x / 5))) == NULL)
+			return (EXIT_FAILURE);
+		data->minimap->width = (int)((double)data->res_x / 5);
+		data->minimap->height = (int)((double)data->height / (double)data->width * (double)data->res_x / 5);
+	}
+	else
+	{
+		if ((data->minimap->img_ptr = mlx_new_image(data->mlx_ptr, (int)((double)data->width / (double)data->height * (double)data->res_y / 5),
+			(int)((double)data->res_y / 5))) == NULL)
+			return (EXIT_FAILURE);
+		data->minimap->width = (int)((double)data->width / (double)data->height * (double)data->res_y / 5);
+		data->minimap->height = (int)((double)data->res_y / 5);
+	}
+	if ((data->minimap->addr_ptr = mlx_get_data_addr(data->minimap->img_ptr, &data->minimap->bpp,
+		&data->minimap->size_l, &data->minimap->endiant)) == NULL)
+		return (EXIT_FAILURE);
+	return (0);
+}
+
 int		main(int ac, char **av)
 {
 	t_data	*data;
@@ -159,10 +178,7 @@ int		main(int ac, char **av)
 		return (EXIT_FAILURE);
 	if (ft_parse(data, av[1]) != 0)
 		return (EXIT_FAILURE);
-	if ((data->mlx_ptr = mlx_init()) == NULL)
-		return (EXIT_FAILURE);
-	if ((data->win_ptr = mlx_new_window(data->mlx_ptr,
-		data->res_x, data->res_y, "marche")) == NULL)
+	if (ft_init_image(data) != 0)
 		return (EXIT_FAILURE);
 	if (ft_view(data) != 0)
 		return (EXIT_FAILURE);
