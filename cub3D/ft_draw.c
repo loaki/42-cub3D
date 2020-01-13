@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 12:58:20 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/13 15:29:33 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/13 20:43:01 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,48 @@ void delay(double mseconds)
     while (goal > clock());
 }
 //----------------------------
-void	ft_draw_col(t_data *data, int x, double size)
+
+int		ft_texture_color(t_data *data, int y, int id)
+{
+	if (id == 0)
+		return (*(int *)(data->tex[id]->addr_ptr + 
+		(int)((int)((y - ((double)data->res_y - data->wall_size) / 2) * (double)data->tex[id]->height / (double)data->wall_size) * (double)data->tex[id]->width +
+		(int)((double)fmod(data->wall_x, 1) * (double)data->tex[id]->width)) * 4));
+	if (id == 1)
+		return (*(int *)(data->tex[id]->addr_ptr + 
+		(int)((int)((y - ((double)data->res_y - data->wall_size) / 2) * (double)data->tex[id]->height / (double)data->wall_size) * (double)data->tex[id]->width +
+		(int)((double)(1 - fmod(data->wall_x, 1)) * (double)data->tex[id]->width)) * 4));
+	if (id == 2)
+		return (*(int *)(data->tex[id]->addr_ptr + 
+		(int)((int)((y - ((double)data->res_y - data->wall_size) / 2) * (double)data->tex[id]->height / (double)data->wall_size) * (double)data->tex[id]->width +
+		(int)((double)(1 - fmod(data->wall_y, 1)) * (double)data->tex[id]->width)) * 4));
+	if (id == 3)
+		return (*(int *)(data->tex[id]->addr_ptr + 
+		(int)((int)((y - ((double)data->res_y - data->wall_size) / 2) * (double)data->tex[id]->height / (double)data->wall_size) * (double)data->tex[id]->width +
+		(int)((double)fmod(data->wall_y, 1) * (double)data->tex[id]->width)) * 4));
+	return (data->color);
+}
+
+void	ft_draw_col(t_data *data, int x, char wall)
 {
 	int y;
+	int id;
 
 	y = 0;
+	if (wall == 'y' && data->vector_y_mod > 0)
+		id = 0;
+	else if (wall == 'y' && data->vector_y_mod < 0)
+		id = 1;
+	else if (wall == 'x' && data->vector_x_mod < 0)
+		id = 2;
+	else if (wall == 'x' && data->vector_x_mod > 0)
+		id = 3;
 	while (y < data->res_y)
 	{
-		if (y >= round(((double)data->res_y / 2 - size / 2)) &&
-			y <= round(((double)data->res_y / 2 + size / 2)))
+		if (y >= ((double)data->res_y / 2 - data->wall_size / 2) &&
+			y <= ((double)data->res_y / 2 + data->wall_size / 2))
 			*(int *)(data->view->addr_ptr + ((y * data->res_x + x) *
-			data->view->bpp / 8)) = data->color;
+			data->view->bpp / 8)) = ft_texture_color(data, y, id); 
 		else
 			*(int *)(data->view->addr_ptr + ((y * data->res_x + x) *
 			data->view->bpp / 8)) = 0;

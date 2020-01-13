@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:26:05 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/13 16:00:17 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/13 20:49:25 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 # define K_PRESS		2
 # define K_RELEASE		3
 # define NB_TEXTURES	4
+# define SPEED			0.1
 
 #endif
 
@@ -75,6 +76,9 @@ typedef struct	s_data
 	double			vector_y;
 	double			vector_x_mod;
 	double			vector_y_mod;
+	double			wall_size;
+	double			wall_x;
+	double			wall_y;
 	int				move_f;
 	int				move_b;
 	int				move_r;
@@ -94,13 +98,14 @@ int				ft_update(t_data *data);
 
 int				ft_init_image(t_data *data);
 
-void			ft_draw_col(t_data *data, int x, double size);
+int				ft_texture_color(t_data *data, int y, int id);
+void			ft_draw_col(t_data *data, int x, char wall);
 int				ft_minimap(t_data *data);
 
-double			ft_size_wall_xp(t_data *data, double x, double y);
-double			ft_size_wall_xn(t_data *data, double x, double y);
-double			ft_size_wall_yp(t_data *data, double x, double y);
-double			ft_size_wall_yn(t_data *data, double x, double y);
+void			ft_size_wall_xp(t_data *data, double x, double y);
+void			ft_size_wall_xn(t_data *data, double x, double y);
+void			ft_size_wall_yp(t_data *data, double x, double y);
+void			ft_size_wall_yn(t_data *data, double x, double y);
 
 int				ft_move_f(t_data *data);
 int				ft_move_b(t_data *data);

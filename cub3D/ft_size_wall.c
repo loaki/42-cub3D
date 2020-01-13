@@ -6,13 +6,13 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 14:06:41 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/13 14:16:11 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/13 18:27:58 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-double	ft_size_wall_xp(t_data *data, double x, double y)
+void	ft_size_wall_xp(t_data *data, double x, double y)
 {
 	double i;
 
@@ -24,16 +24,19 @@ double	ft_size_wall_xp(t_data *data, double x, double y)
 		data->vector_y_mod;
 		if ((int)(y) <= (data->height - 1) && (int)(x) <=
 			(data->width - 1) && (int)(y) >= 0 && (int)(x) >= 0 &&
-			data->map[(int)(y)][(int)(x)] == '1')
-			return ((double)data->res_y / (sqrtf(((double)data->pos_x - x) *
+			data->map[(int)(y)][(int)(x)] == '1' && data->wall_size == 0)
+		{
+			data->wall_x = x;
+			data->wall_y = y;
+			data->wall_size = ((double)data->res_y / (sqrtf(((double)data->pos_x - x) *
 			((double)data->pos_x - x) + ((double)data->pos_y - y) *
 			((double)data->pos_y - y))));
+		}
 		i++;
 	}
-	return (0);
 }
 
-double	ft_size_wall_xn(t_data *data, double x, double y)
+void	ft_size_wall_xn(t_data *data, double x, double y)
 {
 	double i;
 
@@ -45,16 +48,19 @@ double	ft_size_wall_xn(t_data *data, double x, double y)
 		data->vector_y_mod;
 		if ((int)(x) <= data->width && (int)(y) <=
 			(data->height - 1) && (int)(x) >= 1 && (int)(y) >= 0 &&
-			data->map[(int)(y)][(int)(x - 1)] == '1')
-			return ((double)data->res_y / (sqrtf(((double)data->pos_x - x) *
+			data->map[(int)(y)][(int)(x - 1)] == '1' && data->wall_size == 0)
+		{
+			data->wall_x = x;
+			data->wall_y = y;
+			data->wall_size = ((double)data->res_y / (sqrtf(((double)data->pos_x - x) *
 			((double)data->pos_x - x) + ((double)data->pos_y - y) *
 			((double)data->pos_y - y))));
+		}
 		i++;
 	}
-	return (0);
 }
 
-double	ft_size_wall_yp(t_data *data, double x, double y)
+void	ft_size_wall_yp(t_data *data, double x, double y)
 {
 	double i;
 
@@ -67,15 +73,23 @@ double	ft_size_wall_yp(t_data *data, double x, double y)
 		if ((int)(x) <= (data->width - 1) && (int)(y) <=
 			data->height && (int)(x) >= 0 && (int)(y) >= 1 &&
 			data->map[(int)(y - 1)][(int)(x)] == '1')
-			return ((double)data->res_y / (sqrtf(((double)data->pos_x - x) *
-			((double)data->pos_x - x) + ((double)data->pos_y - y) *
-			((double)data->pos_y - y))));
+		{
+			if (((double)data->res_y / (sqrtf(((double)data->pos_x - x) *
+				((double)data->pos_x - x) + ((double)data->pos_y - y) *
+				((double)data->pos_y - y)))) > data->wall_size)
+			{
+				data->wall_x = x;
+				data->wall_y = y;
+				data->wall_size = ((double)data->res_y / (sqrtf(((double)data->pos_x - x) *
+				((double)data->pos_x - x) + ((double)data->pos_y - y) *
+				((double)data->pos_y - y))));
+			}
+		}
 		i++;
 	}
-	return (0);
 }
 
-double	ft_size_wall_yn(t_data *data, double x, double y)
+void	ft_size_wall_yn(t_data *data, double x, double y)
 {
 	double i;
 
@@ -88,10 +102,19 @@ double	ft_size_wall_yn(t_data *data, double x, double y)
 		if ((int)(x) <= (data->width - 1) && (int)(y) <=
 			(data->height - 1) && (int)(x) >= 0 && (int)(y) >= 0 &&
 			data->map[(int)(y)][(int)(x)] == '1')
-			return ((double)data->res_y / (sqrtf(((double)data->pos_x - x) *
+		{
+
+			if (((double)data->res_y / (sqrtf(((double)data->pos_x - x) *
 			((double)data->pos_x - x) + ((double)data->pos_y - y) *
-			((double)data->pos_y - y))));
+			((double)data->pos_y - y)))) > data->wall_size)
+			{
+				data->wall_x = x;
+				data->wall_y = y;
+				data->wall_size = ((double)data->res_y / (sqrtf(((double)data->pos_x - x) *
+				((double)data->pos_x - x) + ((double)data->pos_y - y) *
+				((double)data->pos_y - y))));
+			}
+		}
 		i++;
 	}
-	return (0);
 }

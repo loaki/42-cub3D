@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:03:32 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/13 16:01:08 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/13 20:44:56 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,11 +111,11 @@ int		ft_parse_texture(t_data *data, char *line, int id)
 	size = 0;
 	while (line[i] && line[i] == ' ')
 		i++;
-	while (line[i] && line[i] != ' ')
+	while (line[i + size] && line[i + size] != ' ')
 		size++;
 	if (!(data->t_path[id] = malloc(size + 1)))
 		return (EXIT_FAILURE);
-	data->t_path[size] = 0;
+	data->t_path[id][size] = 0;
 	while (size > 0)
 	{
 		data->t_path[id][size - 1] = line[size - 1 + i];
