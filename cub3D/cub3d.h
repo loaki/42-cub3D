@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:26:05 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/11 17:56:56 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/13 16:00:17 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,16 @@
 # include "mlx.h"
 # include "get_next_line.h"
 
-# define K_ESC		53
-# define K_W		13
-# define K_S		1
-# define K_A		0
-# define K_D		2
-# define K_RIGHT	124
-# define K_LEFT		123
-# define K_PRESS	2
-# define K_RELEASE	3
+# define K_ESC			53
+# define K_W			13
+# define K_S			1
+# define K_A			0
+# define K_D			2
+# define K_RIGHT		124
+# define K_LEFT			123
+# define K_PRESS		2
+# define K_RELEASE		3
+# define NB_TEXTURES	4
 
 #endif
 
@@ -45,6 +46,14 @@ typedef	struct	s_image
 	int				height;
 }				t_image;
 
+typedef struct 		s_list
+{
+	double			x;
+	double			y;
+	double			dist;
+	struct s_list	*next;
+}					t_list;
+
 typedef struct	s_data
 {
 	void			*mlx_ptr;
@@ -54,6 +63,9 @@ typedef struct	s_data
 	int				height;
 	t_image			*view;
 	t_image			*minimap;
+	t_image			*tex[NB_TEXTURES];
+	char			*t_path[NB_TEXTURES];
+	t_list			*sprite;
 	unsigned int	color;
 	int				res_x;
 	int				res_y;
@@ -79,6 +91,7 @@ int				ft_view(t_data *data);
 int				key_press(int key, t_data *data);
 int				key_release(int key, t_data *data);
 int				ft_update(t_data *data);
+
 int				ft_init_image(t_data *data);
 
 void			ft_draw_col(t_data *data, int x, double size);
@@ -99,9 +112,10 @@ void			ft_info(t_data *data);
 
 int				ft_parse_res(t_data *data, char *line);
 void			ft_parse_map(t_data *data, char *line, int i);
+int				ft_parse_texture(t_data *data, char *line, int id);
 int				ft_parse_data(t_data *data, char *line, int *i);
 int				ft_parse(t_data *data, char *map);
 
 /*
-gcc  -framework OpenGL -framework AppKit main.c libmlx.a get_next_line.c get_next_line_utils.c ft_size_wall.c
+gcc  -framework OpenGL -framework AppKit main.c libmlx.a get_next_line.c get_next_line_utils.c ft_size_wall.c ft_init_image.c
 */

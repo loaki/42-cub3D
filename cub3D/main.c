@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:30:20 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/11 19:51:04 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/13 16:00:28 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int		ft_raycast(t_data *data, int i)
 		ft_draw_col(data, i, size_x);
 	else
 		ft_draw_col(data, i, size_y);
-	return (0);
+	return (EXIT_SUCCESS);
 }
 
 int		ft_view(t_data *data)
@@ -65,7 +65,7 @@ int		ft_view(t_data *data)
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
 	data->view->img_ptr, 0, 0);
 	ft_minimap(data);
-	return (0);
+	return (EXIT_SUCCESS);
 }
 
 int		key_press(int key, t_data *data)
@@ -84,7 +84,7 @@ int		key_press(int key, t_data *data)
 		data->rotate_l = 1;
 	if (key == K_ESC)
 		data->esc = 1;
-	return (0);
+	return (EXIT_SUCCESS);
 }
 
 int		key_release(int key, t_data *data)
@@ -101,7 +101,7 @@ int		key_release(int key, t_data *data)
 		data->rotate_r = 0;
 	if (key == K_LEFT)
 		data->rotate_l = 0;
-	return (0);
+	return (EXIT_SUCCESS);
 }
 
 int		ft_update(t_data *data)
@@ -123,49 +123,7 @@ int		ft_update(t_data *data)
 		free(data);
 		exit(0);
 	}
-	return (0);
-}
-
-int		ft_init_image(t_data *data)
-{
-	if ((data->mlx_ptr = mlx_init()) == NULL)
-		return (EXIT_FAILURE);
-	if ((data->win_ptr = mlx_new_window(data->mlx_ptr,
-		data->res_x, data->res_y, "marche")) == NULL)
-		return (EXIT_FAILURE);
-//----------------------view-----------------------	
-	if (!(data->view = malloc(sizeof(t_image))))
-		return (EXIT_FAILURE);
-	if ((data->view->img_ptr = mlx_new_image(data->mlx_ptr, data->res_x,
-		data->res_y)) == NULL)
-		return (EXIT_FAILURE);
-	if ((data->view->addr_ptr = mlx_get_data_addr(data->view->img_ptr, &data->view->bpp,
-		&data->view->size_l, &data->view->endiant)) == NULL)
-		return (EXIT_FAILURE);
-
-//---------------------minimap---------------------
-	if (!(data->minimap = malloc(sizeof(t_image))))
-		return (EXIT_FAILURE);
-	if ((double)data->width / (double)(data->res_x) > (double)(data->height) / (double)(data->res_y))
-	{
-		if ((data->minimap->img_ptr = mlx_new_image(data->mlx_ptr, (int)(data->res_x / 5),
-			(int)((double)data->height / (double)data->width * (double)data->res_x / 5))) == NULL)
-			return (EXIT_FAILURE);
-		data->minimap->width = (int)((double)data->res_x / 5);
-		data->minimap->height = (int)((double)data->height / (double)data->width * (double)data->res_x / 5);
-	}
-	else
-	{
-		if ((data->minimap->img_ptr = mlx_new_image(data->mlx_ptr, (int)((double)data->width / (double)data->height * (double)data->res_y / 5),
-			(int)((double)data->res_y / 5))) == NULL)
-			return (EXIT_FAILURE);
-		data->minimap->width = (int)((double)data->width / (double)data->height * (double)data->res_y / 5);
-		data->minimap->height = (int)((double)data->res_y / 5);
-	}
-	if ((data->minimap->addr_ptr = mlx_get_data_addr(data->minimap->img_ptr, &data->minimap->bpp,
-		&data->minimap->size_l, &data->minimap->endiant)) == NULL)
-		return (EXIT_FAILURE);
-	return (0);
+	return (EXIT_SUCCESS);
 }
 
 int		main(int ac, char **av)
@@ -176,11 +134,11 @@ int		main(int ac, char **av)
 		return (EXIT_FAILURE);
 	if (!(data = malloc(sizeof(t_data))))
 		return (EXIT_FAILURE);
-	if (ft_parse(data, av[1]) != 0)
+	if (ft_parse(data, av[1]) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	if (ft_init_image(data) != 0)
+	if (ft_init_image(data) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	if (ft_view(data) != 0)
+	if (ft_view(data) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	mlx_hook(data->win_ptr, K_PRESS, 0, &key_press, data);
 	mlx_hook(data->win_ptr, K_RELEASE, 0, &key_release, data);

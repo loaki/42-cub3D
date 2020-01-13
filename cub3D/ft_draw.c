@@ -6,12 +6,20 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 12:58:20 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/11 19:55:04 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/13 15:29:33 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+//---------------------------
+#include <time.h>
 
+void delay(double mseconds)
+{
+    clock_t goal = mseconds + clock();
+    while (goal > clock());
+}
+//----------------------------
 void	ft_draw_col(t_data *data, int x, double size)
 {
 	int y;
@@ -49,12 +57,6 @@ int	ft_minimap(t_data *data)
 			else
 				*(int *)(data->minimap->addr_ptr + (((y * data->minimap->width + x)) *
 				data->minimap->bpp / 8)) = 0;
-		//	if (((double)y * (double)data->height / (double)data->minimap->height - 0.5) < data->pos_y &&
-		//		((double)y * (double)data->height / (double)data->minimap->height + 0.5) > data->pos_y &&
-		//		((double)x * (double)data->width / (double)data->minimap->width - 0.5) < data->pos_x &&
-		//		((double)x * (double)data->width / (double)data->minimap->width + 0.5) > data->pos_x)
-		//		*(int *)(data->minimap->addr_ptr + (((y * data->minimap->width + x)) *
-		//		data->minimap->bpp / 8)) = 16711680;
 			x++;
 		}
 		y++;

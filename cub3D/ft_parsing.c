@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:03:32 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/08 17:37:31 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/13 16:01:08 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,28 @@ void	ft_parse_map(t_data *data, char *line, int i)
 	data->map[i] = ft_strdup(line);
 }
 
+int		ft_parse_texture(t_data *data, char *line, int id)
+{
+	int i;
+	int size;
+
+	i = 2;
+	size = 0;
+	while (line[i] && line[i] == ' ')
+		i++;
+	while (line[i] && line[i] != ' ')
+		size++;
+	if (!(data->t_path[id] = malloc(size + 1)))
+		return (EXIT_FAILURE);
+	data->t_path[size] = 0;
+	while (size > 0)
+	{
+		data->t_path[id][size - 1] = line[size - 1 + i];
+		size--;
+	}
+	return (EXIT_SUCCESS);
+}
+
 int		ft_parse_data(t_data *data, char *line, int *i)
 {
 	if (line[0] >= '0' && line[0] <= '9')
@@ -116,7 +138,18 @@ int		ft_parse_data(t_data *data, char *line, int *i)
 	if (line[0] == 'C')
 		if (ft_parse_color(data, line) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
-		
+	if (line[0] == 'N' && line[1] == 'O')
+		if (ft_parse_texture(data, line, 0) == EXIT_FAILURE)
+			return (EXIT_FAILURE);
+	if (line[0] == 'S' && line[1] == 'O')
+		if (ft_parse_texture(data, line, 1) == EXIT_FAILURE)
+			return (EXIT_FAILURE);
+	if (line[0] == 'W' && line[1] == 'E')
+		if (ft_parse_texture(data, line, 2) == EXIT_FAILURE)
+			return (EXIT_FAILURE);
+	if (line[0] == 'E' && line[1] == 'A')
+		if (ft_parse_texture(data, line, 3) == EXIT_FAILURE)
+			return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
@@ -143,5 +176,5 @@ int		ft_parse(t_data *data, char *map)
 	data->map[i] = 0;
 	if (ret == -1)
 		return (EXIT_FAILURE);
-	return (0);
+	return (EXIT_SUCCESS);
 }
