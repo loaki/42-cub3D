@@ -6,13 +6,13 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 14:06:41 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/13 18:27:58 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/14 16:48:21 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	ft_size_wall_xp(t_data *data, double x, double y)
+void	ft_size_wall_xp(t_data *data, double x, double y, int col)
 {
 	double i;
 
@@ -22,6 +22,10 @@ void	ft_size_wall_xp(t_data *data, double x, double y)
 		x = (int)ceil(data->pos_x) + i;
 		y = data->pos_y - fabs(x - (double)data->pos_x) / data->vector_x_mod *
 		data->vector_y_mod;
+		if ((int)(y) <= (data->height - 1) && (int)(x) <= (data->width - 1) &&
+			(int)(y) >= 0 && (int)(x) >= 0 && data->map[(int)(y)][(int)(x)] <=
+			'9' && data->map[(int)(y)][(int)(x)] >= '2')
+				ft_save_sprite(data, x, y, col);
 		if ((int)(y) <= (data->height - 1) && (int)(x) <=
 			(data->width - 1) && (int)(y) >= 0 && (int)(x) >= 0 &&
 			data->map[(int)(y)][(int)(x)] == '1' && data->wall_size == 0)
@@ -36,7 +40,7 @@ void	ft_size_wall_xp(t_data *data, double x, double y)
 	}
 }
 
-void	ft_size_wall_xn(t_data *data, double x, double y)
+void	ft_size_wall_xn(t_data *data, double x, double y, int col)
 {
 	double i;
 
@@ -46,6 +50,10 @@ void	ft_size_wall_xn(t_data *data, double x, double y)
 		x = (int)(data->pos_x) - i;
 		y = data->pos_y + fabs(x - (double)data->pos_x) / data->vector_x_mod *
 		data->vector_y_mod;
+		if ((int)(y) <= (data->height - 1) && (int)(x) <= (data->width - 1) &&
+			(int)(y) >= 0 && (int)(x) >= 0 && data->map[(int)(y)][(int)(x)] <=
+			'9' && data->map[(int)(y)][(int)(x)] >= '2')
+				ft_save_sprite(data, x, y, col);
 		if ((int)(x) <= data->width && (int)(y) <=
 			(data->height - 1) && (int)(x) >= 1 && (int)(y) >= 0 &&
 			data->map[(int)(y)][(int)(x - 1)] == '1' && data->wall_size == 0)

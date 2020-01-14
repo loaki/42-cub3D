@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:26:05 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/13 20:49:25 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/14 16:49:24 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # define K_LEFT			123
 # define K_PRESS		2
 # define K_RELEASE		3
-# define NB_TEXTURES	4
+# define NB_TEXTURES	5
 # define SPEED			0.1
 
 #endif
@@ -52,6 +52,7 @@ typedef struct 		s_list
 	double			x;
 	double			y;
 	double			dist;
+	int				col;
 	struct s_list	*next;
 }					t_list;
 
@@ -67,7 +68,8 @@ typedef struct	s_data
 	t_image			*tex[NB_TEXTURES];
 	char			*t_path[NB_TEXTURES];
 	t_list			*sprite;
-	unsigned int	color;
+	unsigned int	ceil;
+	unsigned int	floor;
 	int				res_x;
 	int				res_y;
 	double			pos_x;
@@ -102,8 +104,8 @@ int				ft_texture_color(t_data *data, int y, int id);
 void			ft_draw_col(t_data *data, int x, char wall);
 int				ft_minimap(t_data *data);
 
-void			ft_size_wall_xp(t_data *data, double x, double y);
-void			ft_size_wall_xn(t_data *data, double x, double y);
+void			ft_size_wall_xp(t_data *data, double x, double y, int col);
+void			ft_size_wall_xn(t_data *data, double x, double y, int col);
 void			ft_size_wall_yp(t_data *data, double x, double y);
 void			ft_size_wall_yn(t_data *data, double x, double y);
 
@@ -116,11 +118,17 @@ int				ft_rotate_r(t_data *data);
 void			ft_info(t_data *data);
 
 int				ft_parse_res(t_data *data, char *line);
+int				ft_parse_ceil(t_data *data, char *line);
+int				ft_parse_floor(t_data *data, char *line);
 void			ft_parse_map(t_data *data, char *line, int i);
 int				ft_parse_texture(t_data *data, char *line, int id);
 int				ft_parse_data(t_data *data, char *line, int *i);
 int				ft_parse(t_data *data, char *map);
 
+int				ft_save_sprite(t_data *data, double x, double y, int i);
+void			ft_clear_lst(t_data *data);
+int				ft_sprite_color(t_data *data, int x, int y, int id, double size);
+void			ft_display_sprite(t_data *data, t_list *lst);
 /*
 gcc  -framework OpenGL -framework AppKit main.c libmlx.a get_next_line.c get_next_line_utils.c ft_size_wall.c ft_init_image.c
 */

@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:03:32 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/13 20:44:56 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/14 16:16:10 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int		ft_parse_res(t_data *data, char *line)
 	return (EXIT_SUCCESS);
 }
 
-int		ft_parse_color(t_data *data, char *line)
+int		ft_parse_ceil(t_data *data, char *line)
 {
 	int i;
 	int c;
@@ -50,7 +50,7 @@ int		ft_parse_color(t_data *data, char *line)
 		c = c * 10 + line[i] - '0';
 		i++;
 	}
-	data->color = c * 256 * 256;
+	data->ceil = c * 256 * 256;
 	c = 0;
 	i++;
 	while (line[i] >= '0' && line[i] <= '9')
@@ -58,7 +58,7 @@ int		ft_parse_color(t_data *data, char *line)
 		c = c * 10 + line[i] - '0';
 		i++;
 	}
-	data->color += c * 256;
+	data->ceil += c * 256;
 	c = 0;
 	i++;
 	while (line[i] >= '0' && line[i] <= '9')
@@ -66,11 +66,45 @@ int		ft_parse_color(t_data *data, char *line)
 		c = c * 10 + line[i] - '0';
 		i++;
 	}
-	data->color += c;
+	data->ceil += c;
 	i++;
 	return (EXIT_SUCCESS);
 }
 
+int		ft_parse_floor(t_data *data, char *line)
+{
+	int i;
+	int c;
+
+	i = 0;
+	c = 0;
+	while ((line[i] < '0' || line[i] > '9') && line[i])
+		i++;
+	while (line[i] >= '0' && line[i] <= '9')
+	{
+		c = c * 10 + line[i] - '0';
+		i++;
+	}
+	data->floor = c * 256 * 256;
+	c = 0;
+	i++;
+	while (line[i] >= '0' && line[i] <= '9')
+	{
+		c = c * 10 + line[i] - '0';
+		i++;
+	}
+	data->floor += c * 256;
+	c = 0;
+	i++;
+	while (line[i] >= '0' && line[i] <= '9')
+	{
+		c = c * 10 + line[i] - '0';
+		i++;
+	}
+	data->floor += c;
+	i++;
+	return (EXIT_SUCCESS);
+}
 
 
 
@@ -136,7 +170,10 @@ int		ft_parse_data(t_data *data, char *line, int *i)
 		if (ft_parse_res(data, line) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
 	if (line[0] == 'C')
-		if (ft_parse_color(data, line) == EXIT_FAILURE)
+		if (ft_parse_ceil(data, line) == EXIT_FAILURE)
+			return (EXIT_FAILURE);
+	if (line[0] == 'F')
+		if (ft_parse_floor(data, line) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
 	if (line[0] == 'N' && line[1] == 'O')
 		if (ft_parse_texture(data, line, 0) == EXIT_FAILURE)
@@ -149,6 +186,9 @@ int		ft_parse_data(t_data *data, char *line, int *i)
 			return (EXIT_FAILURE);
 	if (line[0] == 'E' && line[1] == 'A')
 		if (ft_parse_texture(data, line, 3) == EXIT_FAILURE)
+			return (EXIT_FAILURE);
+	if (line[0] == 'S' && line[1] == ' ')
+		if (ft_parse_texture(data, line, 4) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }

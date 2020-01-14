@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 15:28:02 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/13 17:42:10 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/14 15:41:18 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ int		ft_init_image(t_data *data)
 		i++;
 	}
 
+//---------------------sprites---------------------
+	data->sprite = NULL;
 //---------------------minimap---------------------
 	if (!(data->minimap = malloc(sizeof(t_image))))
 		return (EXIT_FAILURE);

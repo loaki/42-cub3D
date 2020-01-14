@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:30:20 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/13 21:00:09 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/14 16:47:17 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ int		ft_raycast(t_data *data, int i)
 {
 	data->wall_size = 0;
 	if (data->vector_x_mod > 0.0000001)
-		ft_size_wall_xp(data, data->vector_x_mod, data->vector_y_mod);
+		ft_size_wall_xp(data, data->vector_x_mod, data->vector_y_mod, i);
 	else if (data->vector_x_mod < -0.0000001)
-		ft_size_wall_xn(data, data->vector_x_mod, data->vector_y_mod);
+		ft_size_wall_xn(data, data->vector_x_mod, data->vector_y_mod, i);
 	if (data->vector_y_mod > 0.0000001)
 		ft_size_wall_yp(data, data->vector_x_mod, data->vector_y_mod);
 	else if (data->vector_y_mod < -0.0000001)
@@ -50,6 +50,7 @@ int		ft_view(t_data *data)
 
 	i = 0;
 	angle = -30;
+	ft_clear_lst(data);
 	while (angle < 30)
 	{
 		ft_rotate(data, angle);
@@ -58,7 +59,8 @@ int		ft_view(t_data *data)
 		i++;
 		angle += 60 / (double)data->res_x;
 	}
-//	ft_info(data);
+	ft_info(data);
+	ft_display_sprite(data, data->sprite);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
 	data->view->img_ptr, 0, 0);
 	ft_minimap(data);

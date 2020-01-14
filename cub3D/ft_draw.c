@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 12:58:20 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/13 20:43:01 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/14 16:58:31 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int		ft_texture_color(t_data *data, int y, int id)
 		return (*(int *)(data->tex[id]->addr_ptr + 
 		(int)((int)((y - ((double)data->res_y - data->wall_size) / 2) * (double)data->tex[id]->height / (double)data->wall_size) * (double)data->tex[id]->width +
 		(int)((double)fmod(data->wall_y, 1) * (double)data->tex[id]->width)) * 4));
-	return (data->color);
+	return (0);
 }
 
 void	ft_draw_col(t_data *data, int x, char wall)
@@ -58,7 +58,13 @@ void	ft_draw_col(t_data *data, int x, char wall)
 		id = 3;
 	while (y < data->res_y)
 	{
-		if (y >= ((double)data->res_y / 2 - data->wall_size / 2) &&
+		if (y < ((double)data->res_y / 2 - data->wall_size / 2))
+			*(int *)(data->view->addr_ptr + ((y * data->res_x + x) *
+			data->view->bpp / 8)) = data->ceil; 
+		else if (y > ((double)data->res_y / 2 + data->wall_size / 2))
+			*(int *)(data->view->addr_ptr + ((y * data->res_x + x) *
+			data->view->bpp / 8)) = data->floor; 
+		else if (y >= ((double)data->res_y / 2 - data->wall_size / 2) &&
 			y <= ((double)data->res_y / 2 + data->wall_size / 2))
 			*(int *)(data->view->addr_ptr + ((y * data->res_x + x) *
 			data->view->bpp / 8)) = ft_texture_color(data, y, id); 
