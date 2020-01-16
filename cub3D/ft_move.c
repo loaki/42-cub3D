@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 12:20:47 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/14 15:40:44 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/16 15:47:58 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,11 +101,11 @@ void	ft_info(t_data *data)
 		lst = data->sprite;
 		if (lst)
 		{
-			printf("s = %12f%12f\n", lst->x, lst->y);
+			printf("s = %12f%12f%d\n", lst->x, lst->y, lst->col);
 			while (lst->next)
 			{
 				lst = lst->next;
-				printf("s = %12f%12f\n", lst->x, lst->y);
+				printf("s = %12f%12f%d\n", lst->x, lst->y, lst->col);
 			}
 		}
 	}
