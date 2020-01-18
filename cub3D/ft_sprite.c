@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 13:07:01 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/16 17:08:38 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/18 20:16:22 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,25 @@ void	ft_clear_lst(t_data *data)
 	data->sprite = NULL;	
 }
 
+double	ft_dist_sprite(t_data *data, double x, double y)
+{
+	double a;
+	double b;
+	double c;
+
+	y *= -1;
+	a = (((-data->pos_y) + data->vector_y_mod) - (-data->pos_y))
+			/ ((data->pos_x + data->vector_x_mod) - data->pos_x);
+	b = -1;
+	c = (-data->pos_y) - a * data->pos_x;
+	printf("\n------------\n");
+	printf("%fx + %fy + %f\n", a, b, c);
+	printf("vx : %f vy : %f\n", data->vector_x_mod, data->vector_y_mod);
+	printf("d : %f\n", fabs(a * x + b * y + c) / sqrt(a * a + b * b));
+	printf("sx : %f sy %f\n", x, y);
+	return (fabs(a * x + b * y + c) / sqrt(a * a + b * b));
+}
+
 int		ft_save_sprite(t_data *data, double x, double y, int col)
 {
 	t_list	*lst;
@@ -43,6 +62,7 @@ int		ft_save_sprite(t_data *data, double x, double y, int col)
 	new->dist = sqrtf((new->x - data->pos_x) * (new->x - data->pos_x)
 	+ (new->y - data->pos_y) * (new->y - data->pos_y));
 	new->col = col;
+	new->dist_vector = ft_dist_sprite(data, new->x, new->y);
 	new->next = NULL;
 	if (data->sprite == NULL)
 		data->sprite = new;
@@ -59,7 +79,10 @@ int		ft_save_sprite(t_data *data, double x, double y, int col)
 			while (lst->next && lst->next->dist >= new->dist)
 				lst = lst->next;
 			if (lst->x == new->x && lst->y == new->y)
+			{
 				lst->col = new->col;
+				lst->dist_vector = new->dist_vector;
+			}
 			if (lst->x != new->x && lst->y != new->y)
 			{
 				if (lst->next)
@@ -89,7 +112,8 @@ void	ft_display_sprite(t_data *data, t_list *lst, int col)
 			{
 				if (y >= (double)data->res_y / 2 - (double)data->res_y / lst->dist / 2 && 
 					y <= (double)data->res_y / 2 + (double)data->res_y / lst->dist / 2 &&
-					lst->col == col && ((double)data->res_y / lst->dist > data->wall_size))
+					lst->col == col && ((double)data->res_y / lst->dist > data->wall_size) &&
+					lst->dist_vector > -0.5 && lst->dist_vector < 0.5)
 				{
 			//		if (ft_sprite_color(data, col, y, 4, (double)data->res_y / lst->dist) != 0)
 						*(int *)(data->view->addr_ptr + ((y * data->res_x + col) *

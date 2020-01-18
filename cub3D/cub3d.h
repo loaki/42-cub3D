@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:26:05 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/16 15:47:16 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/18 16:35:50 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct 		s_list
 	double			x;
 	double			y;
 	double			dist;
+	double			dist_vector;
 	int				col;
 	struct s_list	*next;
 }					t_list;
@@ -129,6 +130,7 @@ int				ft_save_sprite(t_data *data, double x, double y, int i);
 void			ft_clear_lst(t_data *data);
 int				ft_sprite_color(t_data *data, int x, int y, int id, double size);
 void			ft_display_sprite(t_data *data, t_list *lst, int col);
+double			ft_dist_sprite(t_data *data, double x, double y);
 /*
 gcc  -framework OpenGL -framework AppKit main.c libmlx.a get_next_line.c get_next_line_utils.c ft_size_wall.c ft_init_image.c
 */
