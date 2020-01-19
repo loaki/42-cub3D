@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 13:07:01 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/18 20:16:22 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/19 19:24:24 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@ double	ft_dist_sprite(t_data *data, double x, double y)
 			/ ((data->pos_x + data->vector_x_mod) - data->pos_x);
 	b = -1;
 	c = (-data->pos_y) - a * data->pos_x;
-	printf("\n------------\n");
-	printf("%fx + %fy + %f\n", a, b, c);
-	printf("vx : %f vy : %f\n", data->vector_x_mod, data->vector_y_mod);
-	printf("d : %f\n", fabs(a * x + b * y + c) / sqrt(a * a + b * b));
-	printf("sx : %f sy %f\n", x, y);
+	double r = data->vector_x_mod * data->vector_y_mod;
+	double r1 = data->vector_x_mod * (y + data->pos_y);
+	double r2 = (data->pos_x + data->vector_x_mod - x) * data->vector_y_mod;
+	if (r - r1 - r2 > 0)
+		return (-1 * (fabs(a * x + b * y + c) / sqrt(a * a + b * b)));
 	return (fabs(a * x + b * y + c) / sqrt(a * a + b * b));
 }
 
@@ -83,7 +83,7 @@ int		ft_save_sprite(t_data *data, double x, double y, int col)
 				lst->col = new->col;
 				lst->dist_vector = new->dist_vector;
 			}
-			if (lst->x != new->x && lst->y != new->y)
+			else
 			{
 				if (lst->next)
 					new->next = lst->next;
@@ -94,11 +94,17 @@ int		ft_save_sprite(t_data *data, double x, double y, int col)
 	return (EXIT_SUCCESS);
 }
 
-int		ft_sprite_color(t_data *data, int x, int y, int id, double size)
+int		ft_sprite_color(t_data *data, t_list *lst, int y)
 {
-	return (*(int *)(data->tex[id]->addr_ptr +
-	(int)(((double)y - (double)data->res_y / 2 - (double)size) * (double)data->tex[id]->height / (double)size) * data->tex[id]->width
-	+ (int)(((double)x - (double)data->res_x / 2 - (double)size) * (double)data->tex[id]->width / (double)size)) * data->tex[id]->bpp / 8);
+	int		x;
+	double 	size;
+
+	x = (int)((lst->dist_vector + 0.5) * (double)data->tex[4]->width);
+	size = (double)data->res_y / lst->dist;
+//	printf("%f\n", lst->dist_vector);
+	return (*(int *)(data->tex[4]->addr_ptr +
+	(int)((int)((y - ((double)data->res_y - size) / 2) * (double)data->tex[4]->height / size) * (double)data->tex[4]->width
+	+ (int)((double)x)) * data->tex[4]->bpp / 8));
 }
 
 void	ft_display_sprite(t_data *data, t_list *lst, int col)
@@ -115,9 +121,9 @@ void	ft_display_sprite(t_data *data, t_list *lst, int col)
 					lst->col == col && ((double)data->res_y / lst->dist > data->wall_size) &&
 					lst->dist_vector > -0.5 && lst->dist_vector < 0.5)
 				{
-			//		if (ft_sprite_color(data, col, y, 4, (double)data->res_y / lst->dist) != 0)
+					if (ft_sprite_color(data, lst, y) != 0)
 						*(int *)(data->view->addr_ptr + ((y * data->res_x + col) *
-						data->tex[4]->bpp / 8)) = 16711680;//ft_sprite_color(data, col, y, 4, (double)data->res_y / lst->dist);
+						data->tex[4]->bpp / 8)) = ft_sprite_color(data, lst, y);
 				}
 				y++;
 			}

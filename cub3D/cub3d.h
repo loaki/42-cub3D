@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:26:05 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/18 16:35:50 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/19 15:55:47 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # define K_PRESS		2
 # define K_RELEASE		3
 # define NB_TEXTURES	5
-# define SPEED			0.1
+# define SPEED			0.05
 
 #endif
 
@@ -128,7 +128,7 @@ int				ft_parse(t_data *data, char *map);
 
 int				ft_save_sprite(t_data *data, double x, double y, int i);
 void			ft_clear_lst(t_data *data);
-int				ft_sprite_color(t_data *data, int x, int y, int id, double size);
+int				ft_sprite_color(t_data *data, t_list *lst, int y);
 void			ft_display_sprite(t_data *data, t_list *lst, int col);
 double			ft_dist_sprite(t_data *data, double x, double y);
 /*
