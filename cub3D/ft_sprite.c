@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 13:07:01 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/19 19:24:24 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/19 20:38:14 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,6 @@ int		ft_sprite_color(t_data *data, t_list *lst, int y)
 
 	x = (int)((lst->dist_vector + 0.5) * (double)data->tex[4]->width);
 	size = (double)data->res_y / lst->dist;
-//	printf("%f\n", lst->dist_vector);
 	return (*(int *)(data->tex[4]->addr_ptr +
 	(int)((int)((y - ((double)data->res_y - size) / 2) * (double)data->tex[4]->height / size) * (double)data->tex[4]->width
 	+ (int)((double)x)) * data->tex[4]->bpp / 8));
