@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 15:28:02 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/21 15:14:29 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/21 18:38:24 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,27 @@ int		ft_init_image(t_data *data)
 	if ((data->view->addr_ptr = mlx_get_data_addr(data->view->img_ptr, &data->view->bpp,
 		&data->view->size_l, &data->view->endiant)) == NULL)
 		return (EXIT_FAILURE);
+//-----------------------gun-----------------------
+	int j;
+	char *path[4];
+
+	j = 0;
+	path[0] = "./textures/gun/gun.xpm";
+	path[1] = "./textures/gun/shot1.xpm";
+	path[2] = "./textures/gun/shot2.xpm";
+	path[3] = "./textures/gun/shot3.xpm";
+	while (j < 4)
+	{
+		if (!(data->gun[j] = malloc(sizeof(t_image))))
+			return (EXIT_FAILURE);
+			if ((data->gun[j]->img_ptr = mlx_xpm_file_to_image(data->mlx_ptr, path[j], &data->gun[j]->width,
+				&data->gun[j]->height)) == NULL)
+			return (EXIT_FAILURE);
+		if ((data->gun[j]->addr_ptr = mlx_get_data_addr(data->gun[j]->img_ptr, &data->gun[j]->bpp,
+			&data->gun[j]->size_l, &data->gun[j]->endiant)) == NULL)
+			return (EXIT_FAILURE);
+		j++;
+	}
 //--------------------textures---------------------
 	int i;
 

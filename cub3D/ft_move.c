@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 12:20:47 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/18 16:36:08 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/21 18:42:46 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int		ft_move_l(t_data *data)
 
 int		ft_rotate_l(t_data *data)
 {
-	ft_rotate(data, -2);
+	ft_rotate(data, -5);
 	data->vector_x = data->vector_x_mod;
 	data->vector_y = data->vector_y_mod;
 	return (ft_view(data));
@@ -82,7 +82,7 @@ int		ft_rotate_l(t_data *data)
 
 int		ft_rotate_r(t_data *data)
 {
-	ft_rotate(data, 2);
+	ft_rotate(data, 5);
 	data->vector_x = data->vector_x_mod;
 	data->vector_y = data->vector_y_mod;
 	return (ft_view(data));
