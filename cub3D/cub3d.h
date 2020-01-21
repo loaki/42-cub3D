@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:26:05 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/19 15:55:47 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/21 15:19:39 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # define K_LEFT			123
 # define K_PRESS		2
 # define K_RELEASE		3
-# define NB_TEXTURES	5
+# define NB_TEXTURES	12
 # define SPEED			0.05
 
 #endif
@@ -54,6 +54,7 @@ typedef struct 		s_list
 	double			dist;
 	double			dist_vector;
 	int				col;
+	int				id;
 	struct s_list	*next;
 }					t_list;
 
@@ -124,6 +125,7 @@ int				ft_parse_floor(t_data *data, char *line);
 void			ft_parse_map(t_data *data, char *line, int i);
 int				ft_parse_texture(t_data *data, char *line, int id);
 int				ft_parse_data(t_data *data, char *line, int *i);
+void			ft_init_path(t_data *data);
 int				ft_parse(t_data *data, char *map);
 
 int				ft_save_sprite(t_data *data, double x, double y, int i);

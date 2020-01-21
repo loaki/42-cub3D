@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:03:32 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/19 15:39:54 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/21 15:42:05 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,8 @@ int		ft_parse_texture(t_data *data, char *line, int id)
 
 	i = 2;
 	size = 0;
+	if (line[1] >= '0' && line[1] <= '9')
+		id = line[1] - '0' + 2;
 	while (line[i] && line[i] == ' ')
 		i++;
 	while (line[i + size] && line[i + size] != ' ')
@@ -187,10 +189,22 @@ int		ft_parse_data(t_data *data, char *line, int *i)
 	if (line[0] == 'E' && line[1] == 'A')
 		if (ft_parse_texture(data, line, 3) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
-	if (line[0] == 'S' && line[1] == ' ')
+	if (line[0] == 'S' && ((line[1] >= '0' && line[1] <= '9') || line[1] == ' '))
 		if (ft_parse_texture(data, line, 4) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
+}
+
+void	ft_init_path(t_data *data)
+{
+	int i;
+
+	i = 0;
+	while (i < NB_TEXTURES)
+	{
+		data->t_path[i] = 0;
+		i++;
+	}
 }
 
 int		ft_parse(t_data *data, char *map)
@@ -202,6 +216,7 @@ int		ft_parse(t_data *data, char *map)
 
 	i = 0;
 	fd = open(map, O_RDONLY);
+	ft_init_path(data);
 	if (!(data->map = malloc(2048)))
 		return (EXIT_FAILURE);
 	while ((ret = get_next_line(fd, &line)) > 0)

@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 13:07:01 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/19 20:38:14 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/21 15:19:59 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int		ft_save_sprite(t_data *data, double x, double y, int col)
 	+ (new->y - data->pos_y) * (new->y - data->pos_y));
 	new->col = col;
 	new->dist_vector = ft_dist_sprite(data, new->x, new->y);
+	new->id = data->map[(int)y][(int)x] - '0' + 2;
 	new->next = NULL;
 	if (data->sprite == NULL)
 		data->sprite = new;
@@ -99,11 +100,11 @@ int		ft_sprite_color(t_data *data, t_list *lst, int y)
 	int		x;
 	double 	size;
 
-	x = (int)((lst->dist_vector + 0.5) * (double)data->tex[4]->width);
+	x = (int)((lst->dist_vector + 0.5) * (double)data->tex[lst->id]->width);
 	size = (double)data->res_y / lst->dist;
-	return (*(int *)(data->tex[4]->addr_ptr +
-	(int)((int)((y - ((double)data->res_y - size) / 2) * (double)data->tex[4]->height / size) * (double)data->tex[4]->width
-	+ (int)((double)x)) * data->tex[4]->bpp / 8));
+	return (*(int *)(data->tex[lst->id]->addr_ptr +
+	(int)((int)((y - ((double)data->res_y - size) / 2) * (double)data->tex[lst->id]->height / size) * (double)data->tex[lst->id]->width
+	+ (int)((double)x)) * data->tex[lst->id]->bpp / 8));
 }
 
 void	ft_display_sprite(t_data *data, t_list *lst, int col)
@@ -122,7 +123,7 @@ void	ft_display_sprite(t_data *data, t_list *lst, int col)
 				{
 					if (ft_sprite_color(data, lst, y) != 0)
 						*(int *)(data->view->addr_ptr + ((y * data->res_x + col) *
-						data->tex[4]->bpp / 8)) = ft_sprite_color(data, lst, y);
+						data->tex[lst->id]->bpp / 8)) = ft_sprite_color(data, lst, y);
 				}
 				y++;
 			}
