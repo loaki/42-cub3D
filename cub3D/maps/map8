@@ -1,11 +1,13 @@
 R 980 760
-NO ./textures/wall_1.xpm
-SO ./textures/wall_2.xpm
-WE ./textures/wall_3.xpm
-EA ./textures/wall_4.xpm
-S ./textures/sprite_1.xpm
-S3 ./textures/sprite_2.xpm
-S4 ./textures/sprite_macron.xpm
+
+NO ./textures/test/bedrock.xpm
+SO ./textures/test/bookshelf.xpm
+WE ./textures/test/mossy_stone_brick_wall.xpm
+EA ./textures/test/sand_stone_slab.xpm
+S ./textures/sprites/sprite_oss117.xpm
+S3 ./textures/sprites/sprite_1.xpm
+S4 ./textures/sprites/sprite_2.xpm
+
 C 60,60,60
 F 170,120,160
 11111111111111111111111111

@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:26:05 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/22 13:58:13 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/22 14:09:50 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 # define K_PRESS		2
 # define K_RELEASE		3
 # define NB_TEXTURES	12
-# define SPEED			0.2
+# define SPEED			0.1
 
 #endif
 
