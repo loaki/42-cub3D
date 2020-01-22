@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 15:28:02 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/21 18:38:24 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/22 18:01:19 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,35 @@ int		ft_init_image(t_data *data)
 	{
 		if (!(data->gun[j] = malloc(sizeof(t_image))))
 			return (EXIT_FAILURE);
-			if ((data->gun[j]->img_ptr = mlx_xpm_file_to_image(data->mlx_ptr, path[j], &data->gun[j]->width,
-				&data->gun[j]->height)) == NULL)
+		if ((data->gun[j]->img_ptr = mlx_xpm_file_to_image(data->mlx_ptr, path[j], &data->gun[j]->width,
+			&data->gun[j]->height)) == NULL)
 			return (EXIT_FAILURE);
 		if ((data->gun[j]->addr_ptr = mlx_get_data_addr(data->gun[j]->img_ptr, &data->gun[j]->bpp,
 			&data->gun[j]->size_l, &data->gun[j]->endiant)) == NULL)
 			return (EXIT_FAILURE);
 		j++;
 	}
+//---------------------health----------------------
+	int k;
+	char *paths[2];
+
+	k = 0;
+	paths[0] = "./textures/health/empty.xpm";
+	paths[1] = "./textures/health/full.xpm";
+	data->life = 100;
+	while (k < 2)
+	{
+		if (!(data->health[k] = malloc(sizeof(t_image))))
+			return (EXIT_FAILURE);
+		if ((data->health[k]->img_ptr = mlx_xpm_file_to_image(data->mlx_ptr, paths[k], &data->health[k]->width,
+			&data->health[k]->height)) == NULL)
+			return (EXIT_FAILURE);
+		if ((data->health[k]->addr_ptr = mlx_get_data_addr(data->health[k]->img_ptr, &data->health[k]->bpp,
+			&data->health[k]->size_l, &data->health[k]->endiant)) == NULL)
+			return (EXIT_FAILURE);
+		k++;
+	}
+
 //--------------------textures---------------------
 	int i;
 

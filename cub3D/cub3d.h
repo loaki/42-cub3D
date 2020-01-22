@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:26:05 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/22 14:09:50 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/22 16:12:56 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ typedef struct	s_data
 	t_image			*view;
 	t_image			*minimap;
 	t_image			*gun[4];
+	t_image			*health[2];
 	t_image			*tex[NB_TEXTURES];
 	char			*t_path[NB_TEXTURES];
 	t_list			*sprite;
@@ -93,6 +94,7 @@ typedef struct	s_data
 	int				rotate_l;
 	int				esc;
 	int				fire;
+	int				life;
 }				t_data;
 
 
@@ -138,8 +140,11 @@ void			ft_display_sprite(t_data *data, t_list *lst, int col);
 double			ft_dist_sprite(t_data *data, double x, double y);
 
 int				ft_gun_color(t_data *data, int x, int y, int id);
+void			ft_shot(t_data *data);
 void			ft_display_gun(t_data *data);
 
+int				ft_health_color(t_data *data, int x, int y, int id);
+void			ft_display_health(t_data *data);
 /*
 gcc  -framework OpenGL -framework AppKit main.c libmlx.a get_next_line.c get_next_line_utils.c ft_size_wall.c ft_init_image.c
 */

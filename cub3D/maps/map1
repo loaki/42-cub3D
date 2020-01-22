@@ -1,10 +1,10 @@
 R 660 480
 C 100,100,0
 
-NO ./textures/test/bedrock.xpm
+NO ./textures/test/stone_brick_wall.xpm
 SO ./textures/test/bookshelf.xpm
 WE ./textures/test/mossy_stone_brick_wall.xpm
-EA ./textures/test/sand_stone_slab.xpm
+EA ./textures/test/sand_stone.xpm
 S ./textures/sprites/sprite_oss117.xpm
 S3 ./textures/sprites/sprite_1.xpm
 S4 ./textures/sprites/sprite_2.xpm
@@ -12,12 +12,12 @@ S4 ./textures/sprites/sprite_2.xpm
 C 50,50,50
 F 117,61,0
 1111111111
-1010100041
-1403121001
-1010411101
-1011043101
-1211010001
-1111001041
-1030041101
-12110N1121
+1313100021
+1040131001
+1010111101
+1014043101
+1213010001
+1111011141
+1000041101
+12110N1321
 1111111111

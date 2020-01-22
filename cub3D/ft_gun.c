@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 17:32:52 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/22 13:50:40 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/22 17:50:31 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,14 @@ void	ft_display_gun(t_data *data)
 		{
 			if (ft_gun_color(data, x, y, id) != 0)
 				*(int *)(data->view->addr_ptr + ((y * data->res_x + x) *
-				data->gun[id]->bpp / 8)) = ft_gun_color(data, x, y, id);
+				data->view->bpp / 8)) = ft_gun_color(data, x, y, id);
 			x++;
 		}
 		y++;
 	}
 	if (id > 0)
+	{
+		data->life -= 1;
 		ft_shot(data);
+	}
 }
