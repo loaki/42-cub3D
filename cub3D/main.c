@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:30:20 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/21 18:59:51 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/22 14:04:32 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int		ft_view(t_data *data)
 		i++;
 		angle += 60 / (double)data->res_x;
 	}
-	ft_info(data);
+//	ft_info(data);
 	ft_display_gun(data);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
 	data->view->img_ptr, 0, 0);
@@ -122,13 +122,12 @@ int		ft_update(t_data *data)
 		ft_rotate_r(data);
 	if (data->rotate_l == 1)
 		ft_rotate_l(data);
-	if (data->fire == 1)
-		ft_view(data);
 	if (data->esc == 1)
 	{
 		free(data);
 		exit(0);
 	}
+	ft_view(data);
 	return (EXIT_SUCCESS);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:26:05 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/21 18:35:44 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/22 13:58:13 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <math.h>
-#include <time.h>
 # include "mlx.h"
 # include "get_next_line.h"
 
@@ -34,7 +33,7 @@
 # define K_PRESS		2
 # define K_RELEASE		3
 # define NB_TEXTURES	12
-# define SPEED			0.1
+# define SPEED			0.2
 
 #endif
 
@@ -115,12 +114,12 @@ void			ft_size_wall_xn(t_data *data, double x, double y, int col);
 void			ft_size_wall_yp(t_data *data, double x, double y, int col);
 void			ft_size_wall_yn(t_data *data, double x, double y, int col);
 
-int				ft_move_f(t_data *data);
-int				ft_move_b(t_data *data);
-int				ft_move_l(t_data *data);
-int				ft_move_r(t_data *data);
-int				ft_rotate_l(t_data *data);
-int				ft_rotate_r(t_data *data);
+void			ft_move_f(t_data *data);
+void			ft_move_b(t_data *data);
+void			ft_move_l(t_data *data);
+void			ft_move_r(t_data *data);
+void			ft_rotate_l(t_data *data);
+void			ft_rotate_r(t_data *data);
 void			ft_info(t_data *data);
 
 int				ft_parse_res(t_data *data, char *line);
