@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:26:05 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/23 16:21:18 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/23 17:15:12 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ typedef	struct	s_image
 	int				height;
 }				t_image;
 
-typedef struct 		s_list
+typedef struct	s_list
 {
 	double			x;
 	double			y;
@@ -57,7 +57,7 @@ typedef struct 		s_list
 	int				col;
 	int				id;
 	struct s_list	*next;
-}					t_list;
+}				t_list;
 
 typedef struct	s_data
 {
@@ -99,7 +99,6 @@ typedef struct	s_data
 	double			enemy;
 }				t_data;
 
-
 void			ft_rotate(t_data *data, double angle);
 int				ft_raycast(t_data *data, int i);
 int				ft_view(t_data *data);
@@ -111,7 +110,7 @@ int				ft_init_image(t_data *data);
 
 int				ft_texture_color(t_data *data, int y, int id);
 void			ft_draw_col(t_data *data, int x, char wall);
-int				ft_minimap(t_data *data);
+void			ft_minimap(t_data *data);
 int				ft_gameover_color(t_data *data, int x, int y);
 int				ft_gameover(t_data *data);
 
@@ -149,6 +148,3 @@ void			ft_display_gun(t_data *data);
 
 int				ft_health_color(t_data *data, int x, int y, int id);
 void			ft_display_health(t_data *data);
-/*
-gcc  -framework OpenGL -framework AppKit main.c libmlx.a get_next_line.c get_next_line_utils.c ft_size_wall.c ft_init_image.c
-*/

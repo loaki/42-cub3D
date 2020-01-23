@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:30:20 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/23 16:24:59 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/23 16:39:42 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,9 @@ int		ft_view(t_data *data)
 		i++;
 		angle += 60 / (double)data->res_x;
 	}
-	data->life -= data->enemy;
+	i = rand();
+	if (i < RAND_MAX / 4)
+		data->life -= data->enemy;
 	ft_display_gun(data);
 	ft_display_health(data);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
@@ -114,7 +116,7 @@ int		ft_update(t_data *data)
 {
 	if (data->esc == 1)
 		exit(0);
-	if (data->life <= 35)
+	if (data->life <= 40)
 		return (ft_gameover(data));
 	if (data->move_f == 1)
 		ft_move_f(data);

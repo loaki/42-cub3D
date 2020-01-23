@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 13:07:01 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/23 14:56:05 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/23 16:42:23 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ void	ft_display_sprite(t_data *data, t_list *lst, int col)
 				if (ft_sprite_color(data, lst, y) != 0)
 				{
 					if (lst->id == 4)
-						data->enemy = 0.5;
+						data->enemy = 2;
 					*(int *)(data->view->addr_ptr + ((y * data->res_x + col) *
 					data->tex[lst->id]->bpp / 8)) = ft_sprite_color(data, lst, y);
 				}
