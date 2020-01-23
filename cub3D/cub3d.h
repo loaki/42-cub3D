@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:26:05 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/23 13:27:57 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/23 16:21:18 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <math.h>
-# include <time.h>
 # include "mlx.h"
 # include "get_next_line.h"
 
@@ -34,7 +33,7 @@
 # define K_PRESS		2
 # define K_RELEASE		3
 # define NB_TEXTURES	12
-# define SPEED			0.1
+# define SPEED			0.05
 
 #endif
 
@@ -96,7 +95,8 @@ typedef struct	s_data
 	int				rotate_l;
 	int				esc;
 	int				fire;
-	int				life;
+	double			life;
+	double			enemy;
 }				t_data;
 
 
@@ -113,7 +113,7 @@ int				ft_texture_color(t_data *data, int y, int id);
 void			ft_draw_col(t_data *data, int x, char wall);
 int				ft_minimap(t_data *data);
 int				ft_gameover_color(t_data *data, int x, int y);
-void			ft_gameover(t_data *data);
+int				ft_gameover(t_data *data);
 
 void			ft_size_wall_xp(t_data *data, double x, double y, int col);
 void			ft_size_wall_xn(t_data *data, double x, double y, int col);

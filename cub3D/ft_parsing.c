@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:03:32 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/22 17:37:00 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/23 16:18:11 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,8 +118,8 @@ void	ft_parse_map(t_data *data, char *line, int i)
 		if (line[j] == 'N' || line[j] == 'S' ||
 			line[j] == 'W' || line[j] == 'E')
 		{
-			data->pos_x = j;
-			data->pos_y = i;
+			data->pos_x = j + 0.5;
+			data->pos_y = i + 0.5;
 			data->vector_x = 0;
 			data->vector_y = 0;
 		}

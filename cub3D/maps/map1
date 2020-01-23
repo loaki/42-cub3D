@@ -1,5 +1,4 @@
 R 660 480
-C 100,100,0
 
 NO ./textures/test/stone_brick_wall.xpm
 SO ./textures/test/bookshelf.xpm
@@ -10,14 +9,14 @@ S3 ./textures/sprites/sprite_1.xpm
 S4 ./textures/sprites/sprite_2.xpm
 
 C 50,50,50
-F 117,61,0
+F 80,50,20
 1111111111
-1313100021
-1040131001
-1010111101
+1213100021
+1010131001
+1000111101
 1014043101
 1213010001
 1111011141
 1000041101
-12110N1321
+1211N01321
 1111111111

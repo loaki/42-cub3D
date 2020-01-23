@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 17:32:52 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/23 13:15:53 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/23 14:11:42 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,5 @@ void	ft_display_gun(t_data *data)
 		y++;
 	}
 	if (id > 0)
-	{
-		data->life -= 1;
 		ft_shot(data);
-	}
 }

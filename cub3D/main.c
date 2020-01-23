@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:30:20 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/23 13:36:47 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/23 16:24:59 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int		ft_view(t_data *data)
 	i = 0;
 	angle = -30;
 	ft_clear_lst(data);
+	data->enemy = 0;
 	while (angle < 30)
 	{
 		ft_rotate(data, angle);
@@ -60,7 +61,7 @@ int		ft_view(t_data *data)
 		i++;
 		angle += 60 / (double)data->res_x;
 	}
-//	ft_info(data);
+	data->life -= data->enemy;
 	ft_display_gun(data);
 	ft_display_health(data);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
@@ -111,8 +112,10 @@ int		key_release(int key, t_data *data)
 
 int		ft_update(t_data *data)
 {
-	if (data->life == 0)
-		ft_gameover(data);
+	if (data->esc == 1)
+		exit(0);
+	if (data->life <= 35)
+		return (ft_gameover(data));
 	if (data->move_f == 1)
 		ft_move_f(data);
 	if (data->move_b == 1)
@@ -125,11 +128,6 @@ int		ft_update(t_data *data)
 		ft_rotate_r(data);
 	if (data->rotate_l == 1)
 		ft_rotate_l(data);
-	if (data->esc == 1)
-	{
-		free(data);
-		exit(0);
-	}
 	ft_view(data);
 	return (EXIT_SUCCESS);
 }
