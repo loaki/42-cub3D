@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:30:20 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/22 17:19:48 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/23 13:36:47 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,8 @@ int		key_release(int key, t_data *data)
 
 int		ft_update(t_data *data)
 {
+	if (data->life == 0)
+		ft_gameover(data);
 	if (data->move_f == 1)
 		ft_move_f(data);
 	if (data->move_b == 1)

@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 15:28:02 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/22 18:01:19 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/23 13:04:44 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,15 @@ int		ft_init_image(t_data *data)
 			return (EXIT_FAILURE);
 		j++;
 	}
+//--------------------gameover---------------------
+	if (!(data->gameover = malloc(sizeof(t_image))))
+		return (EXIT_FAILURE);
+	if ((data->gameover->img_ptr = mlx_xpm_file_to_image(data->mlx_ptr, "./textures/gameover/gameover.xpm", &data->gameover->width,
+		&data->gameover->height)) == NULL)
+		return (EXIT_FAILURE);
+	if ((data->gameover->addr_ptr = mlx_get_data_addr(data->gameover->img_ptr, &data->gameover->bpp,
+		&data->gameover->size_l, &data->gameover->endiant)) == NULL)
+		return (EXIT_FAILURE);
 //---------------------health----------------------
 	int k;
 	char *paths[2];

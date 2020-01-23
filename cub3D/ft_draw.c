@@ -6,20 +6,17 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 12:58:20 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/21 18:51:22 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/23 13:36:44 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-//---------------------------
-#include <time.h>
 
 void delay(double mseconds)
 {
     clock_t goal = mseconds + clock();
     while (goal > clock());
 }
-//----------------------------
 
 int		ft_texture_color(t_data *data, int y, int id)
 {
@@ -103,4 +100,38 @@ int	ft_minimap(t_data *data)
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
 	data->minimap->img_ptr, 5, 5);
 	return (0);
+}
+
+int		ft_gameover_color(t_data *data, int x, int y)
+{
+	return (*(int *)(data->gameover->addr_ptr +
+	(int)((((y - data->res_y / 3) * data->gameover->height / (2 * data->res_y / 3 - data->res_y / 3)) * data->gameover->width + x
+	* data->gameover->width / data->res_x)) * data->gameover->bpp / 8));
+}
+
+void	ft_gameover(t_data *data)
+{
+	int x;
+	int y;
+
+	y = data->res_y / 3;
+	write(1, "go\n", 3);
+	while (y < 2 * data->res_y / 3)
+	{
+		x = 0;
+		while (x < data->res_x)
+		{
+			if (ft_gameover_color(data, x, y) != 0)
+				*(int *)(data->view->addr_ptr + ((y * data->res_x + x) *
+				data->view->bpp / 8)) = ft_gameover_color(data, x, y);
+			x++;
+		}
+		y++;
+	}
+	*(int *)(data->view->addr_ptr + ((10 * data->res_x + 10) *
+	data->view->bpp / 8)) = 0;
+	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
+	data->view->img_ptr, 0, 0);
+	delay(5000000);
+//	exit(0);
 }

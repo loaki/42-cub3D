@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:26:05 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/22 16:12:56 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/23 13:27:57 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <math.h>
+# include <time.h>
 # include "mlx.h"
 # include "get_next_line.h"
 
@@ -70,6 +71,7 @@ typedef struct	s_data
 	t_image			*minimap;
 	t_image			*gun[4];
 	t_image			*health[2];
+	t_image			*gameover;
 	t_image			*tex[NB_TEXTURES];
 	char			*t_path[NB_TEXTURES];
 	t_list			*sprite;
@@ -110,6 +112,8 @@ int				ft_init_image(t_data *data);
 int				ft_texture_color(t_data *data, int y, int id);
 void			ft_draw_col(t_data *data, int x, char wall);
 int				ft_minimap(t_data *data);
+int				ft_gameover_color(t_data *data, int x, int y);
+void			ft_gameover(t_data *data);
 
 void			ft_size_wall_xp(t_data *data, double x, double y, int col);
 void			ft_size_wall_xn(t_data *data, double x, double y, int col);
