@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 12:20:47 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/23 16:22:41 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/24 15:04:36 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void		ft_move_f(t_data *data)
 {
 	data->pos_x += SPEED * data->vector_x;
 	if (data->pos_y > (data->height - 1) || data->pos_x > (data->width - 1) ||
-		data->pos_y < 0 || data->pos_x < 0 || 
+		data->pos_y < 0 || data->pos_x < 0 ||
 		data->map[(int)data->pos_y][(int)data->pos_x] == '1')
 		data->pos_x -= SPEED * data->vector_x;
 	data->pos_y -= SPEED * data->vector_y;

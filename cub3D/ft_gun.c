@@ -6,28 +6,28 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 17:32:52 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/23 16:41:03 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/24 14:57:44 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 int		ft_gun_color(t_data *data, int x, int y, int id)
-{	
+{
 	return (*(int *)(data->gun[id]->addr_ptr +
-	(int)(((y * data->gun[id]->height / data->res_y) * data->gun[id]->width + x * data->gun[id]->width / data->res_x)) *
-	data->gun[id]->bpp / 8));
+	(int)(((y * data->gun[id]->height / data->res_y) * data->gun[id]->width +
+	x * data->gun[id]->width / data->res_x)) * data->gun[id]->bpp / 8));
 }
 
 void	ft_shot(t_data *data)
 {
 	t_list	*lst;
-	double a;
-	double b;
-	double c;
+	double	a;
+	double	b;
+	double	c;
 
 	if (data->sprite == NULL)
-		return;
+		return ;
 	lst = data->sprite;
 	a = (((-data->pos_y) + data->vector_y) - (-data->pos_y))
 			/ ((data->pos_x + data->vector_x) - data->pos_x);
@@ -44,16 +44,12 @@ void	ft_display_gun(t_data *data)
 	int		id;
 	int		r;
 
-	r = rand();
 	y = 0;
-	if (data->fire == 0)
-		id = 0;
-	else if (r <= RAND_MAX / 3 )
-		id = 1;
-	else if (r <= RAND_MAX / 3 * 2)
-		id = 2;
-	else
-		id = 3;
+	r = rand();
+	id = (r <= RAND_MAX ? 3 : 0);
+	id = (r <= RAND_MAX / 3 * 2 ? 2 : id);
+	id = (r <= RAND_MAX / 3 ? 1 : id);
+	id = (data->fire == 0 ? 0 : id);
 	while (y < data->res_y)
 	{
 		x = 0;
