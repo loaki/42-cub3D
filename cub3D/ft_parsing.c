@@ -6,13 +6,26 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:03:32 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/23 16:18:11 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/24 16:00:36 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int		ft_parse_res(t_data *data, char *line)
+unsigned int	ft_atoi(char *str, int *i)
+{
+	unsigned int	c;
+
+	c = 0;
+	while (str[*i] >= '0' && str[*i] <= '9')
+	{
+		c = c * 10 + str[*i] - '0';
+		*i += 1;
+	}
+	return (c);
+}
+
+int				ft_parse_res(t_data *data, char *line)
 {
 	int i;
 
@@ -36,79 +49,45 @@ int		ft_parse_res(t_data *data, char *line)
 	return (EXIT_SUCCESS);
 }
 
-int		ft_parse_ceil(t_data *data, char *line)
+int				ft_parse_ceil(t_data *data, char *line)
 {
 	int i;
 	int c;
 
 	i = 0;
-	c = 0;
 	while ((line[i] < '0' || line[i] > '9') && line[i])
 		i++;
-	while (line[i] >= '0' && line[i] <= '9')
-	{
-		c = c * 10 + line[i] - '0';
-		i++;
-	}
+	c = ft_atoi(line, &i);
 	data->ceil = c * 256 * 256;
-	c = 0;
 	i++;
-	while (line[i] >= '0' && line[i] <= '9')
-	{
-		c = c * 10 + line[i] - '0';
-		i++;
-	}
+	c = ft_atoi(line, &i);
 	data->ceil += c * 256;
-	c = 0;
 	i++;
-	while (line[i] >= '0' && line[i] <= '9')
-	{
-		c = c * 10 + line[i] - '0';
-		i++;
-	}
+	c = ft_atoi(line, &i);
 	data->ceil += c;
-	i++;
 	return (EXIT_SUCCESS);
 }
 
-int		ft_parse_floor(t_data *data, char *line)
+int				ft_parse_floor(t_data *data, char *line)
 {
 	int i;
 	int c;
 
 	i = 0;
-	c = 0;
 	while ((line[i] < '0' || line[i] > '9') && line[i])
 		i++;
-	while (line[i] >= '0' && line[i] <= '9')
-	{
-		c = c * 10 + line[i] - '0';
-		i++;
-	}
+	c = ft_atoi(line, &i);
 	data->floor = c * 256 * 256;
-	c = 0;
 	i++;
-	while (line[i] >= '0' && line[i] <= '9')
-	{
-		c = c * 10 + line[i] - '0';
-		i++;
-	}
+	c = ft_atoi(line, &i);
 	data->floor += c * 256;
-	c = 0;
 	i++;
-	while (line[i] >= '0' && line[i] <= '9')
-	{
-		c = c * 10 + line[i] - '0';
-		i++;
-	}
+	c = ft_atoi(line, &i);
 	data->floor += c;
-	i++;
 	return (EXIT_SUCCESS);
 }
 
-
-
-void	ft_parse_map(t_data *data, char *line, int i)
+void			ft_parse_map(t_data *data, char *line, int i)
 {
 	int j;
 
@@ -136,7 +115,7 @@ void	ft_parse_map(t_data *data, char *line, int i)
 	data->map[i] = ft_strdup(line);
 }
 
-int		ft_parse_texture(t_data *data, char *line, int id)
+int				ft_parse_texture(t_data *data, char *line, int id)
 {
 	int i;
 	int size;
@@ -160,7 +139,7 @@ int		ft_parse_texture(t_data *data, char *line, int id)
 	return (EXIT_SUCCESS);
 }
 
-int		ft_parse_data(t_data *data, char *line, int *i)
+int				ft_parse_data(t_data *data, char *line, int *i)
 {
 	if (line[0] >= '0' && line[0] <= '9')
 	{
@@ -195,7 +174,7 @@ int		ft_parse_data(t_data *data, char *line, int *i)
 	return (EXIT_SUCCESS);
 }
 
-void	ft_init_path(t_data *data)
+void			ft_init_path(t_data *data)
 {
 	int i;
 
@@ -207,7 +186,7 @@ void	ft_init_path(t_data *data)
 	}
 }
 
-int		ft_parse(t_data *data, char *map)
+int				ft_parse(t_data *data, char *map)
 {
 	int		fd;
 	int		ret;

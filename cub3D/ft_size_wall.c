@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 14:06:41 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/23 14:51:16 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/24 17:05:33 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,17 @@ void	ft_size_wall_xp(t_data *data, double x, double y, int col)
 		if ((int)(y) <= (data->height - 1) && (int)(x) <= (data->width - 1) &&
 			(int)(y) >= 0 && (int)(x) >= 0 && data->map[(int)(y)][(int)(x)] <=
 			'9' && data->map[(int)(y)][(int)(x)] >= '2')
-				ft_save_sprite(data, x, y, col);
+			ft_save_sprite(data, x, y, col);
 		if ((int)(y) <= (data->height - 1) && (int)(x) <=
 			(data->width - 1) && (int)(y) >= 0 && (int)(x) >= 0 &&
-			data->map[(int)(y)][(int)(x)] == '1' && data->wall_size == 0)
+			data->map[(int)(y)][(int)(x)] == '1')
 		{
 			data->wall_x = x;
 			data->wall_y = y;
 			data->wall_size = ((double)data->res_y / (sqrtf(((double)data->pos_x - x) *
 			((double)data->pos_x - x) + ((double)data->pos_y - y) *
 			((double)data->pos_y - y))));
-			return;
+			return ;
 		}
 		i++;
 	}
@@ -54,17 +54,17 @@ void	ft_size_wall_xn(t_data *data, double x, double y, int col)
 		if ((int)(y) <= (data->height - 1) && (int)(x) <= data->width &&
 			(int)(y) >= 0 && (int)(x) >= 1 && data->map[(int)(y)][(int)(x - 1)] <=
 			'9' && data->map[(int)(y)][(int)(x - 1)] >= '2')
-				ft_save_sprite(data, x - 1, y, col);
+			ft_save_sprite(data, x - 1, y, col);
 		if ((int)(x) <= data->width && (int)(y) <=
 			(data->height - 1) && (int)(x) >= 1 && (int)(y) >= 0 &&
-			data->map[(int)(y)][(int)(x - 1)] == '1' && data->wall_size == 0)
+			data->map[(int)(y)][(int)(x - 1)] == '1')
 		{
 			data->wall_x = x;
 			data->wall_y = y;
 			data->wall_size = ((double)data->res_y / (sqrtf(((double)data->pos_x - x) *
 			((double)data->pos_x - x) + ((double)data->pos_y - y) *
 			((double)data->pos_y - y))));
-			return;
+			return ;
 		}
 		i++;
 	}
@@ -83,7 +83,7 @@ void	ft_size_wall_yp(t_data *data, double x, double y, int col)
 		if ((int)(y) <= data->height && (int)(x) <= (data->width - 1) &&
 			(int)(y) >= 1 && (int)(x) >= 0 && data->map[(int)(y - 1)][(int)(x)] <=
 			'9' && data->map[(int)(y - 1)][(int)(x)] >= '2')
-				ft_save_sprite(data, x, y - 1, col);
+			ft_save_sprite(data, x, y - 1, col);
 		if ((int)(x) <= (data->width - 1) && (int)(y) <=
 			data->height && (int)(x) >= 0 && (int)(y) >= 1 &&
 			data->map[(int)(y - 1)][(int)(x)] == '1')
@@ -97,8 +97,8 @@ void	ft_size_wall_yp(t_data *data, double x, double y, int col)
 				data->wall_size = ((double)data->res_y / (sqrtf(((double)data->pos_x - x) *
 				((double)data->pos_x - x) + ((double)data->pos_y - y) *
 				((double)data->pos_y - y))));
-				return;
 			}
+			return;
 		}
 		i++;
 	}
@@ -117,12 +117,11 @@ void	ft_size_wall_yn(t_data *data, double x, double y, int col)
 		if ((int)(y) <= (data->height - 1) && (int)(x) <= (data->width - 1) &&
 			(int)(y) >= 0 && (int)(x) >= 0 && data->map[(int)(y)][(int)(x)] <=
 			'9' && data->map[(int)(y)][(int)(x)] >= '2')
-				ft_save_sprite(data, x, y, col);
+			ft_save_sprite(data, x, y, col);
 		if ((int)(x) <= (data->width - 1) && (int)(y) <=
 			(data->height - 1) && (int)(x) >= 0 && (int)(y) >= 0 &&
 			data->map[(int)(y)][(int)(x)] == '1')
 		{
-
 			if (((double)data->res_y / (sqrtf(((double)data->pos_x - x) *
 			((double)data->pos_x - x) + ((double)data->pos_y - y) *
 			((double)data->pos_y - y)))) > data->wall_size)
@@ -132,8 +131,8 @@ void	ft_size_wall_yn(t_data *data, double x, double y, int col)
 				data->wall_size = ((double)data->res_y / (sqrtf(((double)data->pos_x - x) *
 				((double)data->pos_x - x) + ((double)data->pos_y - y) *
 				((double)data->pos_y - y))));
-				return;
 			}
+			return ;
 		}
 		i++;
 	}
