@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:26:05 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/24 15:46:36 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/27 18:28:51 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,9 @@
 # define K_SPACE		49
 # define K_PRESS		2
 # define K_RELEASE		3
+# define K_EXIT			17
 # define NB_TEXTURES	12
 # define SPEED			0.05
-
-#endif
 
 typedef	struct	s_image
 {
@@ -127,13 +126,15 @@ void			ft_rotate_l(t_data *data);
 void			ft_rotate_r(t_data *data);
 void			ft_info(t_data *data);
 
+unsigned int	ft_atoi(char *str, int *i);
+char			*ft_linedup(char *str);
 int				ft_parse_res(t_data *data, char *line);
 int				ft_parse_ceil(t_data *data, char *line);
 int				ft_parse_floor(t_data *data, char *line);
-void			ft_parse_map(t_data *data, char *line, int i);
+int				ft_parse_map(t_data *data, char *line, int *i);
 int				ft_parse_texture(t_data *data, char *line, int id);
 int				ft_parse_data(t_data *data, char *line, int *i);
-void			ft_init_path(t_data *data);
+void			ft_init_parse(t_data *data);
 int				ft_parse(t_data *data, char *map);
 
 int				ft_save_sprite(t_data *data, double x, double y, int i);
@@ -148,3 +149,6 @@ void			ft_display_gun(t_data *data);
 
 int				ft_health_color(t_data *data, int x, int y, int id);
 void			ft_display_health(t_data *data);
+
+int				ft_exit(t_data *data);
+#endif

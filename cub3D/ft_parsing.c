@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:03:32 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/24 16:00:36 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/27 18:28:49 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,34 @@ unsigned int	ft_atoi(char *str, int *i)
 		*i += 1;
 	}
 	return (c);
+}
+
+char			*ft_linedup(char *str)
+{
+	int i;
+	int len;
+	char *ret;
+
+	i = 0;
+	len = 0;
+	while (str[i])
+	{
+		if (str[i] != ' ')
+			len ++;
+		i++;
+	}
+	if (!(ret = malloc(len + 1)))
+		return (0);
+	while (i >= 0)
+	{
+		if (str[i] != ' ')
+		{
+			ret[len] = str[i];
+			len--;
+		}
+		i--;
+	}
+	return (ret);
 }
 
 int				ft_parse_res(t_data *data, char *line)
@@ -44,8 +72,12 @@ int				ft_parse_res(t_data *data, char *line)
 		data->res_y = data->res_y * 10 + line[i] - '0';
 		i++;
 	}
-	if (data->res_x == 0 || data->res_y == 0)
-		return (EXIT_FAILURE);
+	if (data->res_x <= 0 || data->res_y <= 0 ||
+		data->res_x > 2560 || data->res_y > 1440)
+	{
+		data->res_x = 2560;
+		data->res_y = 1440;
+	}
 	return (EXIT_SUCCESS);
 }
 
@@ -87,32 +119,31 @@ int				ft_parse_floor(t_data *data, char *line)
 	return (EXIT_SUCCESS);
 }
 
-void			ft_parse_map(t_data *data, char *line, int i)
+int			ft_parse_map(t_data *data, char *line, int *i)
 {
 	int j;
 
 	j = 0;
-	while (line[j])
+	data->map[*i] = ft_linedup(line);
+	while (data->map[*i][j])
 	{
-		if (line[j] == 'N' || line[j] == 'S' ||
-			line[j] == 'W' || line[j] == 'E')
+		if (data->map[*i][j] == 'N' || data->map[*i][j] == 'S' ||
+			data->map[*i][j] == 'W' || data->map[*i][j] == 'E')
 		{
+			if (data->pos_x != 0 || data->pos_y != 0)
+				return (EXIT_FAILURE);
 			data->pos_x = j + 0.5;
-			data->pos_y = i + 0.5;
-			data->vector_x = 0;
-			data->vector_y = 0;
+			data->pos_y = *i + 0.5;
+			data->vector_x = (data->map[*i][j] == 'E' ? 1 : 0);
+			data->vector_x = (data->map[*i][j] == 'W' ? -1 : data->vector_x);
+			data->vector_y = (data->map[*i][j] == 'N' ? 1 : 0);
+			data->vector_y = (data->map[*i][j] == 'S' ? -1 : data->vector_y);
 		}
-		if (line[j] == 'N')
-			data->vector_y = 1;
-		if (line[j] == 'S')
-			data->vector_y = -1;
-		if (line[j] == 'E')
-			data->vector_x = 1;
-		if (line[j] == 'W')
-			data->vector_x = -1;
 		j++;
 	}
-	data->map[i] = ft_strdup(line);
+	data->width = j;
+	*i = *i + 1;
+	return (EXIT_SUCCESS);
 }
 
 int				ft_parse_texture(t_data *data, char *line, int id)
@@ -142,20 +173,13 @@ int				ft_parse_texture(t_data *data, char *line, int id)
 int				ft_parse_data(t_data *data, char *line, int *i)
 {
 	if (line[0] >= '0' && line[0] <= '9')
-	{
-		ft_parse_map(data, line, *i);
-		data->width = ft_strlen(line);
-		*i = *i + 1;
-	}
+		ft_parse_map(data, line, i);
 	if (line[0] == 'R')
-		if (ft_parse_res(data, line) == EXIT_FAILURE)
-			return (EXIT_FAILURE);
+		ft_parse_res(data, line);
 	if (line[0] == 'C')
-		if (ft_parse_ceil(data, line) == EXIT_FAILURE)
-			return (EXIT_FAILURE);
+		ft_parse_ceil(data, line);
 	if (line[0] == 'F')
-		if (ft_parse_floor(data, line) == EXIT_FAILURE)
-			return (EXIT_FAILURE);
+		ft_parse_floor(data, line);
 	if (line[0] == 'N' && line[1] == 'O')
 		if (ft_parse_texture(data, line, 0) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
@@ -168,13 +192,14 @@ int				ft_parse_data(t_data *data, char *line, int *i)
 	if (line[0] == 'E' && line[1] == 'A')
 		if (ft_parse_texture(data, line, 3) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
-	if (line[0] == 'S' && ((line[1] >= '0' && line[1] <= '9') || line[1] == ' '))
+	if (line[0] == 'S' && ((line[1] >= '0' && line[1] <= '9')
+		|| line[1] == ' '))
 		if (ft_parse_texture(data, line, 4) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
-void			ft_init_path(t_data *data)
+void			ft_init_parse(t_data *data)
 {
 	int i;
 
@@ -184,6 +209,8 @@ void			ft_init_path(t_data *data)
 		data->t_path[i] = 0;
 		i++;
 	}
+	data->pos_x = 0;
+	data->pos_y = 0;
 }
 
 int				ft_parse(t_data *data, char *map)
@@ -195,7 +222,7 @@ int				ft_parse(t_data *data, char *map)
 
 	i = 0;
 	fd = open(map, O_RDONLY);
-	ft_init_path(data);
+	ft_init_parse(data);
 	if (!(data->map = malloc(2048)))
 		return (EXIT_FAILURE);
 	while ((ret = get_next_line(fd, &line)) > 0)

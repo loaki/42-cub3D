@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:30:20 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/27 14:50:30 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/27 16:22:06 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ int		key_release(int key, t_data *data)
 int		ft_update(t_data *data)
 {
 	if (data->esc == 1)
-		exit(0);
+		ft_exit(data);
 	if (data->life <= 40)
 		return (ft_gameover(data));
 	if (data->move_f == 1)
@@ -154,6 +154,7 @@ int		main(int ac, char **av)
 	write(1, "display.....ok\n", 15);
 	mlx_hook(data->win_ptr, K_PRESS, 0, &key_press, data);
 	mlx_hook(data->win_ptr, K_RELEASE, 0, &key_release, data);
+	mlx_hook(data->win_ptr, K_EXIT, 0, &ft_exit, data);
 	mlx_loop_hook(data->mlx_ptr, &ft_update, data);
 	mlx_loop(data->mlx_ptr);
 	return (EXIT_SUCCESS);

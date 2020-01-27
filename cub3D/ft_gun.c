@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 17:32:52 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/27 14:50:27 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/27 16:17:14 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,21 @@ void	ft_shot(t_data *data)
 	if (data->sprite == NULL)
 		return ;
 	lst = data->sprite;
+	while (lst->next)
+	{
+		a = (((-data->pos_y) + data->vector_y) - (-data->pos_y))
+				/ ((data->pos_x + data->vector_x) - data->pos_x);
+		b = -1;
+		c = (-data->pos_y) - a * data->pos_x;
+		if ((fabs(a * lst->x + b * (-lst->y) + c) / sqrt(a * a + b * b)) < 0.5)
+			data->map[(int)lst->y][(int)lst->x] = '0';
+		lst = lst->next;
+	}
 	a = (((-data->pos_y) + data->vector_y) - (-data->pos_y))
 			/ ((data->pos_x + data->vector_x) - data->pos_x);
 	b = -1;
 	c = (-data->pos_y) - a * data->pos_x;
-	if ((fabs(a * lst->x + b * (-lst->y) + c) / sqrt(a * a + b * b)) < 2)
+	if ((fabs(a * lst->x + b * (-lst->y) + c) / sqrt(a * a + b * b)) < 0.5)
 		data->map[(int)lst->y][(int)lst->x] = '0';
 }
 
