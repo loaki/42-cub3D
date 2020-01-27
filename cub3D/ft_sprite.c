@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 13:07:01 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/23 16:42:23 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/27 14:47:08 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,9 +116,9 @@ void	ft_display_sprite(t_data *data, t_list *lst, int col)
 		y = 0;
 		while (y < data->res_y)
 		{
-			if (y >= (double)data->res_y / 2 - (double)data->res_y / lst->dist / 2 && 
+			if (lst->col == col && ((double)data->res_y / lst->dist > data->wall_size) &&
+				y >= (double)data->res_y / 2 - (double)data->res_y / lst->dist / 2 && 
 				y <= (double)data->res_y / 2 + (double)data->res_y / lst->dist / 2 &&
-				lst->col == col && ((double)data->res_y / lst->dist > data->wall_size) &&
 				lst->dist_vector > -0.5 && lst->dist_vector < 0.5)
 				if (ft_sprite_color(data, lst, y) != 0)
 				{
