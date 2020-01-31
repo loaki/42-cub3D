@@ -1,7 +1,18 @@
-R 680 450
+R 660 480
+
+NO ./textures/test/stone_brick_wall.xpm
+SO ./textures/test/bookshelf.xpm
+WE ./textures/test/mossy_stone_brick_wall.xpm
+EA ./textures/test/sand_stone.xpm
+S ./textures/sprites/sprite_oss117.xpm
+S3 ./textures/sprites/sprite_1.xpm
+S4 ./textures/sprites/sprite_2.xpm
+
+C 50,50,50
+F 80,50,20 680 450
 C 100,100,0
 11111
 10001
 10N01
-10001
+10E01
 11111

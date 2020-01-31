@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:03:32 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/27 18:28:49 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/31 13:42:11 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,13 +125,14 @@ int			ft_parse_map(t_data *data, char *line, int *i)
 
 	j = 0;
 	data->map[*i] = ft_linedup(line);
+	data->map[*i + 1] = 0;
 	while (data->map[*i][j])
 	{
 		if (data->map[*i][j] == 'N' || data->map[*i][j] == 'S' ||
 			data->map[*i][j] == 'W' || data->map[*i][j] == 'E')
 		{
 			if (data->pos_x != 0 || data->pos_y != 0)
-				return (EXIT_FAILURE);
+				return (ft_clearmap(data));
 			data->pos_x = j + 0.5;
 			data->pos_y = *i + 0.5;
 			data->vector_x = (data->map[*i][j] == 'E' ? 1 : 0);
@@ -209,6 +210,7 @@ void			ft_init_parse(t_data *data)
 		data->t_path[i] = 0;
 		i++;
 	}
+	data->map[0] = 0;
 	data->pos_x = 0;
 	data->pos_y = 0;
 }
@@ -222,9 +224,9 @@ int				ft_parse(t_data *data, char *map)
 
 	i = 0;
 	fd = open(map, O_RDONLY);
-	ft_init_parse(data);
 	if (!(data->map = malloc(2048)))
 		return (EXIT_FAILURE);
+	ft_init_parse(data);
 	while ((ret = get_next_line(fd, &line)) > 0)
 	{
 		ft_parse_data(data, line, &i);
@@ -234,8 +236,7 @@ int				ft_parse(t_data *data, char *map)
 	ft_parse_data(data, line, &i);
 	data->height = i;
 	free(line);
-	data->map[i] = 0;
-	if (ret == -1)
+	if (ft_checkmap(data) || ft_checkpath(data))
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }

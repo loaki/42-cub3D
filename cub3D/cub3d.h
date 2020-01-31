@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:26:05 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/27 18:28:51 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/01/31 13:25:33 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ typedef struct	s_data
 	int				rotate_l;
 	int				esc;
 	int				fire;
+	int				save;
 	double			life;
 	double			enemy;
 }				t_data;
@@ -150,5 +151,10 @@ void			ft_display_gun(t_data *data);
 int				ft_health_color(t_data *data, int x, int y, int id);
 void			ft_display_health(t_data *data);
 
-int				ft_exit(t_data *data);
+int				ft_clearmap(t_data *data);
+int				ft_error(char *str);
+int				ft_success(t_data *data);
+
+int				ft_strcmp(char *str1, char *str2);
+int				ft_checkmap(t_data *data);
 #endif
