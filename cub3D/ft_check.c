@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 12:25:25 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/31 13:37:07 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/02/03 15:22:57 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,9 @@ int		ft_checkmap(t_data *data)
 	if (y != data->height)
 		return (ft_clearmap(data));
 	return (EXIT_SUCCESS);
+}
+
+int		ft_checkpath(t_data *data)
+{
+
 }
