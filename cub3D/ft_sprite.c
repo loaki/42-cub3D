@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 13:07:01 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/27 17:40:45 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/02/03 19:57:41 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int		ft_save_sprite(t_data *data, double x, double y, int col)
 			{
 				lst->col = new->col;
 				lst->dist_vector = new->dist_vector;
+				free(new);
 			}
 			else
 			{
