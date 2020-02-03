@@ -6,20 +6,24 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 15:28:02 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/31 12:04:01 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/02/03 17:36:27 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int		ft_init_image(t_data *data)
+int		ft_init_win(t_data *data)
 {
 	if ((data->mlx_ptr = mlx_init()) == NULL)
 		return (EXIT_FAILURE);
 	if ((data->win_ptr = mlx_new_window(data->mlx_ptr,
 		data->res_x, data->res_y, "marche")) == NULL)
 		return (EXIT_FAILURE);
-//----------------------view-----------------------	
+	return (EXIT_SUCCESS);
+}
+
+int		ft_init_view(t_data *data)
+{
 	if (!(data->view = malloc(sizeof(t_image))))
 		return (EXIT_FAILURE);
 	if ((data->view->img_ptr = mlx_new_image(data->mlx_ptr, data->res_x,
@@ -28,7 +32,11 @@ int		ft_init_image(t_data *data)
 	if ((data->view->addr_ptr = mlx_get_data_addr(data->view->img_ptr, &data->view->bpp,
 		&data->view->size_l, &data->view->endiant)) == NULL)
 		return (EXIT_FAILURE);
-//-----------------------gun-----------------------
+	return (EXIT_SUCCESS);
+}
+
+int		ft_init_gun(t_data *data)
+{
 	int j;
 	char *path[4];
 
@@ -49,7 +57,11 @@ int		ft_init_image(t_data *data)
 			return (EXIT_FAILURE);
 		j++;
 	}
-//--------------------gameover---------------------
+	return (EXIT_SUCCESS);
+}
+
+int		ft_init_gameover(t_data *data)
+{
 	if (!(data->gameover = malloc(sizeof(t_image))))
 		return (EXIT_FAILURE);
 	if ((data->gameover->img_ptr = mlx_xpm_file_to_image(data->mlx_ptr, "./textures/gameover/gameover.xpm", &data->gameover->width,
@@ -58,7 +70,11 @@ int		ft_init_image(t_data *data)
 	if ((data->gameover->addr_ptr = mlx_get_data_addr(data->gameover->img_ptr, &data->gameover->bpp,
 		&data->gameover->size_l, &data->gameover->endiant)) == NULL)
 		return (EXIT_FAILURE);
-//---------------------health----------------------
+	return (EXIT_SUCCESS);
+}
+
+int		ft_init_health(t_data *data)
+{
 	int k;
 	char *paths[2];
 
@@ -78,8 +94,11 @@ int		ft_init_image(t_data *data)
 			return (EXIT_FAILURE);
 		k++;
 	}
+	return (EXIT_SUCCESS);
+}
 
-//--------------------textures---------------------
+int		ft_init_textures(t_data *data)
+{
 	int i;
 
 	i = 0;
@@ -98,10 +117,11 @@ int		ft_init_image(t_data *data)
 		}
 		i++;
 	}
+	return (EXIT_SUCCESS);
+}
 
-//---------------------sprites---------------------
-	data->sprite = NULL;
-//---------------------minimap---------------------
+int		ft_init_minimap(t_data *data)
+{
 	if (!(data->minimap = malloc(sizeof(t_image))))
 		return (EXIT_FAILURE);
 	if ((double)data->width / (double)(data->res_x) > (double)(data->height) / (double)(data->res_y))
@@ -126,3 +146,22 @@ int		ft_init_image(t_data *data)
 	return (EXIT_SUCCESS);
 }
 
+int		ft_init_image(t_data *data)
+{
+	data->sprite = NULL;
+	if (ft_init_win(data))
+		return (ft_clearimg(data, 0));
+	if (ft_init_view(data))
+		return (ft_clearimg(data, 1));
+	if (ft_init_gun(data))
+		return (ft_clearimg(data, 2));
+	if (ft_init_gameover(data))
+		return (ft_clearimg(data, 3));
+	if (ft_init_health(data))
+		return (ft_clearimg(data, 4));
+	if (ft_init_textures(data))
+		return (ft_clearimg(data, 5));
+	if (ft_init_minimap(data))
+		return (ft_clearimg(data, 6));
+	return (EXIT_SUCCESS);
+}

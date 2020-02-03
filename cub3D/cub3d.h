@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:26:05 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/31 13:25:33 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/02/03 17:54:29 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,13 @@ int				key_press(int key, t_data *data);
 int				key_release(int key, t_data *data);
 int				ft_update(t_data *data);
 
+int				ft_init_win(t_data *data);
+int				ft_init_view(t_data *data);
+int				ft_init_gun(t_data *data);
+int				ft_init_gameover(t_data *data);
+int				ft_init_health(t_data *data);
+int				ft_init_textures(t_data *data);
+int				ft_init_minimap(t_data *data);
 int				ft_init_image(t_data *data);
 
 int				ft_texture_color(t_data *data, int y, int id);
@@ -152,9 +159,12 @@ int				ft_health_color(t_data *data, int x, int y, int id);
 void			ft_display_health(t_data *data);
 
 int				ft_clearmap(t_data *data);
+int				ft_clearimg(t_data *data, int s);
 int				ft_error(char *str);
 int				ft_success(t_data *data);
 
 int				ft_strcmp(char *str1, char *str2);
+int				ft_mapname(char *str);
 int				ft_checkmap(t_data *data);
+int				ft_checkpath(t_data *data);
 #endif

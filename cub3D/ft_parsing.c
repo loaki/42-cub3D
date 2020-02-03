@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:03:32 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/31 13:42:11 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/02/03 16:25:08 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,22 +175,22 @@ int				ft_parse_data(t_data *data, char *line, int *i)
 {
 	if (line[0] >= '0' && line[0] <= '9')
 		ft_parse_map(data, line, i);
-	if (line[0] == 'R')
+	if (line[0] == 'R' && line[1] == ' ')
 		ft_parse_res(data, line);
-	if (line[0] == 'C')
+	if (line[0] == 'C' && line[1] == ' ')
 		ft_parse_ceil(data, line);
-	if (line[0] == 'F')
+	if (line[0] == 'F' && line[1] == ' ')
 		ft_parse_floor(data, line);
-	if (line[0] == 'N' && line[1] == 'O')
+	if (line[0] == 'N' && line[1] == 'O' && line[2] == ' ')
 		if (ft_parse_texture(data, line, 0) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
-	if (line[0] == 'S' && line[1] == 'O')
+	if (line[0] == 'S' && line[1] == 'O' && line[2] == ' ')
 		if (ft_parse_texture(data, line, 1) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
-	if (line[0] == 'W' && line[1] == 'E')
+	if (line[0] == 'W' && line[1] == 'E' && line[2] == ' ')
 		if (ft_parse_texture(data, line, 2) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
-	if (line[0] == 'E' && line[1] == 'A')
+	if (line[0] == 'E' && line[1] == 'A' && line[2] == ' ')
 		if (ft_parse_texture(data, line, 3) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
 	if (line[0] == 'S' && ((line[1] >= '0' && line[1] <= '9')

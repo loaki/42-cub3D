@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 15:44:49 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/01/31 13:42:16 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/02/03 17:48:25 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,46 @@ int		ft_clearmap(t_data *data)
 			free(data->t_path[i]);
 		i++;
 	}
+	free(data);
 	return (EXIT_FAILURE);
+}
+
+int		ft_clearimg(t_data *data, int s)
+{
+	int i;
+
+	i = 0;
+	if (s > 5)
+		mlx_destroy_image(data->mlx_ptr, data->minimap);
+	if (s > 4)
+	{
+		while (i < NB_TEXTURES)
+		{
+			if (data->t_path[i] != 0)
+				mlx_destroy_image(data->mlx_ptr, data->tex[i]);
+			i++;
+		}
+	}
+	if (s > 3)
+	{
+		mlx_destroy_image(data->mlx_ptr, data->health[0]);
+		mlx_destroy_image(data->mlx_ptr, data->health[1]);
+	}
+	if (s > 2)
+		mlx_destroy_image(data->mlx_ptr, data->gameover);
+	if (s > 1)
+	{
+		i = 0;
+		while (i < 4)
+		{
+			mlx_destroy_image(data->mlx_ptr, data->gun[i]);
+			i++;
+		}
+	}
+	if (s > 0)
+		mlx_destroy_image(data->mlx_ptr, data->view);
+	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
+	return (ft_clearmap(data));
 }
 
 int		ft_error(char *str)
@@ -51,7 +90,8 @@ int		ft_error(char *str)
 
 int		ft_success(t_data *data)
 {
-	free(data);
+	ft_clear_lst(data);
+	ft_clearimg(data, 6);
 	exit(0);
 	return (0);
 }
