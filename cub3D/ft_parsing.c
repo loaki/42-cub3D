@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:03:32 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/02/03 16:25:08 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/02/03 18:36:45 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,7 +174,8 @@ int				ft_parse_texture(t_data *data, char *line, int id)
 int				ft_parse_data(t_data *data, char *line, int *i)
 {
 	if (line[0] >= '0' && line[0] <= '9')
-		ft_parse_map(data, line, i);
+		if (ft_parse_map(data, line, i) == EXIT_FAILURE)
+			return (EXIT_FAILURE);
 	if (line[0] == 'R' && line[1] == ' ')
 		ft_parse_res(data, line);
 	if (line[0] == 'C' && line[1] == ' ')
@@ -229,11 +230,19 @@ int				ft_parse(t_data *data, char *map)
 	ft_init_parse(data);
 	while ((ret = get_next_line(fd, &line)) > 0)
 	{
-		ft_parse_data(data, line, &i);
+		if (ft_parse_data(data, line, &i))
+		{
+			free(line);
+			return (ft_clearmap(data));
+		}
 		free(line);
 	}
 	ret = get_next_line(fd, &line);
-	ft_parse_data(data, line, &i);
+	if (ft_parse_data(data, line, &i))
+	{
+		free(line);
+		return (ft_clearmap(data));
+	}
 	data->height = i;
 	free(line);
 	if (ft_checkmap(data) || ft_checkpath(data))

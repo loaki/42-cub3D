@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 15:44:49 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/02/03 17:48:25 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/02/03 18:29:07 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ int		ft_error(char *str)
 		i++;
 	}
 	write(1, "\n", 1);
+	system("leaks a.out");
 	exit(0);
 	return (0);
 }
@@ -92,6 +93,7 @@ int		ft_success(t_data *data)
 {
 	ft_clear_lst(data);
 	ft_clearimg(data, 6);
+	system("leaks a.out");
 	exit(0);
 	return (0);
 }
