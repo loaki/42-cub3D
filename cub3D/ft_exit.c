@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 15:44:49 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/02/03 20:04:47 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/02/04 19:13:41 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ int		ft_clearimg(t_data *data, int s)
 	int i;
 
 	i = 0;
-	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
 	if (s > 5)
 	{
 		mlx_destroy_image(data->mlx_ptr, data->minimap->img_ptr);
@@ -84,7 +83,7 @@ int		ft_clearimg(t_data *data, int s)
 		mlx_destroy_image(data->mlx_ptr, data->view->img_ptr);
 		free(data->view);
 	}
-	free(data->mlx_ptr);
+	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
 	return (ft_clearmap(data));
 }
 

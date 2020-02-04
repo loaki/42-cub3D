@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:03:32 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/02/03 19:38:46 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/02/04 18:17:22 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ int			ft_parse_map(t_data *data, char *line, int *i)
 			data->map[*i][j] == 'W' || data->map[*i][j] == 'E')
 		{
 			if (data->pos_x != 0 || data->pos_y != 0)
-				return (ft_clearmap(data));
+				return (EXIT_FAILURE);
 			data->pos_x = j + 0.5;
 			data->pos_y = *i + 0.5;
 			data->vector_x = (data->map[*i][j] == 'E' ? 1 : 0);
@@ -236,12 +236,6 @@ int				ft_parse(t_data *data, char *map)
 			return (ft_clearmap(data));
 		}
 		free(line);
-	}
-	ret = get_next_line(fd, &line);
-	if (ft_parse_data(data, line, &i))
-	{
-		free(line);
-		return (ft_clearmap(data));
 	}
 	data->height = i;
 	free(line);

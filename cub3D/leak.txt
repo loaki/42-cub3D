@@ -1,13 +1,15 @@
-Process:         a.out [34578]
+Error
+invalid map
+Process:         a.out [6515]
 Path:            /Volumes/VOLUME/*/a.out
-Load Address:    0x103625000
+Load Address:    0x100349000
 Identifier:      a.out
 Version:         ???
 Code Type:       X86-64
-Parent Process:  zsh [14294]
+Parent Process:  zsh [3106]
 
-Date/Time:       2020-02-03 20:02:49.449 +0100
-Launch Time:     2020-02-03 20:02:47.532 +0100
+Date/Time:       2020-02-04 18:12:33.640 +0100
+Launch Time:     2020-02-04 18:12:33.246 +0100
 OS Version:      Mac OS X 10.14.5 (18F132)
 Report Version:  7
 Analysis Tool:   /Applications/Xcode.app/Contents/Developer/usr/bin/leaks
@@ -15,13 +17,8 @@ Analysis Tool Version:  Xcode 10.3 (10G8)
 ----
 
 leaks Report Version: 4.0
-Process 34578: 25173 nodes malloced for 9398 KB
-Process 34578: 3 leaks for 94288 total leaked bytes.
+Process 6515: 786 nodes malloced for 108 KB
+Process 6515: 1 leak for 16 total leaked bytes.
 
-    3 (92.1K) << TOTAL >>
-
-      2 (92.1K) ROOT LEAK: 0x7f9b1960a160 [64]
-         1 (92.0K) 0x10677e000 [94208]
-
-      1 (16 bytes) ROOT LEAK: 0x7f9b196066f0 [16]
+    1 (16 bytes) ROOT LEAK: 0x7fc9bed0db10 [16]
 
