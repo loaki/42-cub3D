@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 12:58:20 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/02/03 19:45:42 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/02/04 19:22:58 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,10 @@ void	ft_minimap(t_data *data)
 		x = 0;
 		while (x < data->minimap->width)
 		{
-			if (data->map[(int)(y * data->height / data->minimap->height)]
-				[(int)(x * data->width / data->minimap->width)] == '1')
-				*(int *)(data->minimap->addr_ptr + (((y * data->minimap->width
-				+ x)) * data->minimap->bpp / 8)) = 6579300;
-			else
-				*(int *)(data->minimap->addr_ptr + (((y * data->minimap->width
-				+ x)) * data->minimap->bpp / 8)) = 0;
+			*(int *)(data->minimap->addr_ptr + (((y * data->minimap->width + x))
+			* data->minimap->bpp / 8)) = (data->map[(int)(y * data->height /
+			data->minimap->height)][(int)(x * data->width /
+			data->minimap->width)] == '1' ? 6579300 : 0);
 			x++;
 		}
 		y++;

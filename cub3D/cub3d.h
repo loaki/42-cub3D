@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:26:05 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/02/04 18:43:33 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/02/04 19:37:06 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,11 @@ int				ft_health_color(t_data *data, int x, int y, int id);
 void			ft_display_health(t_data *data);
 
 int				ft_clearmap(t_data *data);
+void			ft_cleartex(t_data *data);
+void			ft_cleargun(t_data *data);
+void			ft_clearhealth(t_data *data);
 int				ft_clearimg(t_data *data, int s);
+
 int				ft_error(char *str);
 int				ft_success(t_data *data);
 

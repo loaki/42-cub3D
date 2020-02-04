@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 12:25:25 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/02/03 18:40:40 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/02/04 19:35:30 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,19 +50,19 @@ int		ft_checkmap(t_data *data)
 {
 	int x;
 	int y;
-	
+
 	y = -1;
 	if (data->pos_x == 0 || data->pos_y == 0)
 		return (ft_clearmap(data));
 	while (data->map[++y])
 	{
 		x = -1;
-		if (data->map[y][0] != '1') 
+		if (data->map[y][0] != '1')
 			return (ft_clearmap(data));
 		while (data->map[y][++x])
 			if (y == 0 && data->map[y][x] != '1')
 				return (ft_clearmap(data));
-		if (data->map[y][x - 1] != '1' || x != data->width) 
+		if (data->map[y][x - 1] != '1' || x != data->width)
 			return (ft_clearmap(data));
 	}
 	x = -1;
