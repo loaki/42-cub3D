@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:30:20 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/02/04 19:15:54 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/02/07 16:35:53 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ int		ft_view(t_data *data)
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
 	data->view->img_ptr, 0, 0);
 	ft_minimap(data);
-//	ft_info(data);
 	return (EXIT_SUCCESS);
 }
 

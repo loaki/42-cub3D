@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 15:28:02 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/02/04 20:10:47 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/02/07 15:22:07 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,18 @@ int		ft_init_textures(t_data *data)
 	return (EXIT_SUCCESS);
 }
 
+void	ft_minimapdim(t_data *data)
+{
+	data->minimap->width = ((double)data->width / (double)(data->res_x) >
+	(double)(data->height) / (double)(data->res_y) ?
+	(int)(double)data->res_x / 5 : (int)((double)data->width /
+	(double)data->height * (double)data->res_y / 5));
+	data->minimap->height = ((double)data->width / (double)(data->res_x) >
+	(double)(data->height) / (double)(data->res_y) ?
+	(int)((double)data->height / (double)data->width *
+	(double)data->res_x / 5) : (int)((double)data->res_y / 5));
+}
+
 int		ft_init_minimap(t_data *data)
 {
 	if (!(data->minimap = malloc(sizeof(t_image))))
@@ -144,14 +156,7 @@ int		ft_init_minimap(t_data *data)
 		(int)((double)data->width / (double)data->height *
 		(double)data->res_y / 5), (int)((double)data->res_y / 5))) == NULL)
 		return (EXIT_FAILURE);
-	data->minimap->width = ((double)data->width / (double)(data->res_x) >
-	(double)(data->height) / (double)(data->res_y) ?
-	(int)(double)data->res_x / 5 : (int)((double)data->width /
-	(double)data->height * (double)data->res_y / 5));
-	data->minimap->height = ((double)data->width / (double)(data->res_x) >
-	(double)(data->height) / (double)(data->res_y) ?
-	(int)((double)data->height / (double)data->width *
-	(double)data->res_x / 5) : (int)((double)data->res_y / 5));
+	ft_minimapdim(data);
 	if ((data->minimap->addr_ptr = mlx_get_data_addr(data->minimap->img_ptr,
 		&data->minimap->bpp, &data->minimap->size_l,
 		&data->minimap->endiant)) == NULL)

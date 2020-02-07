@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:03:32 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/02/04 18:17:22 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/02/07 15:17:36 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,16 @@ unsigned int	ft_atoi(char *str, int *i)
 
 char			*ft_linedup(char *str)
 {
-	int i;
-	int len;
-	char *ret;
+	int		i;
+	int		len;
+	char	*ret;
 
 	i = 0;
 	len = 0;
 	while (str[i])
 	{
 		if (str[i] != ' ')
-			len ++;
+			len++;
 		i++;
 	}
 	if (!(ret = malloc(len + 1)))
@@ -72,12 +72,12 @@ int				ft_parse_res(t_data *data, char *line)
 		data->res_y = data->res_y * 10 + line[i] - '0';
 		i++;
 	}
-	if (data->res_x <= 0 || data->res_y <= 0 ||
-		data->res_x > 2560 || data->res_y > 1440)
-	{
+	if (data->res_x <= 0 || data->res_y <= 0)
+		return (EXIT_FAILURE);
+	if (data->res_x > 2560)
 		data->res_x = 2560;
+	if (data->res_y > 1440)
 		data->res_y = 1440;
-	}
 	return (EXIT_SUCCESS);
 }
 
@@ -90,12 +90,18 @@ int				ft_parse_ceil(t_data *data, char *line)
 	while ((line[i] < '0' || line[i] > '9') && line[i])
 		i++;
 	c = ft_atoi(line, &i);
+	if (c < 0 || c > 255)
+		return (EXIT_FAILURE);
 	data->ceil = c * 256 * 256;
 	i++;
 	c = ft_atoi(line, &i);
+	if (c < 0 || c > 255)
+		return (EXIT_FAILURE);
 	data->ceil += c * 256;
 	i++;
 	c = ft_atoi(line, &i);
+	if (c < 0 || c > 255)
+		return (EXIT_FAILURE);
 	data->ceil += c;
 	return (EXIT_SUCCESS);
 }
@@ -109,17 +115,23 @@ int				ft_parse_floor(t_data *data, char *line)
 	while ((line[i] < '0' || line[i] > '9') && line[i])
 		i++;
 	c = ft_atoi(line, &i);
+	if (c < 0 || c > 255)
+		return (EXIT_FAILURE);
 	data->floor = c * 256 * 256;
 	i++;
 	c = ft_atoi(line, &i);
+	if (c < 0 || c > 255)
+		return (EXIT_FAILURE);
 	data->floor += c * 256;
 	i++;
 	c = ft_atoi(line, &i);
+	if (c < 0 || c > 255)
+		return (EXIT_FAILURE);
 	data->floor += c;
 	return (EXIT_SUCCESS);
 }
 
-int			ft_parse_map(t_data *data, char *line, int *i)
+int				ft_parse_map(t_data *data, char *line, int *i)
 {
 	int j;
 
@@ -174,30 +186,24 @@ int				ft_parse_texture(t_data *data, char *line, int id)
 int				ft_parse_data(t_data *data, char *line, int *i)
 {
 	if (line[0] >= '0' && line[0] <= '9')
-		if (ft_parse_map(data, line, i) == EXIT_FAILURE)
-			return (EXIT_FAILURE);
+		return (ft_parse_map(data, line, i));
 	if (line[0] == 'R' && line[1] == ' ')
-		ft_parse_res(data, line);
+		return (ft_parse_res(data, line));
 	if (line[0] == 'C' && line[1] == ' ')
-		ft_parse_ceil(data, line);
+		return (ft_parse_ceil(data, line));
 	if (line[0] == 'F' && line[1] == ' ')
-		ft_parse_floor(data, line);
+		return (ft_parse_floor(data, line));
 	if (line[0] == 'N' && line[1] == 'O' && line[2] == ' ')
-		if (ft_parse_texture(data, line, 0) == EXIT_FAILURE)
-			return (EXIT_FAILURE);
+		return (ft_parse_texture(data, line, 0));
 	if (line[0] == 'S' && line[1] == 'O' && line[2] == ' ')
-		if (ft_parse_texture(data, line, 1) == EXIT_FAILURE)
-			return (EXIT_FAILURE);
+		return (ft_parse_texture(data, line, 1));
 	if (line[0] == 'W' && line[1] == 'E' && line[2] == ' ')
-		if (ft_parse_texture(data, line, 2) == EXIT_FAILURE)
-			return (EXIT_FAILURE);
+		return (ft_parse_texture(data, line, 2));
 	if (line[0] == 'E' && line[1] == 'A' && line[2] == ' ')
-		if (ft_parse_texture(data, line, 3) == EXIT_FAILURE)
-			return (EXIT_FAILURE);
+		return (ft_parse_texture(data, line, 3));
 	if (line[0] == 'S' && ((line[1] >= '0' && line[1] <= '9')
 		|| line[1] == ' '))
-		if (ft_parse_texture(data, line, 4) == EXIT_FAILURE)
-			return (EXIT_FAILURE);
+		return (ft_parse_texture(data, line, 4));
 	return (EXIT_SUCCESS);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:26:05 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/02/04 19:37:06 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/02/07 16:42:31 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,9 +110,11 @@ int				ft_init_win(t_data *data);
 int				ft_init_view(t_data *data);
 int				ft_init_gun(t_data *data);
 int				ft_init_gameover(t_data *data);
+
 int				ft_init_health(t_data *data);
 int				ft_init_textures(t_data *data);
 int				ft_init_minimap(t_data *data);
+void			ft_minimapdim(t_data *data);
 int				ft_init_image(t_data *data);
 
 int				ft_texture_color(t_data *data, int y, int id);
@@ -132,7 +134,6 @@ void			ft_move_l(t_data *data);
 void			ft_move_r(t_data *data);
 void			ft_rotate_l(t_data *data);
 void			ft_rotate_r(t_data *data);
-void			ft_info(t_data *data);
 
 unsigned int	ft_atoi(char *str, int *i);
 char			*ft_linedup(char *str);
