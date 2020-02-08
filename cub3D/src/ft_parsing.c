@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:03:32 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/02/07 16:51:11 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/02/08 18:34:03 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ int				ft_parse_texture(t_data *data, char *line, int id)
 
 	i = 2;
 	size = 0;
+	if (id < 4 && data->t_path[id] != 0)
+		return (EXIT_FAILURE);
 	if (line[1] >= '0' && line[1] <= '9')
 		id = line[1] - '0' + 2;
 	while (line[i] && line[i] == ' ')
@@ -85,6 +87,8 @@ int				ft_parse_data(t_data *data, char *line, int *i)
 	if (line[0] == 'S' && ((line[1] >= '0' && line[1] <= '9')
 		|| line[1] == ' '))
 		return (ft_parse_texture(data, line, 4));
+	if (line[0] != 0)
+		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
@@ -96,11 +100,14 @@ void			ft_init_parse(t_data *data)
 	while (i < NB_TEXTURES)
 	{
 		data->t_path[i] = 0;
+		data->tex[i] = 0;
 		i++;
 	}
 	data->map[0] = 0;
 	data->pos_x = 0;
 	data->pos_y = 0;
+	data->res_x = 0;
+	data->res_y = 0;
 }
 
 int				ft_parse(t_data *data, char *map)

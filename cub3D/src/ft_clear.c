@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 15:44:49 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/02/07 16:53:25 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/02/08 19:01:40 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,10 @@ void	ft_cleartex(t_data *data)
 	i = 0;
 	while (i < NB_TEXTURES)
 	{
-		if (data->t_path[i])
+		if (data->tex[i])
 		{
-			mlx_destroy_image(data->mlx_ptr, data->tex[i]->img_ptr);
+			if (data->tex[i]->img_ptr)
+				mlx_destroy_image(data->mlx_ptr, data->tex[i]->img_ptr);
 			free(data->tex[i]);
 		}
 		i++;

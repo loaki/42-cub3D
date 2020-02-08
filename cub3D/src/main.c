@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 19:38:20 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/02/08 14:43:30 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/02/08 19:02:04 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int		main(int ac, char **av)
 	int		save;
 
 	save = 0;
-	if (ac == 3 && !ft_strcmp(av[2], "-save"))
+	if (ac == 3 && !ft_strcmp(av[2], "--save"))
 		save = 1;
 	if ((ac != 2 && save != 1) || ft_mapname(av[1]))
 		return (ft_error("invalid argument"));

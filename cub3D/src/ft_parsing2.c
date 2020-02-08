@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 16:49:47 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/02/07 16:51:07 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/02/08 18:33:53 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,26 +58,21 @@ int				ft_parse_res(t_data *data, char *line)
 	int i;
 
 	i = 1;
-	while ((line[i] < '0' || line[i] > '9') && line[i])
-		i++;
-	while (line[i] >= '0' && line[i] <= '9')
-	{
-		data->res_x = data->res_x * 10 + line[i] - '0';
-		i++;
-	}
-	while ((line[i] < '0' || line[i] > '9') && line[i])
-		i++;
-	while (line[i] >= '0' && line[i] <= '9')
-	{
-		data->res_y = data->res_y * 10 + line[i] - '0';
-		i++;
-	}
-	if (data->res_x <= 0 || data->res_y <= 0)
+	if (data->res_x != 0 || data->res_y != 0)
 		return (EXIT_FAILURE);
+	while (line[i] == ' ')
+		i++;
+	data->res_x = ft_atoi(line, &i);
+	while (line[i] == ' ')
+		i++;
+	data->res_y = ft_atoi(line, &i);
+	i++;
 	if (data->res_x > 2560)
 		data->res_x = 2560;
 	if (data->res_y > 1440)
 		data->res_y = 1440;
+	if (line[i] != 0)
+		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
@@ -86,8 +81,8 @@ int				ft_parse_ceil(t_data *data, char *line)
 	int i;
 	int c;
 
-	i = 0;
-	while ((line[i] < '0' || line[i] > '9') && line[i])
+	i = 1;
+	while (line[i] == ' ')
 		i++;
 	c = ft_atoi(line, &i);
 	if (c < 0 || c > 255)
@@ -103,6 +98,8 @@ int				ft_parse_ceil(t_data *data, char *line)
 	if (c < 0 || c > 255)
 		return (EXIT_FAILURE);
 	data->ceil += c;
+	if (line[i] != 0)
+		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
@@ -111,8 +108,8 @@ int				ft_parse_floor(t_data *data, char *line)
 	int i;
 	int c;
 
-	i = 0;
-	while ((line[i] < '0' || line[i] > '9') && line[i])
+	i = 1;
+	while (line[i] == ' ')
 		i++;
 	c = ft_atoi(line, &i);
 	if (c < 0 || c > 255)
@@ -128,5 +125,7 @@ int				ft_parse_floor(t_data *data, char *line)
 	if (c < 0 || c > 255)
 		return (EXIT_FAILURE);
 	data->floor += c;
+	if (line[i] != 0)
+		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
