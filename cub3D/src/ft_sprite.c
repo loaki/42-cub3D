@@ -6,30 +6,11 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 13:07:01 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/02/07 16:35:37 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/02/08 13:39:05 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	ft_clear_lst(t_data *data)
-{
-	t_list	*tmp;
-	t_list	*lst;
-
-	lst = data->sprite;
-	if (lst)
-	{
-		while (lst->next)
-		{
-			tmp = lst->next;
-			free(lst);
-			lst = tmp;
-		}
-		free(lst);
-	}
-	data->sprite = NULL;
-}
 
 double	ft_dist_sprite(t_data *data, double x, double y)
 {

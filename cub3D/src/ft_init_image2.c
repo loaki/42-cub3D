@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 16:40:50 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/02/07 16:42:25 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/02/08 14:03:28 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int		ft_init_win(t_data *data)
 	if ((data->mlx_ptr = mlx_init()) == NULL)
 		return (EXIT_FAILURE);
 	if ((data->win_ptr = mlx_new_window(data->mlx_ptr,
-		data->res_x, data->res_y, "marche")) == NULL)
+		data->res_x, data->res_y, "cub3D")) == NULL)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }

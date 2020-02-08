@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:26:05 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/02/07 16:42:31 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/02/07 17:00:05 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ typedef struct	s_data
 	double			enemy;
 }				t_data;
 
-void			ft_rotate(t_data *data, double angle);
 int				ft_raycast(t_data *data, int i);
 int				ft_view(t_data *data);
 int				key_press(int key, t_data *data);
@@ -132,6 +131,8 @@ void			ft_move_f(t_data *data);
 void			ft_move_b(t_data *data);
 void			ft_move_l(t_data *data);
 void			ft_move_r(t_data *data);
+
+void			ft_rotate(t_data *data, double angle);
 void			ft_rotate_l(t_data *data);
 void			ft_rotate_r(t_data *data);
 
@@ -140,6 +141,7 @@ char			*ft_linedup(char *str);
 int				ft_parse_res(t_data *data, char *line);
 int				ft_parse_ceil(t_data *data, char *line);
 int				ft_parse_floor(t_data *data, char *line);
+
 int				ft_parse_map(t_data *data, char *line, int *i);
 int				ft_parse_texture(t_data *data, char *line, int id);
 int				ft_parse_data(t_data *data, char *line, int *i);
@@ -147,7 +149,6 @@ void			ft_init_parse(t_data *data);
 int				ft_parse(t_data *data, char *map);
 
 int				ft_save_sprite(t_data *data, double x, double y, int i);
-void			ft_clear_lst(t_data *data);
 int				ft_sprite_color(t_data *data, t_list *lst, int y);
 void			ft_display_sprite(t_data *data, t_list *lst, int col);
 double			ft_dist_sprite(t_data *data, double x, double y);
@@ -165,8 +166,11 @@ void			ft_cleargun(t_data *data);
 void			ft_clearhealth(t_data *data);
 int				ft_clearimg(t_data *data, int s);
 
+void			ft_clear_lst(t_data *data);
+
 int				ft_error(char *str);
 int				ft_success(t_data *data);
+int				main(int ac, char **av);
 
 int				ft_strcmp(char *str1, char *str2);
 int				ft_mapname(char *str);

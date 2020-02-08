@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 12:20:47 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/02/07 16:36:35 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/02/07 16:45:12 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,18 +74,4 @@ void	ft_move_l(t_data *data)
 		data->map[(int)data->pos_y][(int)data->pos_x] == '1' ||
 		data->map[(int)data->pos_y][(int)data->pos_x] == '3')
 		data->pos_y += SPEED * data->vector_x;
-}
-
-void	ft_rotate_l(t_data *data)
-{
-	ft_rotate(data, -3);
-	data->vector_x = data->vector_x_mod;
-	data->vector_y = data->vector_y_mod;
-}
-
-void	ft_rotate_r(t_data *data)
-{
-	ft_rotate(data, 3);
-	data->vector_x = data->vector_x_mod;
-	data->vector_y = data->vector_y_mod;
 }

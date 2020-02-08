@@ -6,24 +6,11 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:30:20 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/02/07 16:35:53 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/02/07 16:59:05 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	ft_rotate(t_data *data, double angle)
-{
-	double x;
-	double y;
-
-	x = data->vector_x * cos(angle / (180 / M_PI)) + data->vector_y *
-	sin(angle / (180 / M_PI));
-	y = -data->vector_x * sin(angle / (180 / M_PI)) + data->vector_y *
-	cos(angle / (180 / M_PI));
-	data->vector_x_mod = x;
-	data->vector_y_mod = y;
-}
 
 int		ft_raycast(t_data *data, int i)
 {
@@ -131,30 +118,5 @@ int		ft_update(t_data *data)
 	if (data->rotate_l == 1)
 		ft_rotate_l(data);
 	ft_view(data);
-	return (EXIT_SUCCESS);
-}
-
-int		main(int ac, char **av)
-{
-	t_data	*data;
-	int		save;
-
-	if (ac == 3 && !ft_strcmp(av[2], "-save"))
-		save = 1;
-	if ((ac != 2 && save != 1) || ft_mapname(av[1]))
-		return (ft_error("invalid argument"));
-	if (!(data = malloc(sizeof(t_data))))
-		return (ft_error("malloc failed"));
-	if (ft_parse(data, av[1]) == EXIT_FAILURE)
-		return (ft_error("invalid map"));
-	if (ft_init_image(data) == EXIT_FAILURE)
-		return (ft_error("image initialisation failed"));
-	if (ft_view(data) == EXIT_FAILURE)
-		return (ft_error("raycast failed"));
-	mlx_hook(data->win_ptr, K_PRESS, 0, &key_press, data);
-	mlx_hook(data->win_ptr, K_RELEASE, 0, &key_release, data);
-	mlx_hook(data->win_ptr, K_EXIT, 0, &ft_success, data);
-	mlx_loop_hook(data->mlx_ptr, &ft_update, data);
-	mlx_loop(data->mlx_ptr);
 	return (EXIT_SUCCESS);
 }
