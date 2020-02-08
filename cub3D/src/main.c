@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 19:38:20 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/02/08 14:03:05 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/02/08 14:43:30 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int		main(int ac, char **av)
 	t_data	*data;
 	int		save;
 
+	save = 0;
 	if (ac == 3 && !ft_strcmp(av[2], "-save"))
 		save = 1;
 	if ((ac != 2 && save != 1) || ft_mapname(av[1]))
@@ -53,6 +54,8 @@ int		main(int ac, char **av)
 		return (ft_error("image initialisation failed"));
 	if (ft_view(data) == EXIT_FAILURE)
 		return (ft_error("raycast failed"));
+	if (save == 1)
+		return (ft_save_bitmap("screen.bmp", data));
 	mlx_hook(data->win_ptr, K_PRESS, 0, &key_press, data);
 	mlx_hook(data->win_ptr, K_RELEASE, 0, &key_release, data);
 	mlx_hook(data->win_ptr, K_EXIT, 0, &ft_success, data);

@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:26:05 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/02/07 17:00:05 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/02/08 14:40:57 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,4 +176,8 @@ int				ft_strcmp(char *str1, char *str2);
 int				ft_mapname(char *str);
 int				ft_checkmap(t_data *data);
 int				ft_checkpath(t_data *data);
+
+void			ft_int_to_char(char *str, int nb);
+int				ft_save_bitmap(char *filename, t_data *data);
+void			ft_bitmap_image(t_data *mlx, int fd);
 #endif

@@ -6,7 +6,7 @@
 #    By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/07 17:09:22 by jfeuilla          #+#    #+#              #
-#    Updated: 2020/02/08 14:11:52 by jfeuilla         ###   ########.fr        #
+#    Updated: 2020/02/08 14:41:25 by jfeuilla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,8 @@ INC_PATH = ./src
 OBJ_PATH = ./obj
 OBJLIB_PATH = ./obj
 
-SRC_NAME =	ft_check.c\
+SRC_NAME =	ft_bmp.c\
+			ft_check.c\
 			ft_clear.c\
 			ft_clear2.c\
 			ft_draw.c\
