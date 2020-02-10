@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 19:38:20 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/02/10 17:39:19 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/02/10 18:32:45 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int		ft_error(char *str)
 		i++;
 	}
 	write(1, "\n", 1);
-	system("leaks cub3D");
 	exit(0);
 	return (0);
 }
@@ -33,7 +32,6 @@ int		ft_success(t_data *data)
 {
 	ft_clear_lst(data);
 	ft_clearimg(data, 6);
-	system("leaks cub3D");
 	exit(0);
 	return (0);
 }
