@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 15:44:49 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/02/08 19:01:40 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/02/10 17:34:57 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int		ft_clearmap(t_data *data)
 			free(data->t_path[i]);
 		i++;
 	}
-	free(data);
 	return (EXIT_FAILURE);
 }
 

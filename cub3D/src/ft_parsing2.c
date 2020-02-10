@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 16:49:47 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/02/08 18:33:53 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/02/10 18:09:44 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ unsigned int	ft_atoi(char *str, int *i)
 	unsigned int	c;
 
 	c = 0;
+	while (str[*i] == ' ')
+		*i += 1;
 	while (str[*i] >= '0' && str[*i] <= '9')
 	{
 		c = c * 10 + str[*i] - '0';
@@ -60,11 +62,7 @@ int				ft_parse_res(t_data *data, char *line)
 	i = 1;
 	if (data->res_x != 0 || data->res_y != 0)
 		return (EXIT_FAILURE);
-	while (line[i] == ' ')
-		i++;
 	data->res_x = ft_atoi(line, &i);
-	while (line[i] == ' ')
-		i++;
 	data->res_y = ft_atoi(line, &i);
 	i++;
 	if (data->res_x > 2560)
@@ -82,18 +80,20 @@ int				ft_parse_ceil(t_data *data, char *line)
 	int c;
 
 	i = 1;
-	while (line[i] == ' ')
-		i++;
+	if (data->ceil != 0)
+		return (EXIT_FAILURE);
 	c = ft_atoi(line, &i);
 	if (c < 0 || c > 255)
 		return (EXIT_FAILURE);
 	data->ceil = c * 256 * 256;
-	i++;
+	while (line[i] == ' ' || line[i] == ',')
+		i++;
 	c = ft_atoi(line, &i);
 	if (c < 0 || c > 255)
 		return (EXIT_FAILURE);
 	data->ceil += c * 256;
-	i++;
+	while (line[i] == ' ' || line[i] == ',')
+		i++;
 	c = ft_atoi(line, &i);
 	if (c < 0 || c > 255)
 		return (EXIT_FAILURE);
@@ -109,18 +109,20 @@ int				ft_parse_floor(t_data *data, char *line)
 	int c;
 
 	i = 1;
-	while (line[i] == ' ')
-		i++;
+	if (data->floor != 0)
+		return (EXIT_FAILURE);
 	c = ft_atoi(line, &i);
 	if (c < 0 || c > 255)
 		return (EXIT_FAILURE);
 	data->floor = c * 256 * 256;
-	i++;
+	while (line[i] == ' ' || line[i] == ',')
+		i++;
 	c = ft_atoi(line, &i);
 	if (c < 0 || c > 255)
 		return (EXIT_FAILURE);
 	data->floor += c * 256;
-	i++;
+	while (line[i] == ' ' || line[i] == ',')
+		i++;
 	c = ft_atoi(line, &i);
 	if (c < 0 || c > 255)
 		return (EXIT_FAILURE);

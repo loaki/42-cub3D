@@ -6,7 +6,7 @@
 /*   By: jfeuilla <jfeuilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:03:32 by jfeuilla          #+#    #+#             */
-/*   Updated: 2020/02/08 18:34:03 by jfeuilla         ###   ########.fr       */
+/*   Updated: 2020/02/10 17:57:22 by jfeuilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,8 @@ void			ft_init_parse(t_data *data)
 	data->pos_y = 0;
 	data->res_x = 0;
 	data->res_y = 0;
+	data->ceil = 0;
+	data->floor = 0;
 }
 
 int				ft_parse(t_data *data, char *map)
